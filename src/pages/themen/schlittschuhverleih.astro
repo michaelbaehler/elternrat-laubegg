@@ -1,0 +1,140 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const today = new Date().toISOString().split('T')[0];
+const helfer = await getCollection('helfereinsaetze', e =>
+  e.data.active && e.data.thema === 'Schlittschuhverleih' && e.data.date >= today
+);
+helfer.sort((a, b) => a.data.date.localeCompare(b.data.date));
+---
+
+<Layout title="Schlittschuhverleih" description="Jährlicher Schlittschuhverleih des Elternrats Laubegg für Kinder ab der 1. Klasse – CHF 20 pro Saison.">
+
+  <!-- Hero mit Illustration -->
+  <div class="border-b border-grey-border overflow-hidden" style="max-height: 240px; position: relative;">
+    <img src="/images/themen/schlittschuhverleih.svg" alt="" class="w-full object-cover" style="max-height: 240px;" aria-hidden="true"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-7 w-full">
+        <span class="badge bg-white/20 text-white text-xs mb-2 inline-block">Themengruppe</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-white drop-shadow">Schlittschuhverleih</h1>
+        <p class="text-white/80 mt-1 text-sm drop-shadow">Für Schülerinnen und Schüler ab der 1. Klasse · CHF 20 pro Saison</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid lg:grid-cols-3 gap-12">
+
+      <div class="lg:col-span-2 space-y-10">
+
+        <!-- Info -->
+        <section>
+          <h2 class="text-xl font-bold text-grey-dark mb-4">Über den Schlittschuhverleih</h2>
+          <div class="prose prose-sm max-w-none text-grey-mid">
+            <p>Der Elternrat Laubegg verleiht jährlich Schlittschuhe an Schülerinnen und Schüler
+            ab der 1. Klasse an den Standorten Laubegg, Sonnenhof und Baumgarten.
+            Die Saisongebühr beträgt <strong>CHF 20 pro Kind</strong>.</p>
+            <p>Kindergartenkinder sind leider nicht berechtigt.</p>
+          </div>
+        </section>
+
+        <!-- Ablauf -->
+        <section>
+          <h2 class="text-xl font-bold text-grey-dark mb-4">Ablauf</h2>
+          <div class="space-y-4">
+            {[
+              { step: 'Ausgabe (Oktober)', desc: 'Schuhe werden am Morgen vor dem Unterricht verteilt. Probeschuhe in allen Grössen sind vorhanden. Zahlung CHF 20 im beschrifteten Couvert mitbringen.' },
+              { step: 'Grössenengpass', desc: 'Falls die richtige Grösse nicht sofort verfügbar ist, werden die Schuhe neu bestellt und ca. zwei Wochen später in den Schulklassen abgegeben.' },
+              { step: 'Rückgabe (März)', desc: 'Am Ende der Saison werden die Schuhe zurückgenommen, geprüft und für das nächste Jahr vorbereitet.' },
+            ].map((s, i) => (
+              <div class="flex gap-4">
+                <div class="h-7 w-7 rounded-full bg-orange text-white text-sm font-bold flex items-center justify-center flex-shrink-0 mt-0.5">{i + 1}</div>
+                <div>
+                  <p class="font-semibold text-grey-dark">{s.step}</p>
+                  <p class="text-sm text-grey-mid mt-0.5">{s.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Ausgabetermine 2025/2026 -->
+        <section>
+          <h2 class="text-xl font-bold text-grey-dark mb-4">Termine 2025/2026</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border-collapse">
+              <thead>
+                <tr class="bg-grey-bg border-b border-grey-border">
+                  <th class="text-left p-3 font-semibold text-grey-dark">Standort</th>
+                  <th class="text-left p-3 font-semibold text-grey-dark">Ausgabe</th>
+                  <th class="text-left p-3 font-semibold text-grey-dark">Rückgabe</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-grey-border">
+                {[
+                  { ort: 'Sonnenhof',  ausgabe: '23. Oktober 2025 (Morgen)', rueckgabe: '26. März 2026' },
+                  { ort: 'Laubegg',   ausgabe: '23.–24. Oktober 2025 (Morgen)', rueckgabe: '26.–27. März 2026' },
+                  { ort: 'Baumgarten', ausgabe: '24.–25. Oktober 2025 (ausserhalb Schulzeit)', rueckgabe: '27. März 2026' },
+                ].map(r => (
+                  <tr class="hover:bg-grey-bg transition-colors">
+                    <td class="p-3 font-medium text-grey-dark">{r.ort}</td>
+                    <td class="p-3 text-grey-mid">{r.ausgabe}</td>
+                    <td class="p-3 text-grey-mid">{r.rueckgabe}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- FAQ -->
+        <section>
+          <h2 class="text-xl font-bold text-grey-dark mb-4">Häufige Fragen</h2>
+          <div class="space-y-3">
+            {[
+              { q: 'Wer darf Schlittschuhe ausleihen?', a: 'Alle Schülerinnen und Schüler ab der 1. Klasse an den Standorten Laubegg, Sonnenhof und Baumgarten. Kindergartenkinder sind leider nicht berechtigt.' },
+              { q: 'Wie bezahle ich?', a: 'CHF 20 in einem beschrifteten Couvert (Name, Klasse, Grösse) direkt bei der Ausgabe oder über das Schulsekretariat.' },
+              { q: 'Was wenn die Grösse nicht passt?', a: 'Probeschuhe in allen Grössen stehen zur Verfügung. Fehlt eine Grösse, wird sie neu bestellt und etwa zwei Wochen später in der Klasse abgegeben.' },
+            ].map(f => (
+              <details class="border border-grey-border rounded-xl overflow-hidden group">
+                <summary class="flex items-center justify-between gap-4 p-4 cursor-pointer font-semibold text-grey-dark hover:bg-grey-bg transition-colors list-none">
+                  {f.q}
+                  <svg class="h-4 w-4 text-orange flex-shrink-0 group-open:rotate-180 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+                  </svg>
+                </summary>
+                <div class="px-4 pb-4 text-sm text-grey-mid">{f.a}</div>
+              </details>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="space-y-5">
+        <div class="card bg-orange text-white">
+          <p class="text-3xl font-extrabold">CHF 20</p>
+          <p class="text-white/80 text-sm mt-1">Pro Kind & Saison</p>
+        </div>
+
+        {helfer.length > 0 && (
+          <div class="card">
+            <h3 class="font-bold text-grey-dark mb-3">Helfer gesucht!</h3>
+            <p class="text-sm text-grey-mid mb-3">Wir suchen noch Helferinnen und Helfer für die Ausgabe und Rückgabe.</p>
+            <a href="/helfereinsaetze" class="btn-primary text-sm w-full justify-center">
+              Jetzt anmelden
+            </a>
+          </div>
+        )}
+
+        <div class="card">
+          <h3 class="font-bold text-grey-dark mb-3">Fragen?</h3>
+          <a href="mailto:elternrat_laubegg@gmx.ch" class="text-sm text-orange hover:text-orange-dark">
+            elternrat_laubegg@gmx.ch
+          </a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</Layout>

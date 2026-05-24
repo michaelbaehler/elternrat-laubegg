@@ -1,0 +1,92 @@
+---
+import Layout from '../layouts/Layout.astro';
+import HelferCard from '../components/HelferCard.astro';
+import { getCollection } from 'astro:content';
+
+const today = new Date().toISOString().split('T')[0];
+const alle = await getCollection('helfereinsaetze');
+alle.sort((a, b) => a.data.date.localeCompare(b.data.date));
+
+const offen    = alle.filter(e => e.data.active && e.data.date >= today);
+const besetzt  = alle.filter(e => e.data.active && e.data.date >= today && (e.data.spotsTaken ?? 0) >= e.data.spotsTotal);
+const vergangen = alle.filter(e => e.data.date < today).reverse();
+---
+
+<Layout title="Helfereinsätze" description="Melde dich jetzt als Helfer für einen Einsatz beim Elternrat Laubegg an.">
+
+  <!-- Header -->
+  <div class="bg-orange border-b border-orange-dark">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <span class="bg-white/20 text-white text-xs font-semibold px-2.5 py-0.5 rounded-full mb-3 inline-block">Mitmachen</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-white">Helfereinsätze</h1>
+      <p class="text-white/80 mt-2 max-w-xl">
+        Deine Mitarbeit macht den Elternrat lebendig! Melde dich für einen Einsatz an —
+        alle sind willkommen, egal ob Mitglied oder nicht.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+
+    <!-- Offene Einsätze -->
+    <section class="mb-14">
+      <h2 class="section-title">Offene Einsätze</h2>
+      <p class="section-subtitle">Klicke auf einen Einsatz, um dich anzumelden.</p>
+
+      {offen.length > 0
+        ? <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {offen.map(e => (
+              <HelferCard
+                title={e.data.title}
+                date={e.data.date}
+                location={e.data.location}
+                description={e.data.description}
+                spotsTotal={e.data.spotsTotal}
+                spotsTaken={e.data.spotsTaken ?? 0}
+                deadline={e.data.deadline}
+                slug={e.slug}
+              />
+            ))}
+          </div>
+        : <div class="card text-center text-grey-muted py-12">
+            <p class="text-4xl mb-3">🌟</p>
+            <p class="font-semibold">Aktuell keine offenen Einsätze</p>
+            <p class="text-sm mt-1">Schau bald wieder vorbei oder abonniere unsere ERL-Infos.</p>
+          </div>
+      }
+    </section>
+
+    <!-- Wie funktioniert's -->
+    <section class="mb-14 bg-grey-bg rounded-2xl p-8">
+      <h2 class="text-xl font-bold text-grey-dark mb-6">So funktioniert die Anmeldung</h2>
+      <div class="grid sm:grid-cols-3 gap-6">
+        {[
+          { step: '1', title: 'Einsatz wählen', desc: 'Schau dir die offenen Einsätze an und wähle einen passenden aus.' },
+          { step: '2', title: 'Formular ausfüllen', desc: 'Gib deinen Namen, deine E-Mail und allfällige Bemerkungen ein.' },
+          { step: '3', title: 'Bestätigung erhalten', desc: 'Du erhältst eine Bestätigungs-E-Mail mit allen Details zum Einsatz.' },
+        ].map(s => (
+          <div class="flex gap-4">
+            <div class="h-9 w-9 rounded-full bg-orange text-white font-bold flex items-center justify-center flex-shrink-0 text-sm">{s.step}</div>
+            <div>
+              <p class="font-semibold text-grey-dark">{s.title}</p>
+              <p class="text-sm text-grey-muted mt-0.5">{s.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- Kontakt -->
+    <section class="card border-orange bg-orange-lighter">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-4 justify-between">
+        <div>
+          <p class="font-bold text-grey-dark">Fragen zu einem Einsatz?</p>
+          <p class="text-sm text-grey-mid mt-0.5">Schreib uns direkt — wir helfen gerne weiter.</p>
+        </div>
+        <a href="mailto:elternrat_laubegg@gmx.ch" class="btn-primary whitespace-nowrap">
+          E-Mail schreiben
+        </a>
+      </div>
+    </section>
+  </div>
+</Layout>

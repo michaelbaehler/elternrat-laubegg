@@ -1,0 +1,38 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Elternbildung" description="Informationsveranstaltungen, Referate und Elterndialoge des Elternrats Laubegg.">
+  <div class="border-b border-grey-border overflow-hidden" style="max-height: 240px; position: relative;">
+    <img src="/images/themen/elternbildung.svg" alt="" class="w-full object-cover" style="max-height: 240px;" aria-hidden="true"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-7 w-full">
+        <span class="badge bg-white/20 text-white text-xs mb-2 inline-block">Themengruppe</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-white drop-shadow">Elternbildung</h1>
+        <p class="text-white/80 mt-1 text-sm drop-shadow">Wissen und Austausch für Eltern</p>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="prose prose-sm max-w-none text-grey-mid mb-8">
+      <p>Die Themengruppe Elternbildung koordiniert Informationsveranstaltungen, Referate und Elterndialoge rund um Themen der Schule und des Familienlebens. Ziel ist es, Eltern mit Wissen und Werkzeugen zu stärken.</p>
+    </div>
+    <div class="grid sm:grid-cols-3 gap-4">
+      {[
+        { icon: '🎤', label: 'Referate', desc: 'Fachpersonen berichten zu relevanten Themen.' },
+        { icon: '💬', label: 'Elterndialoge', desc: 'Offener Austausch unter Eltern.' },
+        { icon: '📋', label: 'Infoveranstaltungen', desc: 'Konkrete Informationen zu schulischen Themen.' },
+      ].map(f => (
+        <div class="card text-center">
+          <span class="text-3xl block mb-2">{f.icon}</span>
+          <p class="font-bold text-grey-dark">{f.label}</p>
+          <p class="text-xs text-grey-muted mt-1">{f.desc}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-8 card bg-orange-lighter border-orange/20">
+      <p class="font-semibold text-grey-dark mb-1">Ideen oder Wünsche?</p>
+      <p class="text-sm text-grey-mid">Welche Themen interessieren dich? Schreib uns.</p>
+      <a href="mailto:elternrat_laubegg@gmx.ch" class="btn-primary mt-3 text-sm inline-flex">Kontakt</a>
+    </div>
+  </div>
+</Layout>

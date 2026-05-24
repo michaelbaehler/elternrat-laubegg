@@ -1,0 +1,90 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const themen = [
+  {
+    name: 'Schlittschuhverleih',
+    href: '/themen/schlittschuhverleih',
+    img:  '/images/themen/schlittschuhverleih.svg',
+    desc: 'Jährlicher Schlittschuhverleih an den Standorten Laubegg, Sonnenhof und Baumgarten für Kinder ab der 1. Klasse.',
+    badge: 'Saisonal',
+  },
+  {
+    name: 'Events',
+    href: '/themen/events',
+    img:  '/images/themen/events.svg',
+    desc: 'Frühlingstreffen, Adventsznüni und weitere schulübergreifende Veranstaltungen für die Schulgemeinschaft.',
+    badge: 'Ganzjährig',
+  },
+  {
+    name: 'Elternbildung',
+    href: '/themen/elternbildung',
+    img:  '/images/themen/elternbildung.svg',
+    desc: 'Informationsveranstaltungen, Referate und Elterndialoge zu Themen rund ums Schulleben.',
+    badge: 'Ganzjährig',
+  },
+  {
+    name: 'Raus Laus',
+    href: '/themen/raus-laus',
+    img:  '/images/themen/raus-laus.svg',
+    desc: 'Periodische Lauskontrollen nach den Schulferien — schnell, diskret und freundlich.',
+    badge: 'Nach Ferien',
+  },
+  {
+    name: 'Sicherheit',
+    href: '/themen/sicherheit',
+    img:  '/images/themen/sicherheit.svg',
+    desc: 'Massnahmen zur Verkehrs- und Schulwegsicherheit rund um die Schulhäuser.',
+    badge: 'Dauerthema',
+  },
+];
+---
+
+<Layout title="Themen" description="Die fünf Themengruppen des Elternrats Laubegg — offen für alle interessierten Eltern.">
+
+  <div class="bg-orange-lighter border-b border-grey-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <span class="badge-orange mb-3 inline-block">Arbeitsgruppen</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-grey-dark">Themengruppen</h1>
+      <p class="text-grey-mid mt-2 max-w-xl">
+        Der ERL arbeitet in fünf Themengruppen. Alle Eltern sind herzlich eingeladen mitzumachen —
+        keine Mitgliedschaft erforderlich.
+      </p>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {themen.map(t => (
+        <a href={t.href} class="group rounded-xl border border-grey-border overflow-hidden hover:border-orange hover:shadow-md transition-all duration-200 bg-white flex flex-col">
+          <!-- Illustration -->
+          <div class="overflow-hidden h-44 bg-orange-lighter">
+            <img
+              src={t.img}
+              alt={t.name}
+              class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            />
+          </div>
+          <!-- Text content -->
+          <div class="p-5 flex flex-col flex-1">
+            <div class="flex items-start justify-between gap-2 mb-2">
+              <h2 class="font-bold text-lg text-grey-dark group-hover:text-orange transition-colors leading-tight">
+                {t.name}
+              </h2>
+              <span class="badge bg-grey-light text-grey-muted text-xs whitespace-nowrap flex-shrink-0 mt-0.5">
+                {t.badge}
+              </span>
+            </div>
+            <p class="text-sm text-grey-mid leading-relaxed flex-1">{t.desc}</p>
+            <div class="mt-4 flex items-center gap-1 text-sm font-semibold text-orange">
+              Mehr erfahren
+              <svg class="h-4 w-4 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+              </svg>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,66 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-grey-dark text-white mt-16">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+
+      <!-- Logo & Beschreibung -->
+      <div>
+        <img src="/logo-white.svg" alt="Elternrat Laubegg" class="h-10 w-auto mb-4" />
+        <p class="text-sm text-grey-muted leading-relaxed">
+          Informations- und Austauschgremium der Eltern an der Schule Laubegg, Bern.
+          Teil des Schulkreises Kirchenfeld-Schosshalde.
+        </p>
+      </div>
+
+      <!-- Navigation -->
+      <div>
+        <h3 class="text-sm font-semibold text-grey-border uppercase tracking-wider mb-4">Navigation</h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href="/termine"           class="text-grey-muted hover:text-orange transition-colors">Termine</a></li>
+          <li><a href="/helfereinsaetze"   class="text-grey-muted hover:text-orange transition-colors">Helfereinsätze</a></li>
+          <li><a href="/themen"            class="text-grey-muted hover:text-orange transition-colors">Themen</a></li>
+          <li><a href="/sitzungen"         class="text-grey-muted hover:text-orange transition-colors">Sitzungen & Protokolle</a></li>
+          <li><a href="/erl-infos"         class="text-grey-muted hover:text-orange transition-colors">ERL-Infos</a></li>
+          <li><a href="/ueber-uns"         class="text-grey-muted hover:text-orange transition-colors">Über uns</a></li>
+        </ul>
+      </div>
+
+      <!-- Kontakt -->
+      <div>
+        <h3 class="text-sm font-semibold text-grey-border uppercase tracking-wider mb-4">Kontakt</h3>
+        <ul class="space-y-2 text-sm text-grey-muted">
+          <li class="flex items-start gap-2">
+            <svg class="h-4 w-4 mt-0.5 text-orange flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            <a href="mailto:elternrat_laubegg@gmx.ch" class="hover:text-orange transition-colors">elternrat_laubegg@gmx.ch</a>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="h-4 w-4 mt-0.5 text-orange flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            <span>Schosshaldenstrasse 37<br/>3006 Bern</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <svg class="h-4 w-4 mt-0.5 text-orange flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <span>Sitzungen: Montag, 19:30 Uhr<br/>Aula Schulhaus Laubegg</span>
+          </li>
+        </ul>
+        <div class="mt-4 pt-4 border-t border-white/10 text-xs text-grey-muted">
+          IBAN: CH20 0079 0042 9769 3540 6
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-grey-muted">
+      <span>&copy; {year} Elternrat Laubegg</span>
+      <a href="/admin/" class="hover:text-orange transition-colors">Admin</a>
+    </div>
+  </div>
+</footer>

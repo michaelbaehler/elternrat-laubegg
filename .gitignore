@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+.astro/
+
+# Environment variables
+.env
+.env.local
+.env.production
+
+# Editor & OS
+.DS_Store
+Thumbs.db
+.vscode/settings.json
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+*.log
+
+# Netlify
+.netlify/
+
+# Claude dev tooling
+.claude/
+start-dev.cmd

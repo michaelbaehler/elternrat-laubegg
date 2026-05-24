@@ -1,0 +1,44 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+const today = new Date().toISOString().split('T')[0];
+const helfer = await getCollection('helfereinsaetze', e =>
+  e.data.active && e.data.thema === 'Raus Laus' && e.data.date >= today
+);
+---
+<Layout title="Raus Laus" description="Periodische Lauskontrollen nach den Schulferien – durchgeführt vom Elternrat Laubegg.">
+  <div class="border-b border-grey-border overflow-hidden" style="max-height: 240px; position: relative;">
+    <img src="/images/themen/raus-laus.svg" alt="" class="w-full object-cover" style="max-height: 240px;" aria-hidden="true"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-7 w-full">
+        <span class="badge bg-white/20 text-white text-xs mb-2 inline-block">Themengruppe</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-white drop-shadow">Raus Laus</h1>
+        <p class="text-white/80 mt-1 text-sm drop-shadow">Periodische Kontrollen nach den Schulferien</p>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="prose prose-sm max-w-none text-grey-mid mb-8">
+      <p>Nach den Schulferien führen wir periodische Lauskontrollen durch. Freiwillige Helferinnen und Helfer überprüfen die Kinder beim Schuleintritt diskret und freundlich. Keine besonderen Vorkenntnisse nötig — wir erklären alles vor Ort.</p>
+    </div>
+    {helfer.length > 0 && (
+      <div class="card bg-orange text-white mb-8">
+        <p class="font-bold text-lg mb-1">Helfer gesucht!</p>
+        <p class="text-white/80 text-sm mb-3">Wir suchen noch Helferinnen und Helfer für die nächste Raus-Laus-Kontrolle.</p>
+        <a href="/helfereinsaetze" class="inline-flex items-center gap-2 bg-white text-orange font-semibold px-4 py-2 rounded-lg text-sm hover:bg-orange-lighter transition-colors">
+          Jetzt anmelden →
+        </a>
+      </div>
+    )}
+    <div class="card">
+      <h2 class="font-bold text-grey-dark mb-3">Ablauf einer Kontrolle</h2>
+      <ul class="text-sm text-grey-mid space-y-2">
+        <li class="flex gap-2"><span class="text-orange">✓</span> Helfer treffen sich vor Schulbeginn</li>
+        <li class="flex gap-2"><span class="text-orange">✓</span> Kurze Einführung für neue Helfer</li>
+        <li class="flex gap-2"><span class="text-orange">✓</span> Diskrete Kontrolle der Kinder beim Eintritt</li>
+        <li class="flex gap-2"><span class="text-orange">✓</span> Bei Befund: Eltern werden informiert</li>
+        <li class="flex gap-2"><span class="text-orange">✓</span> Dauer ca. 2 Stunden</li>
+      </ul>
+    </div>
+  </div>
+</Layout>

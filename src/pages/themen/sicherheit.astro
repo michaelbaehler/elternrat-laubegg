@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Sicherheit" description="Massnahmen zur Verkehrs- und Schulwegsicherheit durch den Elternrat Laubegg.">
+  <div class="border-b border-grey-border overflow-hidden" style="max-height: 240px; position: relative;">
+    <img src="/images/themen/sicherheit.svg" alt="" class="w-full object-cover" style="max-height: 240px;" aria-hidden="true"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-7 w-full">
+        <span class="badge bg-white/20 text-white text-xs mb-2 inline-block">Themengruppe</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-white drop-shadow">Sicherheit</h1>
+        <p class="text-white/80 mt-1 text-sm drop-shadow">Sicherer Schulweg — für alle Kinder</p>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="prose prose-sm max-w-none text-grey-mid mb-8">
+      <p>Die Themengruppe Sicherheit befasst sich mit Massnahmen zur Verkehrs- und Schulwegsicherheit rund um die Schulhäuser der Schule Laubegg. Wir arbeiten mit der Schulleitung, der Gemeinde und weiteren Stellen zusammen.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-4">
+      {[
+        { icon: '🚗', label: 'Verkehrssicherheit', desc: 'Geschwindigkeit, Zebrastreifen, Halteverbote rund ums Schulhaus.' },
+        { icon: '🚶', label: 'Schulweg', desc: 'Sichere Routen für Kinder zu Fuss und mit dem Velo.' },
+        { icon: '🏫', label: 'Schulhausumgebung', desc: 'Spielbereich, Pausenplatz und Gebäude.' },
+        { icon: '📢', label: 'Sensibilisierung', desc: 'Information von Eltern und Fahrern.' },
+      ].map(s => (
+        <div class="card">
+          <span class="text-2xl mb-2 block">{s.icon}</span>
+          <p class="font-bold text-grey-dark">{s.label}</p>
+          <p class="text-sm text-grey-muted mt-1">{s.desc}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-8 card bg-orange-lighter border-orange/20">
+      <p class="font-semibold text-grey-dark mb-1">Sicherheitsproblem melden</p>
+      <p class="text-sm text-grey-mid">Hast du eine Gefährdung auf dem Schulweg festgestellt? Schreib uns.</p>
+      <a href="mailto:elternrat_laubegg@gmx.ch" class="btn-primary mt-3 text-sm inline-flex">Melden</a>
+    </div>
+  </div>
+</Layout>

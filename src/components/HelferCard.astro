@@ -1,0 +1,87 @@
+---
+interface Props {
+  title: string;
+  date: string;
+  location: string;
+  description: string;
+  spotsTotal: number;
+  spotsTaken?: number;
+  deadline?: string;
+  slug: string;
+}
+
+const {
+  title, date, location, description,
+  spotsTotal, spotsTaken = 0, deadline, slug
+} = Astro.props;
+
+const spotsLeft = spotsTotal - spotsTaken;
+const isFull = spotsLeft <= 0;
+const urgency = !isFull && spotsLeft <= 2;
+
+function formatDate(d: string) {
+  return new Date(d).toLocaleDateString('de-CH', {
+    weekday: 'short', day: 'numeric', month: 'long', year: 'numeric'
+  });
+}
+---
+
+<div class:list={['card flex flex-col gap-3', isFull && 'opacity-60']}>
+  <!-- Header -->
+  <div class="flex items-start justify-between gap-3">
+    <div class="flex-1 min-w-0">
+      <h3 class="font-bold text-lg text-grey-dark leading-tight">{title}</h3>
+    </div>
+    {isFull
+      ? <span class="badge bg-grey-light text-grey-muted whitespace-nowrap">Besetzt</span>
+      : urgency
+        ? <span class="badge bg-red-100 text-red-700 whitespace-nowrap">{spotsLeft} Platz{spotsLeft === 1 ? '' : 'plätze'} frei</span>
+        : <span class="badge-orange whitespace-nowrap">{spotsLeft} von {spotsTotal} frei</span>
+    }
+  </div>
+
+  <!-- Meta -->
+  <div class="flex flex-wrap gap-x-4 gap-y-1 text-sm text-grey-muted">
+    <span class="flex items-center gap-1.5">
+      <svg class="h-4 w-4 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+      </svg>
+      {formatDate(date)}
+    </span>
+    <span class="flex items-center gap-1.5">
+      <svg class="h-4 w-4 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+      </svg>
+      {location}
+    </span>
+    {deadline && (
+      <span class="flex items-center gap-1.5">
+        <svg class="h-4 w-4 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+        Anmeldeschluss: {formatDate(deadline)}
+      </span>
+    )}
+  </div>
+
+  <!-- Description -->
+  <p class="text-sm text-grey-mid leading-relaxed line-clamp-3">{description}</p>
+
+  <!-- Progress bar -->
+  <div class="w-full bg-grey-light rounded-full h-2 overflow-hidden">
+    <div
+      class:list={['h-2 rounded-full transition-all', isFull ? 'bg-grey-muted' : urgency ? 'bg-orange' : 'bg-orange']}
+      style={`width: ${Math.min(100, Math.round((spotsTaken / spotsTotal) * 100))}%`}
+    ></div>
+  </div>
+
+  <!-- CTA -->
+  {!isFull && (
+    <a href={`/helfereinsaetze/${slug}`} class="btn-primary self-start text-sm mt-1">
+      Jetzt anmelden
+      <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+      </svg>
+    </a>
+  )}
+</div>

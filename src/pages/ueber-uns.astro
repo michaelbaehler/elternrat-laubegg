@@ -1,0 +1,140 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Über uns" description="Der Elternrat Laubegg – wer wir sind, wie wir uns organisieren und wie du mitmachen kannst.">
+
+  <!-- Page Header -->
+  <div class="bg-orange-lighter border-b border-grey-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <span class="badge-orange mb-3 inline-block">Organisation</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-grey-dark">Über den Elternrat Laubegg</h1>
+      <p class="text-grey-mid mt-2 max-w-xl">Wer wir sind, was wir tun und wie du mitmachen kannst.</p>
+    </div>
+  </div>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid lg:grid-cols-3 gap-12">
+
+      <!-- Main content -->
+      <div class="lg:col-span-2 space-y-10">
+
+        <!-- Was ist der ERL? -->
+        <section>
+          <h2 class="text-xl font-bold text-grey-dark mb-4 pb-2 border-b border-grey-border">Was ist der Elternrat?</h2>
+          <div class="prose prose-sm max-w-none text-grey-mid leading-relaxed space-y-4">
+            <p>
+              Der Elternrat Laubegg (ERL) ist das Informations- und Austauschgremium der Eltern
+              an der Schule Laubegg in Bern. Er besteht aus Elternvertreterinnen und Elternvertretern
+              der einzelnen Klassen — in der Regel 1–2 Personen pro Klasse.
+            </p>
+            <p>
+              Der ERL befasst sich mit klassenübergreifenden Anliegen der Eltern, sammelt Ideen
+              und setzt diese in Themengruppen um. <strong>Alle Eltern sind herzlich willkommen</strong>,
+              bei Sitzungen teilzunehmen oder in einer Themengruppe mitzumachen —
+              eine Mitgliedschaft ist nicht erforderlich.
+            </p>
+            <p>
+              Der ERL fördert eine konstruktive Zusammenarbeit zwischen Eltern und Lehrpersonen
+              und unterstützt die Schulleitung bei der Weiterentwicklung der Schulkultur.
+              Er ist ausserdem vertreten im Schulkreis-Elternrat und in der Schulkommission.
+            </p>
+          </div>
+        </section>
+
+        <!-- Sitzungen -->
+        <section>
+          <h2 class="text-xl font-bold text-grey-dark mb-4 pb-2 border-b border-grey-border">Sitzungen</h2>
+          <div class="card bg-orange-lighter border-orange/20">
+            <div class="flex items-start gap-4">
+              <div class="text-3xl">📅</div>
+              <div>
+                <p class="font-semibold text-grey-dark">4 Sitzungen pro Schuljahr</p>
+                <p class="text-grey-mid text-sm mt-1">
+                  Jeweils <strong>Montag, 19:30 Uhr</strong><br/>
+                  Aula Schulhaus Laubegg
+                </p>
+                <a href="/sitzungen" class="btn-secondary mt-3 text-sm py-1.5 px-4">
+                  Protokolle ansehen →
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Themengruppen -->
+        <section>
+          <h2 class="text-xl font-bold text-grey-dark mb-4 pb-2 border-b border-grey-border">Themengruppen</h2>
+          <div class="grid sm:grid-cols-2 gap-3">
+            {[
+              { name: 'Schlittschuhverleih', desc: 'Jährlicher Verleih an den Standorten Laubegg, Sonnenhof und Baumgarten', href: '/themen/schlittschuhverleih' },
+              { name: 'Events',             desc: 'Frühlingstreffen, Adventsznüni und weitere schulübergreifende Veranstaltungen', href: '/themen/events' },
+              { name: 'Elternbildung',      desc: 'Infoveranstaltungen, Referate und Elterndialoge', href: '/themen/elternbildung' },
+              { name: 'Raus Laus',          desc: 'Periodische Kontrollen nach den Schulferien', href: '/themen/raus-laus' },
+              { name: 'Sicherheit',         desc: 'Massnahmen zur Verkehrs- und Schulwegsicherheit', href: '/themen/sicherheit' },
+            ].map(t => (
+              <a href={t.href} class="card hover:border-orange group">
+                <p class="font-semibold text-grey-dark group-hover:text-orange transition-colors">{t.name}</p>
+                <p class="text-sm text-grey-muted mt-1">{t.desc}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      </div>
+
+      <!-- Sidebar -->
+      <aside class="space-y-6">
+
+        <!-- Vorstand -->
+        <div class="card">
+          <h3 class="font-bold text-grey-dark mb-4">Vorstand</h3>
+          <div class="space-y-4">
+            {[
+              { name: 'Jennifer Donath', rolle: 'Präsidentin · Finanzen' },
+              { name: 'Michael Bähler', rolle: 'Kommunikation' },
+            ].map(p => (
+              <div class="flex items-center gap-3">
+                <div class="h-10 w-10 rounded-full bg-orange-light flex items-center justify-center text-orange font-bold text-sm flex-shrink-0">
+                  {p.name.split(' ').map((n: string) => n[0]).join('')}
+                </div>
+                <div>
+                  <p class="font-semibold text-sm text-grey-dark">{p.name}</p>
+                  <p class="text-xs text-grey-muted">{p.rolle}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Kontakt -->
+        <div class="card">
+          <h3 class="font-bold text-grey-dark mb-4">Kontakt & Bankverbindung</h3>
+          <ul class="space-y-3 text-sm text-grey-mid">
+            <li>
+              <span class="font-semibold text-grey-dark block">E-Mail</span>
+              <a href="mailto:elternrat_laubegg@gmx.ch" class="text-orange hover:text-orange-dark">elternrat_laubegg@gmx.ch</a>
+            </li>
+            <li>
+              <span class="font-semibold text-grey-dark block">Adresse</span>
+              Schosshaldenstrasse 37<br/>3006 Bern
+            </li>
+            <li>
+              <span class="font-semibold text-grey-dark block">IBAN</span>
+              CH20 0079 0042 9769 3540 6
+            </li>
+          </ul>
+        </div>
+
+        <!-- Schulkreis -->
+        <div class="card bg-grey-bg border-grey-border">
+          <p class="text-xs text-grey-muted uppercase font-semibold mb-2">Zugehörigkeit</p>
+          <p class="text-sm font-semibold text-grey-dark">Schulkreis Kirchenfeld-Schosshalde</p>
+          <a href="https://kirchenfeld-schosshalde.ch/laubegg" target="_blank" rel="noopener" class="text-xs text-orange hover:text-orange-dark mt-2 inline-block">
+            Website des Schulkreises →
+          </a>
+        </div>
+
+      </aside>
+    </div>
+  </div>
+</Layout>

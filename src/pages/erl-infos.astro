@@ -1,0 +1,58 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+const infos = await getCollection('erl-infos');
+infos.sort((a, b) => b.data.date.localeCompare(a.data.date));
+
+function formatDate(d: string) {
+  return new Date(d).toLocaleDateString('de-CH', { month: 'long', year: 'numeric' });
+}
+---
+
+<Layout title="ERL-Infos" description="Newsletter und Informationsblätter des Elternrats Laubegg.">
+
+  <div class="bg-orange-lighter border-b border-grey-border">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
+      <span class="badge-orange mb-3 inline-block">Newsletter</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-grey-dark">ERL-Infos</h1>
+      <p class="text-grey-mid mt-2">Unsere Informationsblätter — als PDF zum Herunterladen.</p>
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="flex flex-col gap-4">
+      {infos.map(info => (
+        <div class="card flex items-start justify-between gap-6">
+          <div class="flex items-start gap-4">
+            <div class="bg-orange-light rounded-lg p-3 flex-shrink-0">
+              <svg class="h-6 w-6 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+              </svg>
+            </div>
+            <div>
+              <p class="font-bold text-grey-dark">{info.data.title}</p>
+              <p class="text-sm text-grey-muted">{formatDate(info.data.date)}</p>
+              {info.data.summary && (
+                <p class="text-sm text-grey-mid mt-2 leading-relaxed">{info.data.summary}</p>
+              )}
+            </div>
+          </div>
+          {info.data.fileUrl && (
+            <a
+              href={info.data.fileUrl}
+              target="_blank"
+              rel="noopener"
+              class="btn-secondary text-sm py-1.5 px-3 whitespace-nowrap flex-shrink-0"
+            >
+              <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/>
+              </svg>
+              PDF
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>

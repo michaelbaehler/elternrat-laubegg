@@ -1,0 +1,25 @@
+<svg viewBox="0 0 200 75" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Elternrat Laubegg Logo">
+  <!-- Arc of dots: center (158, 37), radius 28, from 270° to 150° clockwise (240° arc) -->
+  <!-- Top -->
+  <circle cx="158" cy="9"  r="3.2" fill="#FFAA44"/>
+  <!-- 300° -->
+  <circle cx="172" cy="13" r="3.2" fill="#FFAA44"/>
+  <!-- 330° -->
+  <circle cx="182" cy="23" r="3.2" fill="#FFAA44"/>
+  <!-- 0° right -->
+  <circle cx="186" cy="37" r="3.2" fill="#FFAA44"/>
+  <!-- 30° -->
+  <circle cx="182" cy="51" r="3.2" fill="#FFAA44"/>
+  <!-- 60° -->
+  <circle cx="172" cy="61" r="3.2" fill="#FFAA44"/>
+  <!-- 90° bottom -->
+  <circle cx="158" cy="65" r="3.2" fill="#FFAA44"/>
+  <!-- 120° -->
+  <circle cx="144" cy="61" r="3.2" fill="#FFAA44"/>
+  <!-- 150° -->
+  <circle cx="134" cy="51" r="3.2" fill="#FFAA44"/>
+
+  <!-- Text -->
+  <text x="4" y="36" font-family="Inter, system-ui, sans-serif" font-size="23" font-weight="700" fill="#222222" letter-spacing="-0.3">Elternrat</text>
+  <text x="4" y="63" font-family="Inter, system-ui, sans-serif" font-size="23" font-weight="700" fill="#FFAA44" letter-spacing="-0.3">Laubegg</text>
+</svg>

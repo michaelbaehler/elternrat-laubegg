@@ -1,0 +1,58 @@
+<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="220" fill="#FFF8F0"/>
+
+  <!-- Road / path at bottom -->
+  <rect x="0" y="178" width="400" height="42" fill="#EBEBEB"/>
+  <line x1="0" y1="178" x2="400" y2="178" stroke="#DDDDDD" stroke-width="2"/>
+  <!-- Crosswalk stripes -->
+  <rect x="155" y="179" width="18" height="40" fill="white" opacity="0.8"/>
+  <rect x="183" y="179" width="18" height="40" fill="white" opacity="0.8"/>
+  <rect x="211" y="179" width="18" height="40" fill="white" opacity="0.8"/>
+  <rect x="239" y="179" width="18" height="40" fill="white" opacity="0.8"/>
+
+  <!-- School building (simplified silhouette, back) -->
+  <!-- Building body -->
+  <rect x="42" y="105" width="90" height="76" fill="#E0D8CF"/>
+  <!-- Roof -->
+  <polygon points="30,105 148,105 89,72" fill="#D0C8BE"/>
+  <!-- Windows -->
+  <rect x="60" y="120" width="18" height="18" rx="2" fill="#C5DCE8" opacity="0.8"/>
+  <rect x="100" y="120" width="18" height="18" rx="2" fill="#C5DCE8" opacity="0.8"/>
+  <rect x="60" y="148" width="18" height="18" rx="2" fill="#C5DCE8" opacity="0.8"/>
+  <rect x="100" y="148" width="18" height="18" rx="2" fill="#C5DCE8" opacity="0.8"/>
+  <!-- Door -->
+  <rect x="79" y="152" width="20" height="29" rx="3" fill="#B0A898"/>
+  <!-- Flagpole -->
+  <line x1="89" y1="72" x2="89" y2="48" stroke="#AAAAAA" stroke-width="2"/>
+  <polygon points="89,48 110,55 89,62" fill="#FFAA44"/>
+
+  <!-- Large shield (centred, foreground) -->
+  <!-- Shield shadow -->
+  <path d="M208 30 Q208 28 210 28 L280 28 Q282 28 282 30 L282 120 Q282 155 245 172 Q208 155 208 120 Z" fill="#FFAA44" opacity="0.15" transform="translate(4,4)"/>
+  <!-- Shield body -->
+  <path d="M208 30 Q208 28 210 28 L280 28 Q282 28 282 30 L282 120 Q282 155 245 172 Q208 155 208 120 Z" fill="#FFAA44"/>
+  <!-- Shield inner border -->
+  <path d="M216 38 L274 38 L274 118 Q274 144 245 160 Q216 144 216 118 Z" fill="none" stroke="white" stroke-width="2" opacity="0.4"/>
+  <!-- Shield highlight -->
+  <path d="M220 34 L250 34 L250 90 Q240 102 228 108 L220 104 Z" fill="white" opacity="0.12"/>
+
+  <!-- Checkmark on shield -->
+  <path d="M228 98 L240 112 L264 80" stroke="white" stroke-width="7" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Child silhouette (right side) -->
+  <!-- Head -->
+  <circle cx="340" cy="130" r="12" fill="#D4B8A0"/>
+  <!-- Body -->
+  <rect x="332" y="142" width="16" height="28" rx="5" fill="#E8952A"/>
+  <!-- Legs -->
+  <rect x="332" y="168" width="7" height="14" rx="3" fill="#D4B8A0"/>
+  <rect x="341" y="168" width="7" height="14" rx="3" fill="#D4B8A0"/>
+  <!-- Backpack -->
+  <rect x="345" y="145" width="10" height="18" rx="3" fill="#FFAA44"/>
+
+  <!-- Decorative dots -->
+  <circle cx="360" cy="100" r="4" fill="#FFAA44" opacity="0.2"/>
+  <circle cx="55" cy="170" r="4" fill="#FFAA44" opacity="0.15"/>
+  <circle cx="370" cy="165" r="3" fill="#FFC870" opacity="0.2"/>
+</svg>

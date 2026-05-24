@@ -1,0 +1,85 @@
+backend:
+  name: git-gateway
+  branch: main
+
+# Lokales Backend für Entwicklung (auskommentieren für Produktion)
+# local_backend: true
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+locale: de
+
+collections:
+  # ─── Helfereinsätze ───────────────────────────────────────────────────────
+  - name: "helfereinsaetze"
+    label: "Helfereinsätze"
+    label_singular: "Helfereinsatz"
+    folder: "src/content/helfereinsaetze"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+      - { label: "Uhrzeit (z.B. 07:30–09:00)", name: "time", widget: "string", required: false }
+      - { label: "Ort", name: "location", widget: "string" }
+      - { label: "Kurzbeschreibung", name: "description", widget: "text" }
+      - { label: "Anzahl Helfer (total)", name: "spotsTotal", widget: "number", value_type: "int", min: 1 }
+      - { label: "Bereits angemeldet", name: "spotsTaken", widget: "number", value_type: "int", min: 0, default: 0 }
+      - { label: "Anmeldeschluss", name: "deadline", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false }
+      - { label: "Aktiv (sichtbar)", name: "active", widget: "boolean", default: true }
+      - label: "Themengruppe"
+        name: "thema"
+        widget: "select"
+        required: false
+        options: ["Schlittschuhverleih", "Events", "Elternbildung", "Raus Laus", "Sicherheit", "Sonstiges"]
+      - { label: "Details (Markdown)", name: "body", widget: "markdown", required: false }
+
+  # ─── Termine ──────────────────────────────────────────────────────────────
+  - name: "termine"
+    label: "Termine"
+    label_singular: "Termin"
+    folder: "src/content/termine"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+      - { label: "Uhrzeit", name: "time", widget: "string", required: false }
+      - { label: "Ort", name: "location", widget: "string", required: false }
+      - label: "Kategorie"
+        name: "category"
+        widget: "select"
+        options: ["Sitzung", "Event", "Schlittschuhverleih", "Raus Laus", "Elternbildung", "Sicherheit", "Sonstiges"]
+      - { label: "Öffentlich", name: "public", widget: "boolean", default: true }
+
+  # ─── ERL-Infos ────────────────────────────────────────────────────────────
+  - name: "erl-infos"
+    label: "ERL-Infos"
+    label_singular: "ERL-Info"
+    folder: "src/content/erl-infos"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+      - { label: "PDF-Link (z.B. /uploads/datei.pdf)", name: "fileUrl", widget: "string", required: false }
+      - { label: "Kurzbeschreibung", name: "summary", widget: "text", required: false }
+
+  # ─── Sitzungen ────────────────────────────────────────────────────────────
+  - name: "sitzungen"
+    label: "Sitzungen"
+    label_singular: "Sitzung"
+    folder: "src/content/sitzungen"
+    create: true
+    slug: "{{slug}}"
+    extension: "md"
+    fields:
+      - { label: "Titel", name: "title", widget: "string" }
+      - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+      - { label: "Schuljahr (z.B. 2025/2026)", name: "schuljahr", widget: "string" }
+      - { label: "Protokoll-Link (z.B. /uploads/protokoll.pdf)", name: "protokollUrl", widget: "string", required: false }
+      - { label: "Passwortgeschützt", name: "passwort", widget: "boolean", default: true }

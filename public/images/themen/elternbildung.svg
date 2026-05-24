@@ -1,0 +1,60 @@
+<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="220" fill="#FFF8F0"/>
+
+  <!-- Open book – centred, bottom half of image -->
+  <!-- Left page -->
+  <path d="M90 180 L90 100 Q90 92 100 90 L195 85 L195 175 Q150 172 90 180 Z" fill="white" stroke="#E0D8D0" stroke-width="1.5"/>
+  <!-- Right page -->
+  <path d="M205 85 L300 90 Q310 92 310 100 L310 180 Q250 172 205 175 Z" fill="white" stroke="#E0D8D0" stroke-width="1.5"/>
+  <!-- Book spine -->
+  <rect x="193" y="85" width="14" height="92" rx="1" fill="#E8952A"/>
+
+  <!-- Left page lines (text rows) -->
+  <line x1="108" y1="110" x2="187" y2="108" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
+  <line x1="108" y1="122" x2="187" y2="120" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
+  <line x1="108" y1="134" x2="187" y2="132" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
+  <line x1="108" y1="146" x2="175" y2="144" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
+  <line x1="108" y1="158" x2="187" y2="156" stroke="#FFAA44" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+  <line x1="108" y1="170" x2="165" y2="168" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Right page lines -->
+  <line x1="213" y1="108" x2="292" y2="110" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
+  <line x1="213" y1="120" x2="292" y2="122" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
+  <line x1="213" y1="132" x2="292" y2="134" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
+  <line x1="213" y1="144" x2="270" y2="146" stroke="#FFAA44" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
+  <line x1="213" y1="156" x2="292" y2="158" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
+  <line x1="213" y1="168" x2="278" y2="170" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
+
+  <!-- Orange bookmark -->
+  <path d="M280 85 L296 85 L296 120 L288 114 L280 120 Z" fill="#FFAA44"/>
+
+  <!-- Lightbulb (floating above the book) -->
+  <!-- Bulb glass -->
+  <circle cx="200" cy="42" r="26" fill="#FFC870" opacity="0.9"/>
+  <!-- Bulb glow -->
+  <circle cx="200" cy="42" r="26" fill="#FFAA44" opacity="0.15"/>
+  <!-- Bulb highlight -->
+  <circle cx="192" cy="32" r="7" fill="white" opacity="0.45"/>
+  <!-- Bulb base/socket -->
+  <rect x="190" y="64" width="20" height="7" rx="2" fill="#E8952A"/>
+  <rect x="192" y="70" width="16" height="5" rx="1.5" fill="#C87818"/>
+  <!-- Lightbulb filament lines -->
+  <path d="M197 52 L197 60 M203 52 L203 60" stroke="#E8952A" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M197 60 Q200 56 203 60" stroke="#E8952A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+
+  <!-- Rays around bulb -->
+  <g opacity="0.5">
+    <line x1="200" y1="8" x2="200" y2="2" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
+    <line x1="222" y1="14" x2="226" y2="10" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
+    <line x1="234" y1="35" x2="240" y2="33" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
+    <line x1="178" y1="14" x2="174" y2="10" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
+    <line x1="166" y1="35" x2="160" y2="33" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
+  </g>
+
+  <!-- Decorative dots -->
+  <circle cx="55" cy="90" r="5" fill="#FFAA44" opacity="0.2"/>
+  <circle cx="345" cy="88" r="4" fill="#FFAA44" opacity="0.2"/>
+  <circle cx="60" cy="175" r="4" fill="#FFC870" opacity="0.2"/>
+  <circle cx="340" cy="178" r="3" fill="#FFAA44" opacity="0.15"/>
+</svg>

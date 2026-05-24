@@ -1,0 +1,78 @@
+<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="400" height="220" fill="#FFF8F0"/>
+
+  <!-- Bunting string -->
+  <path d="M30 55 Q100 75 200 55 Q300 35 370 55" fill="none" stroke="#DDDDDD" stroke-width="2"/>
+
+  <!-- Bunting flags – alternating orange / grey / white -->
+  <!-- Flag 1 -->
+  <polygon points="42,55 58,55 50,82" fill="#FFAA44"/>
+  <!-- Flag 2 -->
+  <polygon points="64,60 80,60 72,87" fill="#E0E0E0"/>
+  <!-- Flag 3 -->
+  <polygon points="90,62 106,62 98,89" fill="#FFAA44"/>
+  <!-- Flag 4 -->
+  <polygon points="118,59 134,59 126,86" fill="#FFC870"/>
+  <!-- Flag 5 -->
+  <polygon points="148,55 164,55 156,82" fill="#E0E0E0"/>
+  <!-- Flag 6 -->
+  <polygon points="178,53 194,53 186,80" fill="#FFAA44"/>
+  <!-- Flag 7 -->
+  <polygon points="208,53 224,53 216,80" fill="#E0E0E0"/>
+  <!-- Flag 8 -->
+  <polygon points="238,55 254,55 246,82" fill="#FFAA44"/>
+  <!-- Flag 9 -->
+  <polygon points="268,55 284,55 276,82" fill="#FFC870"/>
+  <!-- Flag 10 -->
+  <polygon points="296,52 312,52 304,79" fill="#E0E0E0"/>
+  <!-- Flag 11 -->
+  <polygon points="324,48 340,48 332,75" fill="#FFAA44"/>
+  <!-- Flag 12 -->
+  <polygon points="350,50 366,50 358,77" fill="#E0E0E0"/>
+
+  <!-- Central table scene (stylized) -->
+  <!-- Table -->
+  <rect x="110" y="158" width="180" height="10" rx="5" fill="#D0C8BE"/>
+  <rect x="125" y="167" width="12" height="22" rx="4" fill="#C4BBB2"/>
+  <rect x="263" y="167" width="12" height="22" rx="4" fill="#C4BBB2"/>
+  <!-- Table cloth -->
+  <rect x="108" y="150" width="184" height="14" rx="4" fill="#FFAA44" opacity="0.15"/>
+
+  <!-- Cups / glasses on table -->
+  <!-- Cup 1 -->
+  <path d="M155 150 L163 150 L161 135 L157 135 Z" fill="#FFAA44"/>
+  <rect x="152" y="150" width="14" height="4" rx="2" fill="#E8952A"/>
+  <!-- Cup 2 -->
+  <path d="M195 150 L205 150 L203 132 L197 132 Z" fill="#FFC870"/>
+  <rect x="192" y="150" width="16" height="4" rx="2" fill="#E8952A"/>
+  <!-- Cup 3 -->
+  <path d="M232 150 L242 150 L240 137 L234 137 Z" fill="#FFAA44"/>
+  <rect x="229" y="150" width="16" height="4" rx="2" fill="#E8952A"/>
+
+  <!-- Plate / Znüni -->
+  <ellipse cx="200" cy="152" rx="18" ry="5" fill="#F5EFE9" stroke="#E0D5CC" stroke-width="1"/>
+  <circle cx="200" cy="150" r="6" fill="#FFAA44" opacity="0.4"/>
+
+  <!-- Stars / sparkles -->
+  <g transform="translate(75,115)">
+    <path d="M0,-10 L2,-3 L9,-3 L4,1 L6,8 L0,4 L-6,8 L-4,1 L-9,-3 L-2,-3 Z" fill="#FFAA44" opacity="0.7"/>
+  </g>
+  <g transform="translate(325,120)">
+    <path d="M0,-8 L1.5,-2.5 L7,-2.5 L3,1 L4.5,6.5 L0,3 L-4.5,6.5 L-3,1 L-7,-2.5 L-1.5,-2.5 Z" fill="#FFAA44" opacity="0.5"/>
+  </g>
+  <g transform="translate(48,150)">
+    <path d="M0,-6 L1,-2 L5,-2 L2,1 L3,5 L0,2.5 L-3,5 L-2,1 L-5,-2 L-1,-2 Z" fill="#FFC870" opacity="0.4"/>
+  </g>
+  <g transform="translate(352,155)">
+    <path d="M0,-6 L1,-2 L5,-2 L2,1 L3,5 L0,2.5 L-3,5 L-2,1 L-5,-2 L-1,-2 Z" fill="#FFAA44" opacity="0.4"/>
+  </g>
+
+  <!-- Confetti dots -->
+  <circle cx="90" cy="120" r="4" fill="#FFAA44" opacity="0.3"/>
+  <circle cx="310" cy="112" r="3" fill="#FFAA44" opacity="0.25"/>
+  <circle cx="340" cy="145" r="4" fill="#FFC870" opacity="0.3"/>
+  <circle cx="60" cy="170" r="3" fill="#FFAA44" opacity="0.2"/>
+  <rect x="95" y="135" width="6" height="6" rx="1" fill="#FFAA44" opacity="0.2" transform="rotate(30 98 138)"/>
+  <rect x="298" y="138" width="5" height="5" rx="1" fill="#FFC870" opacity="0.25" transform="rotate(-20 300 140)"/>
+</svg>

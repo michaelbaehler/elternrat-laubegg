@@ -1,0 +1,39 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Events" description="Schulübergreifende Veranstaltungen des Elternrats Laubegg: Frühlingstreffen, Adventsznüni und mehr.">
+  <div class="border-b border-grey-border overflow-hidden" style="max-height: 240px; position: relative;">
+    <img src="/images/themen/events.svg" alt="" class="w-full object-cover" style="max-height: 240px;" aria-hidden="true"/>
+    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
+      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-7 w-full">
+        <span class="badge bg-white/20 text-white text-xs mb-2 inline-block">Themengruppe</span>
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-white drop-shadow">Events</h1>
+        <p class="text-white/80 mt-1 text-sm drop-shadow">Schulübergreifende Begegnungen für Eltern und Familien</p>
+      </div>
+    </div>
+  </div>
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <div class="prose prose-sm max-w-none text-grey-mid mb-10">
+      <p>Die Themengruppe Events organisiert schulübergreifende Veranstaltungen, die Eltern und Familien zusammenbringen. Das Ziel ist ein lebendiges Schulleben und eine starke Gemeinschaft.</p>
+    </div>
+    <div class="grid sm:grid-cols-2 gap-5">
+      {[
+        { name: 'Frühlingstreffen', desc: 'Ein gemütlicher Anlass im Frühling für alle Familien der Schule Laubegg.', icon: '🌸' },
+        { name: 'Adventsznüni', desc: 'Gemeinsamer Znüni in der Adventszeit — festlich und gemütlich.', icon: '🕯️' },
+      ].map(e => (
+        <div class="card">
+          <span class="text-3xl mb-3 block">{e.icon}</span>
+          <h2 class="font-bold text-grey-dark mb-1">{e.name}</h2>
+          <p class="text-sm text-grey-mid">{e.desc}</p>
+        </div>
+      ))}
+    </div>
+    <div class="mt-10 card bg-orange-lighter border-orange/20">
+      <p class="font-semibold text-grey-dark mb-1">Mitmachen bei Events</p>
+      <p class="text-sm text-grey-mid">Hast du Lust, bei der Organisation zu helfen oder eine Idee für einen neuen Event?</p>
+      <a href="mailto:elternrat_laubegg@gmx.ch" class="btn-primary mt-3 text-sm inline-flex">
+        Melde dich bei uns
+      </a>
+    </div>
+  </div>
+</Layout>

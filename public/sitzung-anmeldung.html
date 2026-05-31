@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ERL Sitzung – Anmeldung</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap');
+
+  :root {
+    --orange: #E87722;
+    --orange-dark: #C5601A;
+    --orange-light: #FDF0E6;
+    --dark: #1A1208;
+    --mid: #6B5A45;
+    --light: #F9F4EF;
+    --white: #FFFFFF;
+    --success: #3A7D44;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--light);
+    min-height: 100vh;
+    color: var(--dark);
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--orange);
+    padding: 28px 24px 24px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at 80% 20%, rgba(255,255,255,0.15) 0%, transparent 60%);
+  }
+  header .logo {
+    font-family: 'Fraunces', serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 6px;
+  }
+  header h1 {
+    font-family: 'Fraunces', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--white);
+    line-height: 1.2;
+    position: relative;
+  }
+  header p {
+    margin-top: 6px;
+    font-size: 14px;
+    color: rgba(255,255,255,0.85);
+    position: relative;
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-title .num {
+    width: 28px; height: 28px;
+    background: var(--orange);
+    color: white;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  /* ── FORM ELEMENTS ── */
+  label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--mid);
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+  }
+
+  input[type="text"], select {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #E8DDD4;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: var(--dark);
+    background: var(--light);
+    outline: none;
+    transition: border-color 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  input[type="text"]:focus, select:focus {
+    border-color: var(--orange);
+    background: var(--white);
+  }
+
+  .select-wrap {
+    position: relative;
+  }
+  .select-wrap::after {
+    content: '▾';
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--orange);
+    font-size: 18px;
+    pointer-events: none;
+  }
+
+  /* ── TOGGLE ── */
+  .toggle-group {
+    display: flex;
+    gap: 10px;
+  }
+  .toggle-btn {
+    flex: 1;
+    padding: 14px;
+    border: 2px solid #E8DDD4;
+    border-radius: 10px;
+    background: var(--light);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--mid);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .toggle-btn:hover {
+    border-color: var(--orange);
+    color: var(--orange);
+  }
+  .toggle-btn.active-yes {
+    background: #E8F5EC;
+    border-color: var(--success);
+    color: var(--success);
+    font-weight: 600;
+  }
+  .toggle-btn.active-no {
+    background: #FFF0EE;
+    border-color: #E05A40;
+    color: #E05A40;
+    font-weight: 600;
+  }
+
+  /* ── CLASS SECTION ── */
+  #class-section {
+    display: none;
+    animation: fadeIn 0.3s ease;
+  }
+  #class-section.visible { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── SUBMIT BTN ── */
+  .btn-submit {
+    width: 100%;
+    padding: 18px;
+    background: var(--orange);
+    color: white;
+    border: none;
+    border-radius: var(--radius);
+    font-family: 'Fraunces', serif;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-submit:hover { background: var(--orange-dark); transform: translateY(-1px); }
+  .btn-submit:active { transform: translateY(0); }
+  .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  /* ── SUCCESS ── */
+  .success-screen {
+    display: none;
+    text-align: center;
+    padding: 40px 20px;
+    animation: fadeIn 0.4s ease;
+  }
+  .success-screen.visible { display: block; }
+  .success-icon {
+    width: 72px; height: 72px;
+    background: #E8F5EC;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 36px;
+  }
+  .success-screen h2 {
+    font-family: 'Fraunces', serif;
+    font-size: 24px;
+    color: var(--success);
+    margin-bottom: 10px;
+  }
+  .success-screen p { color: var(--mid); font-size: 15px; line-height: 1.6; }
+  .btn-again {
+    margin-top: 24px;
+    padding: 12px 28px;
+    background: transparent;
+    border: 2px solid var(--orange);
+    border-radius: 10px;
+    color: var(--orange);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  /* ── ERROR ── */
+  .error-msg {
+    color: #E05A40;
+    font-size: 13px;
+    margin-top: 6px;
+    display: none;
+  }
+  .error-msg.visible { display: block; }
+
+  /* ── QR SECTION (Admin) ── */
+  .admin-bar {
+    background: var(--dark);
+    color: white;
+    text-align: center;
+    padding: 12px 20px;
+    font-size: 13px;
+    cursor: pointer;
+    letter-spacing: 0.5px;
+  }
+  .admin-bar span { color: var(--orange); }
+
+  .qr-panel {
+    display: none;
+    background: var(--white);
+    border-top: 3px solid var(--orange);
+    padding: 32px 24px;
+    text-align: center;
+  }
+  .qr-panel.visible { display: block; }
+  .qr-panel h3 {
+    font-family: 'Fraunces', serif;
+    font-size: 20px;
+    margin-bottom: 6px;
+  }
+  .qr-panel p { color: var(--mid); font-size: 14px; margin-bottom: 24px; }
+  #qrcode { display: inline-block; padding: 16px; background: white; border-radius: 12px; border: 2px solid #E8DDD4; }
+  .qr-url {
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--mid);
+    word-break: break-all;
+    background: var(--light);
+    padding: 10px 14px;
+    border-radius: 8px;
+  }
+
+  /* ── SPINNER ── */
+  .spinner {
+    display: inline-block;
+    width: 18px; height: 18px;
+    border: 3px solid rgba(255,255,255,0.4);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .field-gap { margin-bottom: 20px; }
+
+  textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #E8DDD4;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    color: var(--dark);
+    background: var(--light);
+    outline: none;
+    transition: border-color 0.2s;
+    resize: vertical;
+    min-height: 90px;
+  }
+  textarea:focus {
+    border-color: var(--orange);
+    background: var(--white);
+  }
+</style>
+</head>
+<body>
+
+<!-- Admin bar (QR + Sheet Link) -->
+<div class="admin-bar" onclick="toggleQR()">
+  ▣ <span>QR-Code & Sheet-Link anzeigen</span> (nur für Präsidium)
+</div>
+<div class="qr-panel" id="qrPanel">
+  <h3>QR-Code für die Sitzung</h3>
+  <p>Mitglieder scannen diesen Code mit dem Handy</p>
+  <div id="qrcode"></div>
+  <div class="qr-url" id="qrUrl"></div>
+  <p style="margin-top:16px; font-size:13px; color:var(--mid)">
+    Antworten landen direkt im 
+    <a href="https://docs.google.com/spreadsheets/d/1-5Q27mLW_4-6a2zZ55PxIg0q0R48YnALwAEjjKYf90o/edit" 
+       target="_blank" style="color:var(--orange); font-weight:600;">Google Sheet ↗</a>
+  </p>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="logo">Elternrat Laubegg · Bern</div>
+  <h1>Sitzung – Deine Angaben</h1>
+  <p>Bitte kurz ausfüllen – dauert unter 1 Minute</p>
+</header>
+
+<main>
+  <!-- Form -->
+  <div id="formView">
+
+    <!-- Name -->
+    <div class="card">
+      <div class="card-title"><span class="num">1</span> Dein Name</div>
+      <div class="field-gap">
+        <label for="vorname">Vorname</label>
+        <input type="text" id="vorname" placeholder="z.B. Anna" autocomplete="given-name">
+      </div>
+      <div>
+        <label for="nachname">Nachname</label>
+        <input type="text" id="nachname" placeholder="z.B. Müller" autocomplete="family-name">
+      </div>
+      <div class="error-msg" id="nameError">Bitte Vor- und Nachname eingeben.</div>
+    </div>
+
+    <!-- Weitermachen -->
+    <div class="card">
+      <div class="card-title"><span class="num">2</span> Machst du im nächsten Schuljahr weiter mit?</div>
+      <div class="toggle-group">
+        <button class="toggle-btn" id="btnJa" onclick="setWeiter('ja')">✓ Ja, dabei!</button>
+        <button class="toggle-btn" id="btnNein" onclick="setWeiter('nein')">✗ Nein, ich höre auf</button>
+      </div>
+      <div class="error-msg" id="weiterError">Bitte eine Option wählen.</div>
+    </div>
+
+    <!-- Klasse -->
+    <div class="card" id="class-section">
+      <div class="card-title"><span class="num">3</span> Welche Klasse vertrittst du?</div>
+      <div class="select-wrap">
+        <select id="klasse">
+          <option value="">– Bitte wählen –</option>
+          <optgroup label="Kindergarten">
+            <option>KG 1</option><option>KG 2</option><option>KG 3</option>
+            <option>KG 4</option><option>KG 5</option><option>KG 6</option>
+            <option>KG 7</option><option>KG 8</option><option>KG 9</option><option>KG 10</option>
+          </optgroup>
+          <optgroup label="Primarstufe 1">
+            <option>P1a</option><option>P1b</option><option>P1c</option><option>P1d</option>
+          </optgroup>
+          <optgroup label="Primarstufe 2">
+            <option>P2a</option><option>P2b</option><option>P2c</option><option>P2d</option>
+          </optgroup>
+          <optgroup label="Primarstufe 3">
+            <option>P3a</option><option>P3b</option><option>P3c</option><option>P3d</option>
+          </optgroup>
+          <optgroup label="Primarstufe 4">
+            <option>P4a</option><option>P4b</option><option>P4c</option><option>P4d</option>
+          </optgroup>
+          <optgroup label="Primarstufe 5">
+            <option>P5a</option><option>P5b</option><option>P5c</option><option>P5d</option>
+          </optgroup>
+          <optgroup label="Primarstufe 6">
+            <option>P6a</option><option>P6b</option><option>P6c</option><option>P6d</option>
+          </optgroup>
+          <optgroup label="Realschule 7">
+            <option>RS7a</option><option>RS7b</option><option>RS7c</option><option>RS7d</option>
+            <option>RS7e</option><option>RS7f</option><option>RS7g</option>
+          </optgroup>
+          <optgroup label="Realschule 8">
+            <option>RS8a</option><option>RS8b</option><option>RS8c</option><option>RS8d</option>
+            <option>RS8e</option><option>RS8f</option><option>RS8g</option>
+          </optgroup>
+          <optgroup label="Realschule 9">
+            <option>RS9a</option><option>RS9b</option><option>RS9c</option><option>RS9d</option>
+            <option>RS9e</option><option>RS9f</option><option>RS9g</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="error-msg" id="klasseError">Bitte eine Klasse wählen.</div>
+    </div>
+
+    <!-- Bemerkungen -->
+    <div class="card">
+      <div class="card-title"><span class="num">4</span> Bemerkungen <span style="font-size:13px; color:var(--mid); font-family:'DM Sans',sans-serif; font-weight:400;">(optional)</span></div>
+      <textarea id="bemerkungen" placeholder="z.B. Fragen, Anliegen, Infos für den Elternrat…"></textarea>
+    </div>
+
+    <button class="btn-submit" id="submitBtn" onclick="submitForm()">Absenden →</button>
+  </div>
+
+  <!-- Success -->
+  <div class="success-screen" id="successView">
+    <div class="success-icon">✓</div>
+    <h2>Danke!</h2>
+    <p id="successText">Deine Angaben wurden gespeichert.</p>
+    <button class="btn-again" onclick="resetForm()">Nächste Person →</button>
+  </div>
+</main>
+
+<script>
+  // ── CONFIG ──
+  const SHEET_ID = '1-5Q27mLW_4-6a2zZ55PxIg0q0R48YnALwAEjjKYf90o';
+  const SHEET_NAME = 'Tabelle1'; // Passe an falls nötig
+
+  // ── STATE ──
+  let weiterWahl = null;
+
+  // ── QR CODE ──
+  function getPageUrl() {
+    return window.location.href.split('?')[0];
+  }
+
+  function initQR() {
+    const url = getPageUrl();
+    document.getElementById('qrUrl').textContent = url;
+    new QRCode(document.getElementById('qrcode'), {
+      text: url,
+      width: 200,
+      height: 200,
+      colorDark: '#1A1208',
+      colorLight: '#ffffff',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  }
+
+  function toggleQR() {
+    const panel = document.getElementById('qrPanel');
+    panel.classList.toggle('visible');
+  }
+
+  // ── TOGGLE WEITER ──
+  function setWeiter(val) {
+    weiterWahl = val;
+    document.getElementById('btnJa').className = 'toggle-btn' + (val === 'ja' ? ' active-yes' : '');
+    document.getElementById('btnNein').className = 'toggle-btn' + (val === 'nein' ? ' active-no' : '');
+    document.getElementById('weiterError').classList.remove('visible');
+
+    const classSection = document.getElementById('class-section');
+    if (val === 'ja') {
+      classSection.classList.add('visible');
+    } else {
+      classSection.classList.remove('visible');
+    }
+  }
+
+  // ── VALIDATE ──
+  function validate() {
+    let ok = true;
+    if (!document.getElementById('vorname').value.trim() || !document.getElementById('nachname').value.trim()) {
+      document.getElementById('nameError').classList.add('visible');
+      ok = false;
+    } else {
+      document.getElementById('nameError').classList.remove('visible');
+    }
+    if (!weiterWahl) {
+      document.getElementById('weiterError').classList.add('visible');
+      ok = false;
+    } else {
+      document.getElementById('weiterError').classList.remove('visible');
+    }
+    if (weiterWahl === 'ja' && !document.getElementById('klasse').value) {
+      document.getElementById('klasseError').classList.add('visible');
+      ok = false;
+    } else {
+      document.getElementById('klasseError').classList.remove('visible');
+    }
+    return ok;
+  }
+
+  // ── SUBMIT ──
+  async function submitForm() {
+    if (!validate()) return;
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span>Wird gespeichert…';
+
+    const vorname = document.getElementById('vorname').value.trim();
+    const nachname = document.getElementById('nachname').value.trim();
+    const klasse = weiterWahl === 'ja' ? document.getElementById('klasse').value : '–';
+    const bemerkungen = document.getElementById('bemerkungen').value.trim() || '–';
+    const timestamp = new Date().toLocaleString('de-CH');
+
+    try {
+      await appendToSheet([timestamp, vorname, nachname, weiterWahl === 'ja' ? 'Ja' : 'Nein', klasse, bemerkungen]);
+
+      document.getElementById('successText').textContent =
+        `${vorname} ${nachname} – ${weiterWahl === 'ja' ? '✓ Dabei, Klasse ' + klasse : '✗ Tritt zurück'} – wurde gespeichert.`;
+      document.getElementById('formView').style.display = 'none';
+      document.getElementById('successView').classList.add('visible');
+
+    } catch (e) {
+      btn.disabled = false;
+      btn.innerHTML = 'Absenden →';
+      alert('Fehler beim Speichern: ' + e.message + '\n\nBitte Screenshot machen und an den Admin schicken.');
+    }
+  }
+
+  // ── GOOGLE SHEETS via Claude API + Drive MCP ──
+  async function appendToSheet(row) {
+    const prompt = `
+Füge folgende Zeile in das Google Sheet mit ID "${SHEET_ID}" ein (Sheet-Name: "${SHEET_NAME}").
+Die Zeile enthält: ${JSON.stringify(row)}
+Prüfe zuerst ob eine Header-Zeile existiert. Falls nicht, füge zuerst diese Header ein:
+["Zeitstempel", "Vorname", "Nachname", "Weiter dabei?", "Klasse im neuen Schuljahr", "Bemerkungen"]
+Dann füge die Datenzeile am Ende ein.
+Antworte nur mit "OK" wenn erfolgreich.
+    `.trim();
+
+    const response = await fetch('/api/sheets-proxy', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        mcp_servers: [{
+          type: 'url',
+          url: 'https://drivemcp.googleapis.com/mcp/v1',
+          name: 'google-drive-mcp'
+        }],
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err.error?.message || `HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    const text = (data.content || []).filter(b => b.type === 'text').map(b => b.text).join('');
+    if (!text.includes('OK')) throw new Error('Unerwartete Antwort vom Server: ' + text.slice(0, 200));
+  }
+
+  // ── RESET ──
+  function resetForm() {
+    document.getElementById('vorname').value = '';
+    document.getElementById('nachname').value = '';
+    document.getElementById('klasse').value = '';
+    document.getElementById('bemerkungen').value = '';
+    weiterWahl = null;
+    document.getElementById('btnJa').className = 'toggle-btn';
+    document.getElementById('btnNein').className = 'toggle-btn';
+    document.getElementById('class-section').classList.remove('visible');
+    document.getElementById('successView').classList.remove('visible');
+    document.getElementById('formView').style.display = '';
+
+    const btn = document.getElementById('submitBtn');
+    btn.disabled = false;
+    btn.innerHTML = 'Absenden →';
+  }
+
+  // ── INIT ──
+  window.addEventListener('load', initQR);
+</script>
+</body>
+</html>

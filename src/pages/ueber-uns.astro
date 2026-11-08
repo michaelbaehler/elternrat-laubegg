@@ -74,7 +74,7 @@ import Layout from '../layouts/Layout.astro';
               { name: 'Sicherheit',         desc: 'Massnahmen zur Verkehrs- und Schulwegsicherheit', href: '/themen/sicherheit' },
             ].map(t => (
               <a href={t.href} class="card hover:border-orange group">
-                <p class="font-semibold text-grey-dark group-hover:text-orange transition-colors">{t.name}</p>
+                <p class="font-semibold text-grey-dark group-hover:text-orange-dark transition-colors">{t.name}</p>
                 <p class="text-sm text-grey-muted mt-1">{t.desc}</p>
               </a>
             ))}
@@ -94,7 +94,7 @@ import Layout from '../layouts/Layout.astro';
               { name: 'Michael Bähler', rolle: 'Kommunikation' },
             ].map(p => (
               <div class="flex items-center gap-3">
-                <div class="h-10 w-10 rounded-full bg-orange-light flex items-center justify-center text-orange font-bold text-sm flex-shrink-0">
+                <div class="h-10 w-10 rounded-full bg-orange-light flex items-center justify-center text-orange-dark font-bold text-sm flex-shrink-0">
                   {p.name.split(' ').map((n: string) => n[0]).join('')}
                 </div>
                 <div>
@@ -112,7 +112,7 @@ import Layout from '../layouts/Layout.astro';
           <ul class="space-y-3 text-sm text-grey-mid">
             <li>
               <span class="font-semibold text-grey-dark block">E-Mail</span>
-              <a href="mailto:elternrat_laubegg@gmx.ch" class="text-orange hover:text-orange-dark">elternrat_laubegg@gmx.ch</a>
+              <a href="mailto:elternrat_laubegg@gmx.ch" class="text-orange-dark hover:text-orange-darker">elternrat_laubegg@gmx.ch</a>
             </li>
             <li>
               <span class="font-semibold text-grey-dark block">Adresse</span>
@@ -129,7 +129,7 @@ import Layout from '../layouts/Layout.astro';
         <div class="card bg-grey-bg border-grey-border">
           <p class="text-xs text-grey-muted uppercase font-semibold mb-2">Zugehörigkeit</p>
           <p class="text-sm font-semibold text-grey-dark">Schulkreis Kirchenfeld-Schosshalde</p>
-          <a href="https://kirchenfeld-schosshalde.ch/laubegg" target="_blank" rel="noopener" class="text-xs text-orange hover:text-orange-dark mt-2 inline-block">
+          <a href="https://kirchenfeld-schosshalde.ch/laubegg" target="_blank" rel="noopener" class="text-xs text-orange-dark hover:text-orange-darker mt-2 inline-block">
             Website des Schulkreises →
           </a>
         </div>

@@ -5,11 +5,11 @@ export default {
     extend: {
       colors: {
         orange: {
-          DEFAULT: '#FFAA44',
-          dark:    '#E8952A',
-          darker:  '#C87818',
-          light:   '#FFF0D6',
-          lighter: '#FFFAF2',
+          DEFAULT: '#F7890A',
+          dark:    '#B35C00',
+          darker:  '#8A4700',
+          light:   '#FEE9D0',
+          lighter: '#FFF8F0',
         },
         grey: {
           dark:   '#222222',

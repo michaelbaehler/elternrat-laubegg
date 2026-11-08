@@ -24,7 +24,7 @@
     @apply inline-flex items-center gap-2 bg-orange text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-orange-dark transition-colors duration-150 shadow-sm;
   }
   .btn-secondary {
-    @apply inline-flex items-center gap-2 bg-white text-grey-dark font-semibold px-5 py-2.5 rounded-lg border border-grey-border hover:border-orange hover:text-orange transition-colors duration-150;
+    @apply inline-flex items-center gap-2 bg-white text-grey-dark font-semibold px-5 py-2.5 rounded-lg border border-grey-border hover:border-orange hover:text-orange-dark transition-colors duration-150;
   }
   .badge {
     @apply inline-block text-xs font-semibold px-2.5 py-0.5 rounded-full;

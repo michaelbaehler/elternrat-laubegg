@@ -1,10 +1,10 @@
 ---
-// Variante A «Schulhaus»: grosses Foto, klare Gliederung, ruhig und einladend.
-import TerminCard from '../TerminCard.astro';
-import HelferCard from '../HelferCard.astro';
-import { THEMEN } from '../../lib/themen';
-import { startseitenDaten } from '../../lib/startseite';
-import { KONTAKT_EMAIL } from '../../site.config';
+// Startseite: grosses Foto, Themen, Termine, Helfereinsätze und Mitmachen.
+import TerminCard from './TerminCard.astro';
+import HelferCard from './HelferCard.astro';
+import { THEMEN } from '../lib/themen';
+import { startseitenDaten } from '../lib/startseite';
+import { KONTAKT_EMAIL } from '../site.config';
 
 const { termine, einsaetze } = await startseitenDaten();
 ---
@@ -66,19 +66,39 @@ const { termine, einsaetze } = await startseitenDaten();
           <HelferCard title={e.data.title} date={e.data.date} time={e.data.time} location={e.data.location} description={e.data.description}
             spotsTotal={e.data.spotsTotal} spotsTaken={e.data.spotsTaken} deadline={e.data.deadline} slug={e.slug} />
         ))}
-        {einsaetze.length === 0 && <div class="card text-grey-muted">Im Moment sind keine Einsätze offen. Danke an alle, die mitgeholfen haben!</div>}
+        {einsaetze.length === 0 && <div class="card text-grey-muted">Im Moment ist kein Einsatz ausgeschrieben. Bald suchen wir Helfende fürs Adventsznüni und die Schlittschuh-Rücknahme – schau wieder vorbei!</div>}
       </div>
     </section>
   </div>
 </div>
 
-<section class="max-w-6xl mx-auto px-4 sm:px-6 py-14 grid md:grid-cols-2 gap-8 items-center">
+<section class="max-w-6xl mx-auto px-4 sm:px-6 py-14">
+  <h2 class="section-title">So kannst du mitmachen</h2>
+  <p class="section-subtitle">Ob eine Stunde oder ein ganzes Schuljahr – jede Unterstützung zählt.</p>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    {[
+      { titel: 'Mithelfen', text: 'Beim Adventsznüni, beim Schlittschuhverleih oder bei Raus Laus – melde dich für einen Einsatz.', href: '/helfereinsaetze', link: 'Zu den Helfereinsätzen' },
+      { titel: 'Dazulernen', text: 'Besuche unsere Anlässe zur Elternbildung – zu Themen, die Familien bewegen.', href: '/themen/elternbildung', link: 'Zur Elternbildung' },
+      { titel: 'Anpacken', text: 'Arbeite in einer Themengruppe mit. Dafür musst du nicht im Elternrat sein.', href: '/themen', link: 'Zu den Themengruppen' },
+      { titel: 'Deine Klasse vertreten', text: 'Werde Elternratsvertreter:in deiner Klasse und rede an den vier Sitzungen im Jahr mit.', href: '/ueber-uns', link: 'Was dazugehört' },
+    ].map(m => (
+      <a href={m.href} class="card flex flex-col group">
+        <p class="font-bold text-lg text-grey-dark group-hover:text-orange-dark">{m.titel}</p>
+        <p class="text-sm text-grey-mid mt-2 flex-1">{m.text}</p>
+        <span class="text-sm font-semibold text-orange-dark mt-4">{m.link} →</span>
+      </a>
+    ))}
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 pb-14 grid md:grid-cols-2 gap-8 items-center">
   <img src="/images/fotos/aula-laubegg.jpg" alt="Die Aula im Schulhaus Laubegg" class="rounded-2xl w-full aspect-[3/2] object-cover" loading="lazy" />
   <div>
     <h2 class="section-title">Vier Abende im Jahr</h2>
     <p class="text-grey-mid mt-2">
-      An unseren Sitzungen in der Aula Laubegg besprechen wir Anliegen aus den Klassen, hören, was die Schulleitung beschäftigt,
-      und planen unsere Projekte. Interessierte Eltern sind jederzeit willkommen.
+      An den Sitzungen in der Aula Laubegg treffen sich die Elternratsvertreter:innen aller Klassen.
+      Sie bringen die Anliegen ihrer Klassen ein, tauschen sich mit der Schulleitung aus und planen die Projekte des Elternrats.
+      Die Protokolle findest du online.
     </p>
     <div class="mt-6 flex flex-wrap gap-3">
       <a href="/sitzungen" class="btn-secondary">Sitzungen und Protokolle</a>

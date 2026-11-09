@@ -10,7 +10,7 @@ Astro 4 + Tailwind, statisch generiert, deployt über Netlify (Auto-Deploy bei P
 
 Zwei Wege:
 
-1. **CMS unter `/admin`** (Decap CMS) für Routine-Inhalte (Termine, Helfereinsätze, Protokolle, ERL-Infos). Login mit GitHub-Konto (Backend `github`, Netlify als OAuth-Provider über `base_url: https://api.netlify.com` / `site_domain`). Voraussetzung: GitHub-OAuth-App, deren Client-ID/Secret in Netlify unter *Site configuration → Access & security → OAuth* hinterlegt ist; Callback-URL `https://api.netlify.com/auth/done`. Bearbeiter brauchen Schreibrecht aufs Repo. Jede Speicherung ist ein Commit direkt auf `main` (→ Auto-Deploy).
+1. **CMS unter `/admin`** (Decap CMS) für Routine-Inhalte (Termine, Helfereinsätze, Sitzungen/Protokolle). Login mit GitHub-Konto (Backend `github`, Netlify als OAuth-Provider über `base_url: https://api.netlify.com` / `site_domain`). Voraussetzung: GitHub-OAuth-App, deren Client-ID/Secret in Netlify unter *Site configuration → Access & security → OAuth* hinterlegt ist; Callback-URL `https://api.netlify.com/auth/done`. Bearbeiter brauchen Schreibrecht aufs Repo. Jede Speicherung ist ein Commit direkt auf `main` (→ Auto-Deploy).
 2. **Über Claude** für grössere Änderungen: Claude bearbeitet direkt die Dateien, committet und pusht (nach Rückfrage beim Nutzer).
 
 Netlify Identity / Git Gateway wird **nicht** genutzt.
@@ -19,7 +19,7 @@ Datumsfelder werden in `src/content/config.ts` über `isoDate` normalisiert, wei
 
 ## Content Collections (`src/content/`)
 
-Texte: Schweizer Schreibweise (ss, «»), Du-Form, freundlich und klar. Themengruppen-Daten zentral in `src/lib/themen.ts`, Kontakt-E-Mail in `src/site.config.ts`. Themengrafiken (`public/images/themen/*.svg`) sind von Hand gezeichnete SVGs (Text als Pfade, Palette wie Logo).
+Texte: Schweizer Schreibweise (ss, «»), Du-Form, freundlich und klar. Sitzungen sind für die Elternratsvertreter:innen, nicht für alle Eltern; alle Eltern können bei Helfereinsätzen, Elternbildung und Themengruppen mitmachen oder Elternratsvertreter:in werden. Themengruppen-Daten zentral in `src/lib/themen.ts`, Kontakt-E-Mail in `src/site.config.ts`. Themengrafiken (`public/images/themen/*.svg`) sind von Hand gezeichnete SVGs (Text als Pfade, Palette wie Logo).
 
 Schema in `src/content/config.ts`. Dateiname = beliebiger Slug, wird zu URL-Segment.
 
@@ -69,6 +69,6 @@ PDFs liegen in `public/uploads/`.
 
 ## Bekannte offene Punkte
 
-- Startseite: drei Entwürfe unter `/entwuerfe/startseite-a|b|c` (Komponenten in `src/components/startseite/`). Nach dem Entscheid gewählte Variante in `src/pages/index.astro` belassen, Rest löschen.
+- Startseite (`src/components/Startseite.astro`) nutzt Fotos von der alten Seite; das Schulhaus-Foto ist klein und hat einen Leinwand-Filter – bei Gelegenheit durch ein neues ersetzen.
 - `sitzung-anmeldung.html` (öffentlicher Ordner, Einzelseite) ist aktuell **kaputt**: ruft die gelöschte Netlify-Funktion (`/api/sheets-proxy`) auf, die per Claude-API+MCP eine Google-Sheets-Zeile schreiben sollte. Nicht im aktuellen Scope — bei Bedarf neu aufgleisen (z.B. Google Apps Script Web App statt LLM-Umweg).
 - Domain-Umzug `elternratlaubegg.ch` (Produktiv-Domain, aktuell noch alte Seite via Hoststar) auf Netlify steht noch aus; erst die Test-Subdomain `new.elternratlaubegg.ch` ist umgestellt.

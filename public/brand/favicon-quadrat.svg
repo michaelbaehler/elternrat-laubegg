@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" role="img" aria-label="ERL – Elternrat Laubegg">
+  <rect width="400" height="400" rx="88" fill="#363636"/>
+  <circle cx="67.7" cy="117.3" r="8" fill="#A0A0A0"/>
+  <circle cx="109.4" cy="73" r="9.2" fill="#ACACAC"/>
+  <circle cx="164.9" cy="48" r="12" fill="#C9C9C9"/>
+  <circle cx="226" cy="46.2" r="16.8" fill="#FBFBFB"/>
+  <circle cx="290.2" cy="72.7" r="20" fill="#F7890A"/>
+  <circle cx="336.5" cy="124.4" r="20" fill="#F7890A"/>
+  <circle cx="355.7" cy="191.1" r="20" fill="#F7890A"/>
+  <circle cx="344.2" cy="259.6" r="18.4" fill="#F7890A"/>
+  <circle cx="304" cy="316.2" r="17.2" fill="#FFFFFF"/>
+  <circle cx="243.3" cy="349.9" r="15.2" fill="#EAEAEA"/>
+  <circle cx="174" cy="353.8" r="12.4" fill="#CDCDCD"/>
+  <circle cx="109.8" cy="327.3" r="9.6" fill="#B1B1B1"/>
+  <path fill="#FFFFFF" d="M70.6 256V145.4H139.8V166.4H95.6V188.6H133.2V209.5H95.6V235H141.5V256ZM163.6 256V145.4H203.5Q215.2 145.4 224.9 148.5Q234.5 151.6 240.3 159.2Q246.1 166.7 246.1 179.8Q246.1 192.5 240.3 200.5Q234.5 208.5 224.9 212.3Q215.2 216.1 203.5 216.1H188.5V256ZM188.5 196.3H201.4Q211.3 196.3 216.5 192.1Q221.6 188 221.6 179.8Q221.6 171.7 216.5 168.4Q211.3 165.2 201.4 165.2H188.5ZM223.5 256 198.9 209.7 216.2 193.6 251.5 256ZM267.6 256V145.4H292.6V235H336.4V256Z"/>
+</svg>

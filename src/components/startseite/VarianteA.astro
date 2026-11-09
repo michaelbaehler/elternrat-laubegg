@@ -1,0 +1,88 @@
+---
+// Variante A «Schulhaus»: grosses Foto, klare Gliederung, ruhig und einladend.
+import TerminCard from '../TerminCard.astro';
+import HelferCard from '../HelferCard.astro';
+import { THEMEN } from '../../lib/themen';
+import { startseitenDaten } from '../../lib/startseite';
+import { KONTAKT_EMAIL } from '../../site.config';
+
+const { termine, einsaetze } = await startseitenDaten();
+---
+
+<section class="relative isolate overflow-hidden">
+  <img src="/images/fotos/schulhaus-laubegg.jpg" alt="Schulhaus Laubegg" class="absolute inset-0 -z-10 h-full w-full object-cover" />
+  <div class="absolute inset-0 -z-10 bg-gradient-to-r from-grey-dark/85 via-grey-dark/60 to-grey-dark/20"></div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-20 sm:py-28 text-white">
+    <p class="text-sm font-semibold uppercase tracking-widest text-orange">Elternrat Laubegg · Bern</p>
+    <h1 class="mt-3 text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight max-w-3xl">
+      Gemeinsam für eine Schule, in der sich alle wohlfühlen.
+    </h1>
+    <p class="mt-5 text-lg text-white/85 max-w-2xl">
+      Wir sind Eltern aus allen Klassen der Schule Laubegg. Wir bringen Anliegen ein, packen bei Projekten an
+      und freuen uns über alle, die mitmachen.
+    </p>
+    <div class="mt-8 flex flex-wrap gap-3">
+      <a href="/helfereinsaetze" class="btn-primary text-base">Mithelfen</a>
+      <a href="/ueber-uns" class="inline-flex items-center gap-2 rounded-lg border border-white/40 px-5 py-2.5 font-semibold text-white hover:bg-white/10">Wer wir sind →</a>
+    </div>
+  </div>
+</section>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 py-14">
+  <h2 class="section-title">Unsere Themen</h2>
+  <p class="section-subtitle">Hier sind wir aktiv – und du kannst überall mitmachen.</p>
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+    {THEMEN.map(t => (
+      <a href={t.href} class="group rounded-2xl overflow-hidden border border-grey-border bg-white hover:border-orange hover:shadow-md transition-all">
+        <div class="aspect-[20/11] overflow-hidden"><img src={t.img} alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" /></div>
+        <div class="p-3">
+          <p class="font-bold text-grey-dark group-hover:text-orange-dark leading-tight">{t.name}</p>
+          <p class="text-xs text-grey-muted mt-1 hidden sm:block">{t.kurz}</p>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>
+
+<div class="bg-grey-bg">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-14 grid lg:grid-cols-2 gap-12">
+    <section>
+      <div class="flex items-end justify-between mb-5">
+        <h2 class="section-title mb-0">Nächste Termine</h2>
+        <a href="/termine" class="text-sm font-semibold text-orange-dark hover:text-orange-darker">Alle Termine →</a>
+      </div>
+      <div class="flex flex-col gap-3">
+        {termine.slice(0, 4).map(t => <TerminCard {...t} />)}
+        {termine.length === 0 && <p class="text-grey-muted">Zurzeit sind keine Termine eingetragen.</p>}
+      </div>
+    </section>
+    <section>
+      <div class="flex items-end justify-between mb-5">
+        <h2 class="section-title mb-0">Wir suchen Helfende</h2>
+        <a href="/helfereinsaetze" class="text-sm font-semibold text-orange-dark hover:text-orange-darker">Alle Einsätze →</a>
+      </div>
+      <div class="flex flex-col gap-4">
+        {einsaetze.slice(0, 2).map(e => (
+          <HelferCard title={e.data.title} date={e.data.date} time={e.data.time} location={e.data.location} description={e.data.description}
+            spotsTotal={e.data.spotsTotal} spotsTaken={e.data.spotsTaken} deadline={e.data.deadline} slug={e.slug} />
+        ))}
+        {einsaetze.length === 0 && <div class="card text-grey-muted">Im Moment sind keine Einsätze offen. Danke an alle, die mitgeholfen haben!</div>}
+      </div>
+    </section>
+  </div>
+</div>
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 py-14 grid md:grid-cols-2 gap-8 items-center">
+  <img src="/images/fotos/aula-laubegg.jpg" alt="Die Aula im Schulhaus Laubegg" class="rounded-2xl w-full aspect-[3/2] object-cover" loading="lazy" />
+  <div>
+    <h2 class="section-title">Vier Abende im Jahr</h2>
+    <p class="text-grey-mid mt-2">
+      An unseren Sitzungen in der Aula Laubegg besprechen wir Anliegen aus den Klassen, hören, was die Schulleitung beschäftigt,
+      und planen unsere Projekte. Interessierte Eltern sind jederzeit willkommen.
+    </p>
+    <div class="mt-6 flex flex-wrap gap-3">
+      <a href="/sitzungen" class="btn-secondary">Sitzungen und Protokolle</a>
+      <a href={`mailto:${KONTAKT_EMAIL}`} class="btn-primary">Schreib uns</a>
+    </div>
+  </div>
+</section>

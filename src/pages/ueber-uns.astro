@@ -1,101 +1,169 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { KONTAKT_EMAIL } from '../site.config';
+
+const praesidium = [
+  { name: 'Jennifer Donath', rolle: 'Finanzen' },
+  { name: 'Michael Bähler', rolle: 'Kommunikation' },
+];
+
+const dokumente = [
+  { label: 'Präsentation des Elternrats an den Elternabenden 2025/2026', href: '/uploads/praesentation-elternabende-2025-26.pdf' },
+  { label: 'Aufgaben der Elternratsvertretung', href: '/uploads/aufgaben-elternratsvertretung.pdf' },
+  { label: 'Aufgaben des Präsidiums 2025/2026', href: '/uploads/aufgaben-praesidium-2025-26.pdf' },
+  { label: 'Organisation Schulstandort Laubegg', href: '/uploads/organisation-schulstandort-laubegg.pdf' },
+  { label: 'Der Elternrat Laubegg im Kreiselternrat Kirchenfeld-Schosshalde', href: '/uploads/einbettung-kreiselternrat.pdf' },
+];
 ---
 
-<Layout title="Über uns" description="Der Elternrat Laubegg – wer wir sind, wie wir uns organisieren und wie du mitmachen kannst.">
+<Layout title="Über uns" description="Wer wir sind, wie der Elternrat Laubegg organisiert ist und wie du mitmachen kannst.">
 
-  <!-- Page Header -->
   <div class="bg-orange-lighter border-b border-grey-border">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
-      <span class="badge-orange mb-3 inline-block">Organisation</span>
-      <h1 class="text-3xl sm:text-4xl font-extrabold text-grey-dark">Über den Elternrat Laubegg</h1>
-      <p class="text-grey-mid mt-2 max-w-xl">Wer wir sind, was wir tun und wie du mitmachen kannst.</p>
+      <span class="badge-orange mb-3 inline-block">Über uns</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-grey-dark">Wir sind der Elternrat Laubegg</h1>
+      <p class="text-grey-mid mt-2 max-w-2xl">
+        Eltern für Eltern – und für eine Schule, in der sich alle wohlfühlen.
+      </p>
     </div>
   </div>
 
   <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
     <div class="grid lg:grid-cols-3 gap-12">
 
-      <!-- Main content -->
-      <div class="lg:col-span-2 space-y-10">
+      <div class="lg:col-span-2 space-y-12">
 
-        <!-- Was ist der ERL? -->
         <section>
-          <h2 class="text-xl font-bold text-grey-dark mb-4 pb-2 border-b border-grey-border">Was ist der Elternrat?</h2>
-          <div class="prose prose-sm max-w-none text-grey-mid leading-relaxed space-y-4">
+          <h2 class="text-xl font-bold text-grey-dark mb-4 pb-2 border-b border-grey-border">Was wir tun</h2>
+          <div class="prose prose-sm max-w-none text-grey-mid leading-relaxed">
             <p>
-              Der Elternrat Laubegg (ERL) ist das Informations- und Austauschgremium der Eltern
-              an der Schule Laubegg in Bern. Er besteht aus Elternvertreterinnen und Elternvertretern
-              der einzelnen Klassen — in der Regel 1–2 Personen pro Klasse.
+              Der Elternrat Laubegg (ERL) verbindet die Eltern der Schule Laubegg untereinander und mit der Schule.
+              Aus jeder Kindergarten- und Schulklasse sind in der Regel ein bis zwei Eltern dabei.
             </p>
             <p>
-              Der ERL befasst sich mit klassenübergreifenden Anliegen der Eltern, sammelt Ideen
-              und setzt diese in Themengruppen um. <strong>Alle Eltern sind herzlich willkommen</strong>,
-              bei Sitzungen teilzunehmen oder in einer Themengruppe mitzumachen —
-              eine Mitgliedschaft ist nicht erforderlich.
+              Wir nehmen klassenübergreifende Anliegen auf, bringen sie bei der Schulleitung ein und suchen gemeinsam nach Lösungen.
+              Wir unterstützen Schulleitung und Lehrpersonen bei der Weiterentwicklung der Schulhauskultur
+              und sind im Kreiselternrat Kirchenfeld-Schosshalde sowie in der Schulkommission vertreten.
             </p>
             <p>
-              Der ERL fördert eine konstruktive Zusammenarbeit zwischen Eltern und Lehrpersonen
-              und unterstützt die Schulleitung bei der Weiterentwicklung der Schulkultur.
-              Er ist ausserdem vertreten im Schulkreis-Elternrat und in der Schulkommission.
+              Und wir packen an: mit dem Schlittschuhverleih, der Läusekontrolle Raus Laus, Anlässen wie dem Adventsznüni
+              und Aktionen für einen sicheren Schulweg. <strong>Mitmachen können alle Eltern</strong> – auch ohne Mitglied im Elternrat zu sein.
             </p>
           </div>
         </section>
 
-        <!-- Sitzungen -->
         <section>
-          <h2 class="text-xl font-bold text-grey-dark mb-4 pb-2 border-b border-grey-border">Sitzungen</h2>
-          <div class="card bg-orange-lighter border-orange/20">
-            <div class="flex items-start gap-4">
-              <div class="text-3xl">📅</div>
-              <div>
-                <p class="font-semibold text-grey-dark">4 Sitzungen pro Schuljahr</p>
-                <p class="text-grey-mid text-sm mt-1">
-                  Jeweils <strong>Montag, 19:30 Uhr</strong><br/>
-                  Aula Schulhaus Laubegg
-                </p>
-                <a href="/sitzungen" class="btn-secondary mt-3 text-sm py-1.5 px-4">
-                  Protokolle ansehen →
-                </a>
-              </div>
+          <h2 class="text-xl font-bold text-grey-dark mb-4 pb-2 border-b border-grey-border">Unsere Schule</h2>
+          <p class="text-sm text-grey-mid mb-4">Zur Schule Laubegg gehören diese Standorte:</p>
+          <div class="grid sm:grid-cols-2 gap-3">
+            <div class="card">
+              <p class="font-semibold text-grey-dark">Kindergärten</p>
+              <p class="text-sm text-grey-mid mt-1">Egelsee I und II, Rosengarten, Schöngrün, Sonnenhof I und II, Wyssloch I und II</p>
+            </div>
+            <div class="card">
+              <p class="font-semibold text-grey-dark">Schulhäuser</p>
+              <p class="text-sm text-grey-mid mt-1">Laubegg, Rosengarten, Sonnenhof, Wyssloch</p>
             </div>
           </div>
         </section>
 
-        <!-- Themengruppen -->
         <section>
-          <h2 class="text-xl font-bold text-grey-dark mb-4 pb-2 border-b border-grey-border">Themengruppen</h2>
-          <div class="grid sm:grid-cols-2 gap-3">
-            {[
-              { name: 'Schlittschuhverleih', desc: 'Jährlicher Verleih an den Standorten Laubegg, Sonnenhof und Baumgarten', href: '/themen/schlittschuhverleih' },
-              { name: 'Events',             desc: 'Frühlingstreffen, Adventsznüni und weitere schulübergreifende Veranstaltungen', href: '/themen/events' },
-              { name: 'Elternbildung',      desc: 'Infoveranstaltungen, Referate und Elterndialoge', href: '/themen/elternbildung' },
-              { name: 'Raus Laus',          desc: 'Periodische Kontrollen nach den Schulferien', href: '/themen/raus-laus' },
-              { name: 'Sicherheit',         desc: 'Massnahmen zur Verkehrs- und Schulwegsicherheit', href: '/themen/sicherheit' },
-            ].map(t => (
-              <a href={t.href} class="card hover:border-orange group">
-                <p class="font-semibold text-grey-dark group-hover:text-orange-dark transition-colors">{t.name}</p>
-                <p class="text-sm text-grey-muted mt-1">{t.desc}</p>
-              </a>
-            ))}
+          <h2 class="text-xl font-bold text-grey-dark mb-4 pb-2 border-b border-grey-border">So sind wir organisiert</h2>
+          <div class="space-y-4">
+            <details class="card group" open>
+              <summary class="font-semibold text-grey-dark cursor-pointer list-none flex justify-between items-center">
+                Elternratsvertreter:innen
+                <span class="text-orange group-open:rotate-180 transition-transform" aria-hidden="true">▾</span>
+              </summary>
+              <div class="prose prose-sm max-w-none text-grey-mid mt-3">
+                <p>Pro Klasse vertreten ein bis zwei Eltern ihre Klasse im Elternrat. Sie …</p>
+                <ul>
+                  <li>klären zu Beginn des Schuljahres mit der Lehrperson, wie sie zusammenarbeiten möchten,</li>
+                  <li>sorgen dafür, dass Informationen zwischen Elternrat und Klasseneltern fliessen, und nehmen klassenübergreifende Anliegen auf,</li>
+                  <li>sammeln den Elternratsbeitrag ein (per Twint),</li>
+                  <li>nehmen an den vier Sitzungen teil und wirken in Themengruppen mit,</li>
+                  <li>schauen, dass ihre Klasse auch im nächsten Schuljahr vertreten ist.</li>
+                </ul>
+                <p>
+                  <strong>Was nicht dazugehört:</strong> Konflikte einzelner Kinder lösen, Einzelinteressen vertreten oder auf Unterricht,
+                  Lerninhalte und Disziplinarisches Einfluss nehmen. Das direkte Gespräch zwischen Eltern und Lehrpersonen ersetzt der Elternrat nicht.
+                </p>
+              </div>
+            </details>
+            <details class="card group">
+              <summary class="font-semibold text-grey-dark cursor-pointer list-none flex justify-between items-center">
+                Präsidium
+                <span class="text-orange group-open:rotate-180 transition-transform" aria-hidden="true">▾</span>
+              </summary>
+              <div class="prose prose-sm max-w-none text-grey-mid mt-3">
+                <p>
+                  Das Präsidium besteht aus zwei bis fünf Personen. Es bereitet die Sitzungen vor und leitet sie,
+                  tauscht sich regelmässig mit der Schulleitung aus, unterstützt die Themengruppen, führt die Finanzen,
+                  betreut E-Mail und Website und vertritt den Elternrat im Kreiselternrat.
+                </p>
+                <p>
+                  <strong>Wir suchen Verstärkung!</strong> Viele Aufgaben lassen sich gut aufteilen –
+                  schon ein kleiner Beitrag entlastet. Melde dich, wenn du Lust hast.
+                </p>
+              </div>
+            </details>
+            <details class="card group">
+              <summary class="font-semibold text-grey-dark cursor-pointer list-none flex justify-between items-center">
+                Themengruppen
+                <span class="text-orange group-open:rotate-180 transition-transform" aria-hidden="true">▾</span>
+              </summary>
+              <div class="prose prose-sm max-w-none text-grey-mid mt-3">
+                <p>
+                  In den Themengruppen setzen wir Projekte um: Schlittschuhverleih, Events, Elternbildung, Raus Laus und Sicherheit.
+                  Sie stehen allen Eltern offen. <a href="/themen">Zu den Themengruppen</a>
+                </p>
+              </div>
+            </details>
           </div>
         </section>
+
+        <section>
+          <h2 class="text-xl font-bold text-grey-dark mb-4 pb-2 border-b border-grey-border">Der Elternratsbeitrag</h2>
+          <div class="prose prose-sm max-w-none text-grey-mid leading-relaxed">
+            <p>
+              Der Elternrat ist unabhängig und erhält kein Geld aus dem Schulbudget. Damit wir trotzdem Projekte umsetzen können,
+              bitten wir die Eltern um einen freiwilligen Beitrag – den Elternratsbeitrag (früher «Elternratsfranken»).
+            </p>
+            <p>
+              Wir sammeln ihn einmal im Jahr am Elternabend, bequem per Twint über einen QR-Code. Verpasst? Kein Problem – du kannst ihn
+              jederzeit nachträglich überweisen.
+            </p>
+            <p>
+              Mit dem Geld unterstützen wir Projekte, die möglichst vielen Kindern und Eltern zugutekommen, nachhaltig wirken
+              und zu einem guten Schulklima beitragen. Nicht finanziert werden Wünsche einzelner Klassen oder Aufgaben, für die die Schule zuständig ist.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-bold text-grey-dark mb-4 pb-2 border-b border-grey-border">Dokumente</h2>
+          <ul class="space-y-2">
+            {dokumente.map(d => (
+              <li>
+                <a href={d.href} target="_blank" rel="noopener" class="flex items-center gap-3 p-3 rounded-lg border border-grey-border hover:border-orange transition-colors group">
+                  <span class="badge bg-grey-light text-grey-mid">PDF</span>
+                  <span class="text-sm text-grey-dark group-hover:text-orange-dark">{d.label}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+
       </div>
 
-      <!-- Sidebar -->
       <aside class="space-y-6">
-
-        <!-- Vorstand -->
         <div class="card">
-          <h3 class="font-bold text-grey-dark mb-4">Vorstand</h3>
+          <h3 class="font-bold text-grey-dark mb-4">Präsidium</h3>
           <div class="space-y-4">
-            {[
-              { name: 'Jennifer Donath', rolle: 'Präsidentin · Finanzen' },
-              { name: 'Michael Bähler', rolle: 'Kommunikation' },
-            ].map(p => (
+            {praesidium.map(p => (
               <div class="flex items-center gap-3">
-                <div class="h-10 w-10 rounded-full bg-orange-light flex items-center justify-center text-orange-dark font-bold text-sm flex-shrink-0">
-                  {p.name.split(' ').map((n: string) => n[0]).join('')}
+                <div class="h-10 w-10 rounded-full bg-orange-light flex items-center justify-center text-orange-dark font-bold text-sm flex-shrink-0" aria-hidden="true">
+                  {p.name.split(' ').map(n => n[0]).join('')}
                 </div>
                 <div>
                   <p class="font-semibold text-sm text-grey-dark">{p.name}</p>
@@ -106,35 +174,32 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
 
-        <!-- Kontakt -->
         <div class="card">
-          <h3 class="font-bold text-grey-dark mb-4">Kontakt & Bankverbindung</h3>
+          <h3 class="font-bold text-grey-dark mb-4">Kontakt</h3>
           <ul class="space-y-3 text-sm text-grey-mid">
             <li>
               <span class="font-semibold text-grey-dark block">E-Mail</span>
-              <a href="mailto:elternrat_laubegg@gmx.ch" class="text-orange-dark hover:text-orange-darker">elternrat_laubegg@gmx.ch</a>
+              <a href={`mailto:${KONTAKT_EMAIL}`} class="text-orange-dark hover:text-orange-darker break-all">{KONTAKT_EMAIL}</a>
             </li>
             <li>
-              <span class="font-semibold text-grey-dark block">Adresse</span>
-              Schosshaldenstrasse 37<br/>3006 Bern
+              <span class="font-semibold text-grey-dark block">Postadresse</span>
+              Elternrat Laubegg<br/>Schosshaldenstrasse 37<br/>3006 Bern
             </li>
             <li>
-              <span class="font-semibold text-grey-dark block">IBAN</span>
-              CH20 0079 0042 9769 3540 6
+              <span class="font-semibold text-grey-dark block">Konto</span>
+              Elternrat Laubegg Bern<br/>IBAN CH20 0079 0042 9769 3540 6
             </li>
           </ul>
         </div>
 
-        <!-- Schulkreis -->
-        <div class="card bg-grey-bg border-grey-border">
-          <p class="text-xs text-grey-muted uppercase font-semibold mb-2">Zugehörigkeit</p>
-          <p class="text-sm font-semibold text-grey-dark">Schulkreis Kirchenfeld-Schosshalde</p>
-          <a href="https://kirchenfeld-schosshalde.ch/laubegg" target="_blank" rel="noopener" class="text-xs text-orange-dark hover:text-orange-darker mt-2 inline-block">
-            Website des Schulkreises →
-          </a>
+        <div class="card bg-grey-bg">
+          <h3 class="font-bold text-grey-dark mb-2">Sitzungen</h3>
+          <p class="text-sm text-grey-mid">Viermal pro Schuljahr, jeweils Montag um 19:30 Uhr in der Aula des Schulhauses Laubegg.</p>
+          <a href="/sitzungen" class="text-sm font-semibold text-orange-dark hover:text-orange-darker mt-3 inline-block">Daten und Protokolle →</a>
         </div>
-
       </aside>
+
     </div>
   </div>
+
 </Layout>

@@ -19,6 +19,8 @@ Datumsfelder werden in `src/content/config.ts` über `isoDate` normalisiert, wei
 
 ## Content Collections (`src/content/`)
 
+Texte: Schweizer Schreibweise (ss, «»), Du-Form, freundlich und klar. Themengruppen-Daten zentral in `src/lib/themen.ts`, Kontakt-E-Mail in `src/site.config.ts`. Themengrafiken (`public/images/themen/*.svg`) sind von Hand gezeichnete SVGs (Text als Pfade, Palette wie Logo).
+
 Schema in `src/content/config.ts`. Dateiname = beliebiger Slug, wird zu URL-Segment.
 
 **`helfereinsaetze/`** (Helfereinsatz-Anmeldungen, Datei pro Einsatz)
@@ -28,15 +30,18 @@ date: "2026-10-22"          # ISO, steuert "offen"/"vergangen"
 time: "07:30–08:30"          # optional
 location: "Schulhaus Sonnenhof"
 description: "..."
-spotsTotal: 3
-spotsTaken: 0                 # manuell nachführen bei Anmeldungen
+formUrl: "https://docs.google.com/forms/d/e/…/viewform"  # optional
+spotsTotal: 3                 # optional
+spotsTaken: 0                 # optional, manuell nachführen
 deadline: "2026-10-19"        # optional
 active: true                  # auf false setzen statt löschen, um auszublenden
 thema: "Schlittschuhverleih"  # optional: Schlittschuhverleih/Events/Elternbildung/Raus Laus/Sicherheit/Sonstiges
 ```
 Body (Markdown unter dem Frontmatter) = zusätzliche Detailhinweise, optional.
 
-Anmeldung läuft über **ein gemeinsames Netlify Form** (`name="helfer-anmeldung"`, siehe `src/pages/helfereinsaetze/[slug].astro`) — pro Seite nur unterschiedliche hidden fields (`einsatz`, `datum`). Einträge landen im Netlify-Dashboard unter Forms, nicht in einer Datenbank/Sheet. (Wechsel zu individuellen Google Forms pro Einsatz war in Diskussion, aber noch nicht entschieden/umgesetzt.)
+Anmeldung läuft über **Google Forms** (pro Einsatz ein Formular, das die Elternratsvertretung selbst erstellt): Feld `formUrl`. Lange URL (`docs.google.com/forms/…`) wird eingebettet, `forms.gle/…` nur verlinkt; ohne `formUrl` zeigt die Seite «Anmeldung folgt» mit E-Mail-Link. `spotsTotal`/`spotsTaken` sind optional. Kein Netlify Form mehr.
+
+**Termine aus dem Google Sheet:** Zusätzlich zu `termine/` liest `src/lib/termine.ts` beim Build ein als CSV veröffentlichtes Google Sheet («Kalender»; URL in `src/site.config.ts` oder Env `TERMINE_SHEET_CSV_URL`). Fällt das Sheet aus, baut die Seite trotzdem. Spalten, Veröffentlichung und täglicher Rebuild per Netlify-Build-Hook + Apps Script: `docs/termine-google-sheet.md`. Seiten nutzen `getAlleTermine()`, nicht direkt `getCollection('termine')`.
 
 **`termine/`** (Terminübersicht)
 ```yaml
@@ -54,20 +59,16 @@ title: "2. Sitzung Elternrat 2025/2026"
 date: "2025-11-17"
 schuljahr: "2025/2026"
 protokollUrl: "/uploads/protokoll-2025-11-17.pdf"   # PDF liegt in public/uploads/ (im CMS direkt hochladbar)
+praesentationUrl: "/uploads/praesentation-2025-11-17.pdf"  # optional
 passwort: true
 ```
 
-**`erl-infos/`** (Elternrat-Infobriefe)
-```yaml
-title: "ERL-Info September 2024"
-date: "2024-09-01"
-fileUrl: "/uploads/erl-info-09-24.pdf"
-summary: "..."
-```
+Protokolle 2023/24–2025/26 verlinken noch auf passwortgeschützte Seiten der alten WordPress-Site (www.elternratlaubegg.ch). **Vor dem Domain-Umzug** als PDF sichern, sonst brechen die Links.
 
 PDFs liegen in `public/uploads/`.
 
 ## Bekannte offene Punkte
 
+- Startseite: drei Entwürfe unter `/entwuerfe/startseite-a|b|c` (Komponenten in `src/components/startseite/`). Nach dem Entscheid gewählte Variante in `src/pages/index.astro` belassen, Rest löschen.
 - `sitzung-anmeldung.html` (öffentlicher Ordner, Einzelseite) ist aktuell **kaputt**: ruft die gelöschte Netlify-Funktion (`/api/sheets-proxy`) auf, die per Claude-API+MCP eine Google-Sheets-Zeile schreiben sollte. Nicht im aktuellen Scope — bei Bedarf neu aufgleisen (z.B. Google Apps Script Web App statt LLM-Umweg).
 - Domain-Umzug `elternratlaubegg.ch` (Produktiv-Domain, aktuell noch alte Seite via Hoststar) auf Netlify steht noch aus; erst die Test-Subdomain `new.elternratlaubegg.ch` ist umgestellt.

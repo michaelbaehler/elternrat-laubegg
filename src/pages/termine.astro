@@ -1,81 +1,59 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TerminCard from '../components/TerminCard.astro';
-import { getCollection } from 'astro:content';
+import { getAlleTermine, heute } from '../lib/termine';
 
-const today = new Date().toISOString().split('T')[0];
-const alle = await getCollection('termine');
-alle.sort((a, b) => a.data.date.localeCompare(b.data.date));
+const today = heute();
+const alle = await getAlleTermine();
+const kommend = alle.filter(t => t.date >= today);
+const vergangen = alle.filter(t => t.date < today).reverse().slice(0, 8);
 
-const kommend   = alle.filter(t => t.data.date >= today);
-const vergangen = alle.filter(t => t.data.date <  today).reverse();
-
-const kategorien = ['Sitzung', 'Event', 'Schlittschuhverleih', 'Raus Laus', 'Elternbildung', 'Sicherheit', 'Sonstiges'] as const;
-const katColors: Record<string, string> = {
-  'Sitzung':            'bg-blue-100 text-blue-700',
-  'Event':              'bg-green-100 text-green-700',
-  'Schlittschuhverleih':'bg-orange-light text-orange-dark',
-  'Raus Laus':          'bg-purple-100 text-purple-700',
-  'Elternbildung':      'bg-teal-100 text-teal-700',
-  'Sicherheit':         'bg-red-100 text-red-700',
-  'Sonstiges':          'bg-grey-light text-grey-mid',
-};
+// Kommende Termine nach Monat gruppieren
+const proMonat = new Map<string, typeof kommend>();
+for (const t of kommend) {
+  const key = new Date(t.date).toLocaleDateString('de-CH', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+  proMonat.set(key, [...(proMonat.get(key) ?? []), t]);
+}
 ---
 
-<Layout title="Termine" description="Alle Termine des Elternrats Laubegg: Sitzungen, Events, Schlittschuhverleih und mehr.">
+<Layout title="Termine" description="Sitzungen, Anlässe, Schlittschuhverleih und Raus Laus – alle Termine des Elternrats Laubegg.">
 
   <div class="bg-orange-lighter border-b border-grey-border">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 py-10">
       <span class="badge-orange mb-3 inline-block">Kalender</span>
       <h1 class="text-3xl sm:text-4xl font-extrabold text-grey-dark">Termine</h1>
-      <p class="text-grey-mid mt-2">Alle Daten des Elternrats Laubegg auf einen Blick.</p>
+      <p class="text-grey-mid mt-2 max-w-xl">Was läuft wann? Hier findest du alle Daten des Elternrats auf einen Blick.</p>
     </div>
   </div>
 
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
 
-    <!-- Legende -->
-    <div class="flex flex-wrap gap-2 mb-8">
-      {kategorien.map(k => (
-        <span class:list={['badge text-xs', katColors[k]]}>{k}</span>
-      ))}
-    </div>
+    {kommend.length > 0
+      ? [...proMonat].map(([monat, termine]) => (
+          <section class="mb-10">
+            <h2 class="text-sm font-bold uppercase tracking-wider text-orange-dark mb-3">{monat}</h2>
+            <div class="flex flex-col gap-3">
+              {termine.map(t => <TerminCard {...t} />)}
+            </div>
+          </section>
+        ))
+      : <p class="text-grey-muted">Zurzeit sind keine Termine eingetragen.</p>
+    }
 
-    <!-- Kommende Termine -->
-    <section class="mb-12">
-      <h2 class="section-title">Kommende Termine</h2>
-      {kommend.length > 0
-        ? <div class="flex flex-col gap-3">
-            {kommend.map(t => (
-              <TerminCard
-                title={t.data.title}
-                date={t.data.date}
-                time={t.data.time}
-                location={t.data.location}
-                category={t.data.category}
-              />
-            ))}
-          </div>
-        : <p class="text-grey-muted">Aktuell keine bevorstehenden Termine.</p>
-      }
-    </section>
-
-    <!-- Vergangene Termine -->
     {vergangen.length > 0 && (
-      <section>
-        <h2 class="text-lg font-bold text-grey-muted mb-4">Vergangene Termine</h2>
-        <div class="flex flex-col gap-3 opacity-60">
-          {vergangen.slice(0, 10).map(t => (
-            <TerminCard
-              title={t.data.title}
-              date={t.data.date}
-              time={t.data.time}
-              location={t.data.location}
-              category={t.data.category}
-            />
-          ))}
+      <details class="mt-12 group">
+        <summary class="cursor-pointer text-lg font-bold text-grey-muted hover:text-grey-dark list-none flex items-center gap-2">
+          <svg class="h-4 w-4 group-open:rotate-90 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+          </svg>
+          Vergangene Termine
+        </summary>
+        <div class="flex flex-col gap-3 mt-4 opacity-70">
+          {vergangen.map(t => <TerminCard {...t} />)}
         </div>
-      </section>
+      </details>
     )}
+
   </div>
+
 </Layout>

@@ -1,38 +1,62 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ThemaKopf from '../../components/ThemaKopf.astro';
+import { KONTAKT_EMAIL } from '../../site.config';
+
+const rueckblick = [
+  {
+    datum: '24. Februar 2026',
+    titel: 'Elternworkshop «Digitales Gleichgewicht»',
+    text: 'Workshop zum Umgang mit digitalen Medien in der Familie.',
+    href: '/uploads/flyer-workshop-digitales-gleichgewicht-2026-02-24.pdf',
+  },
+  {
+    datum: '4. November 2025',
+    titel: 'Infoabend Jugendlohn',
+    text: 'Wie Kinder lernen, mit eigenem Geld umzugehen – durchgeführt von Chindernetz Bern im Auftrag des Elternrats.',
+    href: '/uploads/flyer-jugendlohn-2025-11-04.pdf',
+  },
+];
 ---
-<Layout title="Elternbildung" description="Informationsveranstaltungen, Referate und Elterndialoge des Elternrats Laubegg.">
-  <div class="border-b border-grey-border overflow-hidden" style="max-height: 240px; position: relative;">
-    <img src="/images/themen/elternbildung.svg" alt="" class="w-full object-cover" style="max-height: 240px;" aria-hidden="true"/>
-    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-7 w-full">
-        <span class="badge bg-white/20 text-white text-xs mb-2 inline-block">Themengruppe</span>
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-white drop-shadow">Elternbildung</h1>
-        <p class="text-white/80 mt-1 text-sm drop-shadow">Wissen und Austausch für Eltern</p>
-      </div>
-    </div>
-  </div>
+
+<Layout title="Elternbildung" description="Infoabende, Workshops und Austausch für Eltern der Schule Laubegg.">
+
+  <ThemaKopf
+    titel="Elternbildung"
+    untertitel="Wissen teilen, Fragen stellen, voneinander lernen."
+    img="/images/themen/elternbildung.svg"
+  />
+
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
-    <div class="prose prose-sm max-w-none text-grey-mid mb-8">
-      <p>Die Themengruppe Elternbildung koordiniert Informationsveranstaltungen, Referate und Elterndialoge rund um Themen der Schule und des Familienlebens. Ziel ist es, Eltern mit Wissen und Werkzeugen zu stärken.</p>
+    <div class="prose prose-sm max-w-none text-grey-mid mb-10">
+      <p class="text-base text-grey-dark">
+        Von Zeit zu Zeit organisieren wir einen Anlass für Eltern: einen Infoabend, ein Referat oder einen Workshop
+        zu Themen, die Familien mit Schulkindern beschäftigen. Oft arbeiten wir dafür mit Fachstellen wie
+        <a href="https://www.chindernetz.be/" target="_blank" rel="noopener">Chindernetz Bern</a> zusammen.
+      </p>
     </div>
-    <div class="grid sm:grid-cols-3 gap-4">
-      {[
-        { icon: '🎤', label: 'Referate', desc: 'Fachpersonen berichten zu relevanten Themen.' },
-        { icon: '💬', label: 'Elterndialoge', desc: 'Offener Austausch unter Eltern.' },
-        { icon: '📋', label: 'Infoveranstaltungen', desc: 'Konkrete Informationen zu schulischen Themen.' },
-      ].map(f => (
-        <div class="card text-center">
-          <span class="text-3xl block mb-2">{f.icon}</span>
-          <p class="font-bold text-grey-dark">{f.label}</p>
-          <p class="text-xs text-grey-muted mt-1">{f.desc}</p>
+
+    <h2 class="text-xl font-bold text-grey-dark mb-4">Rückblick</h2>
+    <div class="space-y-4">
+      {rueckblick.map(r => (
+        <div class="card flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <p class="text-xs font-semibold uppercase tracking-wider text-orange-dark">{r.datum}</p>
+            <p class="font-bold text-grey-dark mt-1">{r.titel}</p>
+            <p class="text-sm text-grey-mid mt-1">{r.text}</p>
+          </div>
+          <a href={r.href} target="_blank" rel="noopener" class="btn-secondary text-sm py-1.5 px-3 whitespace-nowrap">Flyer (PDF)</a>
         </div>
       ))}
     </div>
-    <div class="mt-8 card bg-orange-lighter border-orange/20">
-      <p class="font-semibold text-grey-dark mb-1">Ideen oder Wünsche?</p>
-      <p class="text-sm text-grey-mid">Welche Themen interessieren dich? Schreib uns.</p>
-      <a href="mailto:elternrat_laubegg@gmx.ch" class="btn-primary mt-3 text-sm inline-flex">Kontakt</a>
+
+    <div class="mt-10 card bg-orange-lighter border-orange/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <p class="font-semibold text-grey-dark">Welches Thema interessiert dich?</p>
+        <p class="text-sm text-grey-mid mt-1">Medien, Lernen, Geld, Pubertät … Wir nehmen deine Wünsche für den nächsten Anlass gerne auf.</p>
+      </div>
+      <a href={`mailto:${KONTAKT_EMAIL}?subject=Elternbildung`} class="btn-primary text-sm whitespace-nowrap">Thema vorschlagen</a>
     </div>
   </div>
+
 </Layout>

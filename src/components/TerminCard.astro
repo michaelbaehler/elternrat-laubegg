@@ -1,55 +1,48 @@
 ---
+import { datumLang, tag, monat } from '../lib/datum';
+
 interface Props {
   title: string;
   date: string;
   time?: string;
   location?: string;
   category?: string;
-  href?: string;
+  description?: string;
+  link?: string;
 }
+const { title, date, time, location, category, description, link } = Astro.props;
 
-const { title, date, time, location, category, href } = Astro.props;
-
-function formatDate(d: string) {
-  return new Date(d).toLocaleDateString('de-CH', {
-    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
-  });
-}
-
-const Tag = href ? 'a' : 'div';
+const farben: Record<string, string> = {
+  'Sitzung':             'bg-grey-dark text-white',
+  'Event':               'bg-orange text-white',
+  'Schlittschuhverleih': 'bg-sky-100 text-sky-800',
+  'Raus Laus':           'bg-violet-100 text-violet-800',
+  'Elternbildung':       'bg-emerald-100 text-emerald-800',
+  'Sicherheit':          'bg-amber-100 text-amber-900',
+  'Sonstiges':           'bg-grey-light text-grey-mid',
+};
 ---
 
-<Tag
-  href={href}
-  class:list={[
-    'flex items-start gap-4 p-4 rounded-xl border border-grey-border transition-all duration-150',
-    href ? 'hover:border-orange hover:shadow-sm cursor-pointer' : ''
-  ]}
->
-  <!-- Date block -->
-  <div class="flex-shrink-0 w-14 text-center bg-orange-light rounded-lg py-2">
-    <div class="text-2xl font-bold text-orange leading-none">
-      {new Date(date).getDate()}
-    </div>
-    <div class="text-xs font-semibold text-orange-dark uppercase mt-0.5">
-      {new Date(date).toLocaleDateString('de-CH', { month: 'short' })}
-    </div>
+<div class="flex items-start gap-4 p-4 rounded-xl border border-grey-border bg-white">
+  <div class="flex-shrink-0 w-14 text-center bg-orange-light rounded-lg py-2" aria-hidden="true">
+    <div class="text-2xl font-bold text-grey-dark leading-none">{tag(date)}</div>
+    <div class="text-xs font-semibold text-orange-dark uppercase mt-0.5">{monat(date)}</div>
   </div>
-
-  <!-- Content -->
   <div class="flex-1 min-w-0">
     <div class="flex items-center gap-2 mb-0.5 flex-wrap">
-      {category && <span class="badge-orange text-xs">{category}</span>}
-      <span class="text-xs text-grey-muted">{formatDate(date)}{time ? `, ${time}` : ''}</span>
+      {category && <span class:list={['badge', farben[category] ?? farben.Sonstiges]}>{category}</span>}
+      <span class="text-xs text-grey-muted">{datumLang(date)}{time ? ` · ${time}` : ''}</span>
     </div>
     <p class="font-semibold text-grey-dark">{title}</p>
     {location && (
       <p class="text-sm text-grey-muted mt-0.5 flex items-center gap-1">
-        <svg class="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg class="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
         </svg>
         {location}
       </p>
     )}
+    {description && <p class="text-sm text-grey-mid mt-1">{description}</p>}
+    {link && <a href={link} target="_blank" rel="noopener" class="text-sm font-semibold text-orange-dark hover:text-orange-darker mt-1 inline-block">Mehr dazu →</a>}
   </div>
-</Tag>
+</div>

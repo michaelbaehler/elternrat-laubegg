@@ -7,6 +7,12 @@ const isoDate = z.preprocess(
   z.string(),
 );
 
+// Das CMS speichert leere optionale Felder teils als "" oder null.
+const leer = (v: unknown) => (v === '' || v === null ? undefined : v);
+const optDate = z.preprocess(leer, isoDate.optional());
+const optUrl  = z.preprocess(leer, z.string().url().optional());
+const optNum  = z.preprocess(leer, z.number().optional());
+
 const helfereinsaetze = defineCollection({
   type: 'content',
   schema: z.object({
@@ -15,9 +21,10 @@ const helfereinsaetze = defineCollection({
     time:        z.string().optional(),    // "08:00–12:00"
     location:    z.string(),
     description: z.string(),
-    spotsTotal:  z.number(),
-    spotsTaken:  z.number().default(0),
-    deadline:    isoDate.optional(),
+    formUrl:     optUrl,                   // Link zum Google Formular
+    spotsTotal:  optNum,                   // optional: Anzahl gesuchter Personen
+    spotsTaken:  z.preprocess(leer, z.number().default(0)),
+    deadline:    optDate,
     active:      z.boolean().default(true),
     thema:       z.string().optional(),    // "Schlittschuhverleih", "Events", etc.
   }),
@@ -35,23 +42,14 @@ const termine = defineCollection({
   }),
 });
 
-const erlInfos = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title:    z.string(),
-    date:     isoDate,
-    fileUrl:  z.string().optional(),       // Link zu PDF
-    summary:  z.string().optional(),
-  }),
-});
-
 const sitzungen = defineCollection({
   type: 'content',
   schema: z.object({
     title:       z.string(),
     date:        isoDate,
     schuljahr:   z.string(),               // "2025/2026"
-    protokollUrl: z.string().optional(),   // Link zu PDF
+    protokollUrl: z.preprocess(leer, z.string().optional()),     // PDF, Google Doc oder Seite
+    praesentationUrl: z.preprocess(leer, z.string().optional()), // Präsentation (PDF)
     passwort:    z.boolean().default(true),
   }),
 });
@@ -59,6 +57,5 @@ const sitzungen = defineCollection({
 export const collections = {
   helfereinsaetze,
   termine,
-  'erl-infos': erlInfos,
   sitzungen,
 };

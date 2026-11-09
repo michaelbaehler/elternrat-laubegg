@@ -1,44 +1,93 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ThemaKopf from '../../components/ThemaKopf.astro';
 import { getCollection } from 'astro:content';
-const today = new Date().toISOString().split('T')[0];
+import { heute } from '../../lib/termine';
+
+const today = heute();
 const helfer = await getCollection('helfereinsaetze', e =>
   e.data.active && e.data.thema === 'Raus Laus' && e.data.date >= today
 );
+
+const termine = [
+  { standorte: 'Laubegg, Wyssloch, Rosengarten', daten: ['19.08.2026', '14.10.2026', '21.04.2027'] },
+  { standorte: 'Sonnenhof, Schöngrün, Merzenacker', daten: ['26.08.2026', '21.10.2026', '28.04.2027'] },
+];
 ---
-<Layout title="Raus Laus" description="Periodische Lauskontrollen nach den Schulferien – durchgeführt vom Elternrat Laubegg.">
-  <div class="border-b border-grey-border overflow-hidden" style="max-height: 240px; position: relative;">
-    <img src="/images/themen/raus-laus.svg" alt="" class="w-full object-cover" style="max-height: 240px;" aria-hidden="true"/>
-    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-7 w-full">
-        <span class="badge bg-white/20 text-white text-xs mb-2 inline-block">Themengruppe</span>
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-white drop-shadow">Raus Laus</h1>
-        <p class="text-white/80 mt-1 text-sm drop-shadow">Periodische Kontrollen nach den Schulferien</p>
+
+<Layout title="Raus Laus" description="Läusekontrolle nach den Ferien – vom Elternrat Laubegg zusammen mit dem Gesundheitsdienst.">
+
+  <ThemaKopf
+    titel="Raus Laus"
+    untertitel="Läusekontrolle nach den Ferien – kurz, diskret und gemeinsam mit dem Gesundheitsdienst."
+    img="/images/themen/raus-laus.svg"
+  />
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+    <div class="grid lg:grid-cols-3 gap-12">
+      <div class="lg:col-span-2 space-y-10">
+
+        <section class="prose prose-sm max-w-none text-grey-mid">
+          <p class="text-base text-grey-dark">
+            Nach den Ferien kontrolliert das Raus-Laus-Team zusammen mit dem Gesundheitsdienst alle Kinder
+            vom Kindergarten bis zur 6. Klasse auf Läuse. Seit es die Kontrollen gibt, ist die Zahl der Fälle stark gesunken.
+          </p>
+        </section>
+
+        <section class="card bg-orange-lighter border-orange/30">
+          <p class="font-bold text-grey-dark">Bitte am Vortag Haare waschen</p>
+          <p class="text-sm text-grey-mid mt-1">Wascht die Haare eurer Kinder am Tag vor der Kontrolle mit normalem Shampoo und kämmt sie wenn möglich gut durch. Vielen Dank!</p>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-bold text-grey-dark mb-4">Termine 2026/2027</h2>
+          <div class="grid sm:grid-cols-2 gap-4">
+            {termine.map(t => (
+              <div class="card">
+                <p class="font-semibold text-grey-dark">{t.standorte}</p>
+                <ul class="mt-2 text-sm text-grey-mid space-y-1">
+                  {t.daten.map(d => <li>{d}</li>)}
+                </ul>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section>
+          <h2 class="text-xl font-bold text-grey-dark mb-4">So läuft die Kontrolle ab</h2>
+          <div class="prose prose-sm max-w-none text-grey-mid">
+            <p>
+              Die Kinder werden während des Unterrichts kontrolliert. Ob ein Befall vorliegt, entscheidet eine Fachperson des Gesundheitsdienstes.
+              Hat ein Kind Läuse oder Nissen, muss es möglichst rasch abgeholt und noch am gleichen Tag nach Behandlungsschema behandelt werden.
+              Eine Woche später kontrolliert der Gesundheitsdienst die betroffenen Kinder in der Schule nochmals.
+            </p>
+            <p>
+              Mehr zu Vorbeugung und Behandlung findest du bei der
+              <a href="https://www.bern.ch/themen/bildung/schule/gesundheit-in-der-schule/gesundheitsvorsorge-schulkinder/laeuse" target="_blank" rel="noopener">Stadt Bern</a>.
+            </p>
+          </div>
+        </section>
       </div>
+
+      <aside class="space-y-5">
+        <div class="card bg-orange text-white border-orange">
+          <p class="font-bold text-lg">Hilf mit!</p>
+          <p class="text-white/90 text-sm mt-1 mb-4">Aus jeder Klasse brauchen wir Eltern, die mithelfen. Vorkenntnisse sind nicht nötig – wir zeigen dir alles vor Ort.</p>
+          <a href="/helfereinsaetze" class="inline-flex items-center gap-2 bg-white text-orange-dark font-semibold px-4 py-2 rounded-lg text-sm hover:bg-orange-lighter transition-colors">
+            {helfer.length > 0 ? 'Jetzt anmelden →' : 'Zu den Helfereinsätzen →'}
+          </a>
+        </div>
+        <div class="card">
+          <h3 class="font-bold text-grey-dark mb-3">Kontakt</h3>
+          <p class="text-sm font-semibold text-grey-dark">Sandra Dellenbach</p>
+          <p class="text-sm text-grey-muted">Koordination Raus Laus</p>
+          <a href="mailto:sandra.dellenbach@mail.ch" class="text-sm text-orange-dark hover:text-orange-darker break-all">sandra.dellenbach@mail.ch</a>
+          <p class="text-sm font-semibold text-grey-dark mt-4">Gesundheitsdienst Bern-Nord</p>
+          <p class="text-sm text-grey-mid">031 321 58 85</p>
+          <a href="mailto:gsdnord@bern.ch" class="text-sm text-orange-dark hover:text-orange-darker">gsdnord@bern.ch</a>
+        </div>
+      </aside>
     </div>
   </div>
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
-    <div class="prose prose-sm max-w-none text-grey-mid mb-8">
-      <p>Nach den Schulferien führen wir periodische Lauskontrollen durch. Freiwillige Helferinnen und Helfer überprüfen die Kinder beim Schuleintritt diskret und freundlich. Keine besonderen Vorkenntnisse nötig — wir erklären alles vor Ort.</p>
-    </div>
-    {helfer.length > 0 && (
-      <div class="card bg-orange text-white mb-8">
-        <p class="font-bold text-lg mb-1">Helfer gesucht!</p>
-        <p class="text-white/80 text-sm mb-3">Wir suchen noch Helferinnen und Helfer für die nächste Raus-Laus-Kontrolle.</p>
-        <a href="/helfereinsaetze" class="inline-flex items-center gap-2 bg-white text-orange-dark font-semibold px-4 py-2 rounded-lg text-sm hover:bg-orange-lighter transition-colors">
-          Jetzt anmelden →
-        </a>
-      </div>
-    )}
-    <div class="card">
-      <h2 class="font-bold text-grey-dark mb-3">Ablauf einer Kontrolle</h2>
-      <ul class="text-sm text-grey-mid space-y-2">
-        <li class="flex gap-2"><span class="text-orange">✓</span> Helfer treffen sich vor Schulbeginn</li>
-        <li class="flex gap-2"><span class="text-orange">✓</span> Kurze Einführung für neue Helfer</li>
-        <li class="flex gap-2"><span class="text-orange">✓</span> Diskrete Kontrolle der Kinder beim Eintritt</li>
-        <li class="flex gap-2"><span class="text-orange">✓</span> Bei Befund: Eltern werden informiert</li>
-        <li class="flex gap-2"><span class="text-orange">✓</span> Dauer ca. 2 Stunden</li>
-      </ul>
-    </div>
-  </div>
+
 </Layout>

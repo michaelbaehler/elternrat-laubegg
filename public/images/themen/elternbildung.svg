@@ -1,60 +1,29 @@
-<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background -->
-  <rect width="400" height="220" fill="#FFF8F0"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" role="img" aria-label="Sprechblasen und Glühbirne">
+<rect width="400" height="220" fill="#FFF5E8"/>
 
-  <!-- Open book – centred, bottom half of image -->
-  <!-- Left page -->
-  <path d="M90 180 L90 100 Q90 92 100 90 L195 85 L195 175 Q150 172 90 180 Z" fill="white" stroke="#E0D8D0" stroke-width="1.5"/>
-  <!-- Right page -->
-  <path d="M205 85 L300 90 Q310 92 310 100 L310 180 Q250 172 205 175 Z" fill="white" stroke="#E0D8D0" stroke-width="1.5"/>
-  <!-- Book spine -->
-  <rect x="193" y="85" width="14" height="92" rx="1" fill="#E8952A"/>
-
-  <!-- Left page lines (text rows) -->
-  <line x1="108" y1="110" x2="187" y2="108" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
-  <line x1="108" y1="122" x2="187" y2="120" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
-  <line x1="108" y1="134" x2="187" y2="132" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
-  <line x1="108" y1="146" x2="175" y2="144" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
-  <line x1="108" y1="158" x2="187" y2="156" stroke="#FFAA44" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
-  <line x1="108" y1="170" x2="165" y2="168" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
-
-  <!-- Right page lines -->
-  <line x1="213" y1="108" x2="292" y2="110" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
-  <line x1="213" y1="120" x2="292" y2="122" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
-  <line x1="213" y1="132" x2="292" y2="134" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
-  <line x1="213" y1="144" x2="270" y2="146" stroke="#FFAA44" stroke-width="2.5" stroke-linecap="round" opacity="0.5"/>
-  <line x1="213" y1="156" x2="292" y2="158" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
-  <line x1="213" y1="168" x2="278" y2="170" stroke="#E0D0C0" stroke-width="2" stroke-linecap="round"/>
-
-  <!-- Orange bookmark -->
-  <path d="M280 85 L296 85 L296 120 L288 114 L280 120 Z" fill="#FFAA44"/>
-
-  <!-- Lightbulb (floating above the book) -->
-  <!-- Bulb glass -->
-  <circle cx="200" cy="42" r="26" fill="#FFC870" opacity="0.9"/>
-  <!-- Bulb glow -->
-  <circle cx="200" cy="42" r="26" fill="#FFAA44" opacity="0.15"/>
-  <!-- Bulb highlight -->
-  <circle cx="192" cy="32" r="7" fill="white" opacity="0.45"/>
-  <!-- Bulb base/socket -->
-  <rect x="190" y="64" width="20" height="7" rx="2" fill="#E8952A"/>
-  <rect x="192" y="70" width="16" height="5" rx="1.5" fill="#C87818"/>
-  <!-- Lightbulb filament lines -->
-  <path d="M197 52 L197 60 M203 52 L203 60" stroke="#E8952A" stroke-width="1.5" stroke-linecap="round"/>
-  <path d="M197 60 Q200 56 203 60" stroke="#E8952A" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-
-  <!-- Rays around bulb -->
-  <g opacity="0.5">
-    <line x1="200" y1="8" x2="200" y2="2" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
-    <line x1="222" y1="14" x2="226" y2="10" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
-    <line x1="234" y1="35" x2="240" y2="33" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
-    <line x1="178" y1="14" x2="174" y2="10" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
-    <line x1="166" y1="35" x2="160" y2="33" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
+<circle cx="200" cy="112" r="94" fill="#FEE9D0"/>
+<circle cx="103.0" cy="56.0" r="2.5" fill="#363636" opacity="0.85"/><circle cx="128.0" cy="26.2" r="3.1" fill="#363636" opacity="0.85"/><circle cx="161.7" cy="6.8" r="3.7" fill="#363636" opacity="0.85"/><circle cx="200.0" cy="0.0" r="4.2" fill="#363636" opacity="0.85"/><circle cx="238.3" cy="6.8" r="4.8" fill="#363636" opacity="0.85"/><circle cx="272.0" cy="26.2" r="5.4" fill="#363636" opacity="0.85"/><circle cx="297.0" cy="56.0" r="6.0" fill="#363636" opacity="0.85"/>
+<!-- Sprechblase links -->
+<path d="M44 70 Q44 54 60 54 L150 54 Q166 54 166 70 L166 112 Q166 128 150 128 L92 128 L70 148 L74 128 L60 128 Q44 128 44 112 Z" fill="#363636"/>
+<g fill="#FFFFFF"><circle cx="82" cy="91" r="7"/><circle cx="105" cy="91" r="7"/><circle cx="128" cy="91" r="7"/></g>
+<!-- Sprechblase rechts -->
+<path d="M234 92 Q234 76 250 76 L340 76 Q356 76 356 92 L356 134 Q356 150 340 150 L326 150 L330 170 L308 150 L250 150 Q234 150 234 134 Z" fill="#F7890A"/>
+<path fill="#FFFFFF" d="M285.1 118.8Q284.9 117.1 285.3 115.8Q285.7 114.5 286.5 113.5Q287.3 112.4 288.1 111.5Q289.0 110.6 289.6 109.7Q290.1 108.9 290.1 108.0Q290.1 107.2 289.8 106.6Q289.5 106.0 288.9 105.8Q288.3 105.5 287.5 105.5Q286.4 105.5 285.5 106.0Q284.7 106.5 283.8 107.3L280.6 104.4Q282.0 102.8 283.9 101.7Q285.9 100.7 288.2 100.7Q290.3 100.7 292.1 101.4Q293.8 102.2 294.8 103.7Q295.8 105.2 295.8 107.6Q295.8 109.0 295.2 110.2Q294.6 111.3 293.7 112.3Q292.8 113.2 292.0 114.2Q291.1 115.2 290.6 116.2Q290.1 117.3 290.3 118.8ZM287.7 128.5Q286.2 128.5 285.2 127.4Q284.1 126.3 284.1 124.8Q284.1 123.2 285.2 122.1Q286.2 121.1 287.7 121.1Q289.2 121.1 290.2 122.1Q291.2 123.2 291.2 124.8Q291.2 126.3 290.2 127.4Q289.2 128.5 287.7 128.5ZM302.3 118.8 301.5 106.5 301.3 101.2H307.2L307.0 106.5L306.2 118.8ZM304.3 128.5Q302.7 128.5 301.7 127.4Q300.7 126.3 300.7 124.8Q300.7 123.2 301.7 122.1Q302.7 121.1 304.3 121.1Q305.8 121.1 306.8 122.1Q307.8 123.2 307.8 124.8Q307.8 126.3 306.8 127.4Q305.8 128.5 304.3 128.5Z"/>
+<!-- Glühbirne -->
+<g transform="translate(200 112)">
+  <g stroke="#F7890A" stroke-width="4" stroke-linecap="round">
+    <line x1="0" y1="-62" x2="0" y2="-74"/><line x1="-40" y1="-46" x2="-49" y2="-55"/><line x1="40" y1="-46" x2="49" y2="-55"/>
   </g>
+  <path d="M0 -50 C-28 -50 -36 -26 -30 -10 C-25 2 -14 8 -14 22 L14 22 C14 8 25 2 30 -10 C36 -26 28 -50 0 -50 Z" fill="#FFD23F" stroke="#363636" stroke-width="4"/>
+  <path d="M-8 20 L-8 4 Q0 -6 8 4 L8 20" stroke="#363636" stroke-width="3" fill="none"/>
+  <rect x="-15" y="24" width="30" height="8" rx="3" fill="#8C8C8C"/><rect x="-13" y="34" width="26" height="8" rx="3" fill="#8C8C8C"/>
+  <path d="M-6 44 L6 44" stroke="#363636" stroke-width="5" stroke-linecap="round"/>
+  <path d="M-16 -32 Q-12 -42 -2 -44" stroke="#FFFFFF" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.8"/>
+</g>
+<!-- Buch -->
+<g transform="translate(200 190)">
+  <path d="M-70 -8 Q-36 -18 0 -6 Q36 -18 70 -8 L70 14 Q36 4 0 16 Q-36 4 -70 14 Z" fill="#FFFFFF" stroke="#363636" stroke-width="3"/>
+  <line x1="0" y1="-6" x2="0" y2="16" stroke="#363636" stroke-width="3"/>
+</g>
 
-  <!-- Decorative dots -->
-  <circle cx="55" cy="90" r="5" fill="#FFAA44" opacity="0.2"/>
-  <circle cx="345" cy="88" r="4" fill="#FFAA44" opacity="0.2"/>
-  <circle cx="60" cy="175" r="4" fill="#FFC870" opacity="0.2"/>
-  <circle cx="340" cy="178" r="3" fill="#FFAA44" opacity="0.15"/>
 </svg>

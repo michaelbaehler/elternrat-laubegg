@@ -6,11 +6,13 @@ import Footer from '../components/Footer.astro';
 interface Props {
   title: string;
   description?: string;
+  noindex?: boolean;
 }
 
 const {
   title,
-  description = 'Der Elternrat Laubegg (ERL) ist das Informations- und Austauschgremium der Eltern an der Schule Laubegg in Bern.',
+  description = 'Der Elternrat Laubegg (ERL) verbindet die Eltern der Schule Laubegg in Bern – untereinander und mit der Schule.',
+  noindex = false,
 } = Astro.props;
 
 const fullTitle = title === 'Startseite'
@@ -25,6 +27,7 @@ const fullTitle = title === 'Startseite'
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{fullTitle}</title>
+    {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

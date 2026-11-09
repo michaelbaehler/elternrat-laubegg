@@ -1,63 +1,31 @@
-<svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg">
-  <!-- Background -->
-  <rect width="400" height="220" fill="#FFF8F0"/>
-  <!-- Subtle ice surface at bottom -->
-  <rect x="0" y="185" width="400" height="35" fill="#EAF6FB"/>
-  <line x1="0" y1="185" x2="400" y2="185" stroke="#C9E8F5" stroke-width="1.5"/>
-  <!-- Ice reflections -->
-  <ellipse cx="195" cy="188" rx="65" ry="5" fill="#D0EEF8" opacity="0.7"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" role="img" aria-label="Schlittschuh mit Preisschild">
+<rect width="400" height="220" fill="#FFF5E8"/>
 
-  <!-- === ICE SKATE === -->
-  <!-- Boot shaft (upper tall part) -->
-  <path d="M162 55 Q162 44 172 44 L200 44 Q210 44 210 55 L210 138 L162 138 Z" fill="#FFAA44"/>
-  <!-- Boot toe box (front, lower) -->
-  <path d="M210 120 L240 148 Q244 155 237 158 L152 158 Q145 158 145 151 L145 143 L162 138 L210 138 Z" fill="#FFAA44"/>
-  <!-- Depth / shadow on toe -->
-  <path d="M210 130 L240 148 Q244 155 237 158 L210 158 Z" fill="#E8952A"/>
-  <!-- Heel depth -->
-  <path d="M145 143 L145 158 L162 158 L162 143 Z" fill="#E8952A"/>
-  <!-- Boot tongue -->
-  <path d="M174 44 Q183 32 192 44" fill="#FFC870"/>
-  <!-- Laces -->
-  <line x1="169" y1="68" x2="203" y2="68" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="169" y1="82" x2="203" y2="82" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="169" y1="96" x2="203" y2="96" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="169" y1="110" x2="203" y2="110" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
-  <line x1="169" y1="124" x2="203" y2="124" stroke="white" stroke-width="2" stroke-linecap="round"/>
-  <!-- Blade holder (dark strip) -->
-  <rect x="143" y="157" width="98" height="9" rx="3" fill="#555"/>
-  <!-- Blade (extends past both ends) -->
-  <rect x="132" y="164" width="122" height="4" rx="2" fill="#AACCD8"/>
+<circle cx="200" cy="112" r="96" fill="#BFE6F7"/>
+<circle cx="105.7" cy="68.0" r="2.5" fill="#F7890A" opacity="0.9"/><circle cx="128.6" cy="36.4" r="3.1" fill="#F7890A" opacity="0.9"/><circle cx="161.6" cy="15.3" r="3.7" fill="#F7890A" opacity="0.9"/><circle cx="200.0" cy="8.0" r="4.2" fill="#F7890A" opacity="0.9"/><circle cx="238.4" cy="15.3" r="4.8" fill="#F7890A" opacity="0.9"/><circle cx="271.4" cy="36.4" r="5.4" fill="#F7890A" opacity="0.9"/><circle cx="294.3" cy="68.0" r="6.0" fill="#F7890A" opacity="0.9"/>
+<ellipse cx="205" cy="186" rx="120" ry="11" fill="#8FCFEA" opacity="0.7"/>
+<path d="M120 182 Q205 192 300 178" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round" opacity="0.8"/>
+<!-- Schuh -->
+<path d="M150 58 Q150 46 162 46 L208 46 Q218 46 218 58 L220 110 Q262 116 280 132 Q290 141 288 152 L288 160 L146 160 Q140 160 140 152 L142 70 Z" fill="#363636"/>
+<path d="M218 104 Q260 112 278 128 Q286 136 286 146 L232 146 Q222 146 220 136 Z" fill="#4A4A4A"/>
+<path d="M150 58 Q150 46 162 46 L208 46 Q218 46 218 58 L218 66 L150 66 Z" fill="#F7890A"/>
+<rect x="140" y="150" width="148" height="10" rx="3" fill="#F7890A"/>
+<g stroke="#FFFFFF" stroke-width="3" stroke-linecap="round">
+  <line x1="190" y1="78" x2="214" y2="86"/><line x1="190" y1="86" x2="214" y2="78"/>
+  <line x1="190" y1="94" x2="214" y2="102"/><line x1="190" y1="102" x2="214" y2="94"/>
+  <line x1="196" y1="110" x2="220" y2="118"/><line x1="196" y1="118" x2="220" y2="110"/>
+</g>
+<path d="M205 66 q-18 -16 -30 -6 q-6 6 4 10" stroke="#FFFFFF" stroke-width="3" fill="none" stroke-linecap="round"/>
+<!-- Kufe -->
+<rect x="160" y="160" width="10" height="14" fill="#D9D9D9"/><rect x="262" y="160" width="10" height="14" fill="#D9D9D9"/>
+<path d="M134 174 L296 174 Q306 174 304 166 L310 170 Q310 182 296 182 L140 182 Q132 182 134 174 Z" fill="#C8CED3"/>
+<path d="M140 178 L298 178" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round"/>
+<!-- Preisschild -->
+<g transform="rotate(-12 318 72)">
+  <path d="M286 58 L346 58 Q352 58 352 64 L352 86 Q352 92 346 92 L286 92 L274 75 Z" fill="#F7890A"/>
+  <circle cx="284" cy="75" r="4" fill="#FFF5E8"/>
+  <path fill="#FFFFFF" d="M290.6 81.0V69.9H297.6V72.0H293.1V74.6H297.0V76.7H293.1V81.0ZM299.3 81.0V72.6H301.4L301.5 74.0H301.6Q302.1 73.2 302.7 72.8Q303.3 72.4 304.0 72.4Q304.4 72.4 304.6 72.4Q304.8 72.4 305.0 72.5L304.5 74.7Q304.3 74.6 304.1 74.6Q303.9 74.6 303.7 74.6Q303.2 74.6 302.7 74.9Q302.2 75.2 301.8 76.1V81.0ZM307.5 81.2Q306.9 81.2 306.5 80.7Q306.0 80.3 306.0 79.6Q306.0 79.0 306.5 78.5Q306.9 78.1 307.5 78.1Q308.2 78.1 308.6 78.5Q309.0 79.0 309.0 79.6Q309.0 80.3 308.6 80.7Q308.2 81.2 307.5 81.2ZM314.1 81.0V79.5Q315.5 78.2 316.5 77.2Q317.6 76.1 318.2 75.2Q318.8 74.3 318.8 73.6Q318.8 72.8 318.4 72.4Q318.0 72.0 317.3 72.0Q316.7 72.0 316.2 72.3Q315.8 72.6 315.4 73.1L314.0 71.8Q314.8 70.9 315.6 70.4Q316.5 70.0 317.6 70.0Q318.7 70.0 319.5 70.4Q320.3 70.9 320.7 71.6Q321.2 72.4 321.2 73.4Q321.2 74.4 320.7 75.3Q320.1 76.2 319.3 77.2Q318.4 78.1 317.5 79.0Q317.9 79.0 318.4 78.9Q318.9 78.9 319.3 78.9H321.7V81.0ZM326.9 81.2Q325.2 81.2 324.1 79.8Q323.1 78.3 323.1 75.6Q323.1 72.8 324.1 71.4Q325.2 70.0 326.9 70.0Q328.7 70.0 329.7 71.4Q330.8 72.8 330.8 75.6Q330.8 78.3 329.7 79.8Q328.7 81.2 326.9 81.2ZM326.9 79.3Q327.4 79.3 327.7 79.0Q328.1 78.6 328.2 77.8Q328.4 77.0 328.4 75.6Q328.4 74.1 328.2 73.3Q328.1 72.5 327.7 72.2Q327.4 71.9 326.9 71.9Q326.5 71.9 326.2 72.2Q325.8 72.5 325.6 73.3Q325.4 74.1 325.4 75.6Q325.4 77.0 325.6 77.8Q325.8 78.6 326.2 79.0Q326.5 79.3 326.9 79.3ZM334.0 81.2Q333.3 81.2 332.9 80.7Q332.5 80.3 332.5 79.6Q332.5 79.0 332.9 78.5Q333.3 78.1 334.0 78.1Q334.6 78.1 335.1 78.5Q335.5 79.0 335.5 79.6Q335.5 80.3 335.1 80.7Q334.6 81.2 334.0 81.2ZM337.3 77.5V75.9H344.0V77.5Z"/>
+</g>
+<g stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"><line x1="83.0" y1="58.0" x2="101.0" y2="58.0"/><line x1="87.5" y1="50.2" x2="96.5" y2="65.8"/><line x1="96.5" y1="50.2" x2="87.5" y2="65.8"/></g><g stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"><line x1="323.0" y1="140.0" x2="337.0" y2="140.0"/><line x1="326.5" y1="133.9" x2="333.5" y2="146.1"/><line x1="333.5" y1="133.9" x2="326.5" y2="146.1"/></g><g stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"><line x1="112.0" y1="128.0" x2="124.0" y2="128.0"/><line x1="115.0" y1="122.8" x2="121.0" y2="133.2"/><line x1="121.0" y1="122.8" x2="115.0" y2="133.2"/></g><g stroke="#FFFFFF" stroke-width="2.2" stroke-linecap="round"><line x1="244.0" y1="34.0" x2="256.0" y2="34.0"/><line x1="247.0" y1="28.8" x2="253.0" y2="39.2"/><line x1="253.0" y1="28.8" x2="247.0" y2="39.2"/></g>
 
-  <!-- CHF 20 badge -->
-  <rect x="270" y="60" width="80" height="36" rx="18" fill="#FFAA44"/>
-  <text x="310" y="83" text-anchor="middle" font-family="Inter,system-ui,sans-serif" font-size="15" font-weight="800" fill="white">CHF 20</text>
-
-  <!-- Snowflake 1 -->
-  <g transform="translate(62,78)" opacity="0.55">
-    <line x1="0" y1="-16" x2="0" y2="16" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
-    <line x1="-16" y1="0" x2="16" y2="0" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
-    <line x1="-11" y1="-11" x2="11" y2="11" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
-    <line x1="11" y1="-11" x2="-11" y2="11" stroke="#FFAA44" stroke-width="2" stroke-linecap="round"/>
-    <circle cx="0" cy="0" r="3.5" fill="#FFAA44"/>
-  </g>
-  <!-- Snowflake 2 -->
-  <g transform="translate(338,110)" opacity="0.4">
-    <line x1="0" y1="-12" x2="0" y2="12" stroke="#FFAA44" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="-12" y1="0" x2="12" y2="0" stroke="#FFAA44" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="-8" y1="-8" x2="8" y2="8" stroke="#FFAA44" stroke-width="1.8" stroke-linecap="round"/>
-    <line x1="8" y1="-8" x2="-8" y2="8" stroke="#FFAA44" stroke-width="1.8" stroke-linecap="round"/>
-    <circle cx="0" cy="0" r="2.5" fill="#FFAA44"/>
-  </g>
-  <!-- Snowflake 3 (small) -->
-  <g transform="translate(310,52)" opacity="0.3">
-    <line x1="0" y1="-8" x2="0" y2="8" stroke="#FFAA44" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="-8" y1="0" x2="8" y2="0" stroke="#FFAA44" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="-6" y1="-6" x2="6" y2="6" stroke="#FFAA44" stroke-width="1.5" stroke-linecap="round"/>
-    <line x1="6" y1="-6" x2="-6" y2="6" stroke="#FFAA44" stroke-width="1.5" stroke-linecap="round"/>
-  </g>
-  <!-- Dot accents -->
-  <circle cx="55" cy="145" r="4" fill="#FFAA44" opacity="0.25"/>
-  <circle cx="355" cy="65" r="5" fill="#FFAA44" opacity="0.2"/>
-  <circle cx="340" cy="168" r="3" fill="#FFAA44" opacity="0.2"/>
 </svg>

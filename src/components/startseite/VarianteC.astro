@@ -1,0 +1,100 @@
+---
+// Variante C «Kacheln»: Mosaik aus Foto, Terminen, Helfereinsätzen und Themen – alles auf einen Blick.
+import { THEMEN } from '../../lib/themen';
+import { startseitenDaten } from '../../lib/startseite';
+import { datumLang, datumMittel, tag, monat } from '../../lib/datum';
+import { KONTAKT_EMAIL } from '../../site.config';
+
+const { termine, einsaetze } = await startseitenDaten();
+const naechster = termine[0];
+---
+
+<section class="max-w-6xl mx-auto px-4 sm:px-6 pt-8 pb-14">
+  <div class="grid grid-cols-1 md:grid-cols-4 auto-rows-[minmax(170px,auto)] grid-flow-dense gap-4">
+
+    <!-- Hauptkachel mit Foto -->
+    <div class="relative md:col-span-3 md:row-span-2 rounded-3xl overflow-hidden isolate min-h-[340px]">
+      <img src="/images/fotos/schulhaus-laubegg.jpg" alt="Schulhaus Laubegg" class="absolute inset-0 -z-10 h-full w-full object-cover" />
+      <div class="absolute inset-0 -z-10 bg-gradient-to-t from-grey-dark/90 via-grey-dark/40 to-transparent"></div>
+      <div class="h-full flex flex-col justify-end p-7 sm:p-10 text-white">
+        <h1 class="text-4xl sm:text-5xl font-extrabold leading-tight max-w-2xl">Eltern machen Schule.</h1>
+        <p class="mt-3 text-white/85 max-w-xl">
+          Der Elternrat Laubegg verbindet die Eltern aller Kindergärten und Schulhäuser der Schule Laubegg –
+          untereinander und mit der Schule.
+        </p>
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a href="/ueber-uns" class="btn-primary">Mehr über uns</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nächster Termin -->
+    {naechster && (
+      <a href="/termine" class="rounded-3xl bg-grey-dark text-white p-6 flex flex-col justify-between hover:bg-black transition-colors">
+        <p class="text-xs font-semibold uppercase tracking-wider text-orange">Nächster Termin</p>
+        <div>
+          <p class="text-5xl font-extrabold leading-none">{tag(naechster.date)}<span class="text-xl font-bold text-white/70 ml-1">{monat(naechster.date)}</span></p>
+          <p class="mt-2 font-semibold leading-tight">{naechster.title}</p>
+          <p class="text-xs text-white/70 mt-1">{datumLang(naechster.date)}{naechster.time ? ` · ${naechster.time}` : ''}</p>
+        </div>
+      </a>
+    )}
+
+    <!-- Helfende gesucht -->
+    <a href="/helfereinsaetze" class="rounded-3xl bg-orange text-white p-6 flex flex-col justify-between hover:bg-orange-dark transition-colors">
+      <p class="text-xs font-semibold uppercase tracking-wider text-white/90">Mithelfen</p>
+      <div>
+        <p class="text-3xl font-extrabold leading-tight">{einsaetze.length > 0 ? `${einsaetze.length} ${einsaetze.length === 1 ? 'Einsatz' : 'Einsätze'} offen` : 'Alles besetzt'}</p>
+        <p class="text-sm text-white/90 mt-1">{einsaetze[0] ? `Als Nächstes: ${einsaetze[0].data.title}` : 'Danke an alle Helfenden!'}</p>
+      </div>
+    </a>
+
+    <!-- Themen -->
+    {THEMEN.map((t, i) => (
+      <a href={t.href} class:list={['group rounded-3xl overflow-hidden bg-white ring-1 ring-grey-border hover:ring-orange transition-all flex flex-col', i === 0 && 'md:col-span-2 md:row-span-1']}>
+        <div class="h-40 overflow-hidden bg-[#FFF5E8]"><img src={t.img} alt="" class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" /></div>
+        <div class="p-4">
+          <p class="font-bold text-grey-dark group-hover:text-orange-dark">{t.name}</p>
+          <p class="text-xs text-grey-muted mt-0.5">{t.kurz}</p>
+        </div>
+      </a>
+    ))}
+
+    <!-- Sitzungen mit Aula-Foto -->
+    <a href="/sitzungen" class="group relative md:col-span-2 rounded-3xl overflow-hidden isolate min-h-[200px]">
+      <img src="/images/fotos/aula-laubegg.jpg" alt="" class="absolute inset-0 -z-10 h-full w-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+      <div class="absolute inset-0 -z-10 bg-gradient-to-r from-grey-dark/85 to-grey-dark/10"></div>
+      <div class="h-full flex flex-col justify-end p-6 text-white">
+        <p class="text-xs font-semibold uppercase tracking-wider text-orange">Sitzungen</p>
+        <p class="text-xl font-bold mt-1">Viermal im Jahr in der Aula Laubegg</p>
+        <p class="text-sm text-white/80">Daten, Protokolle und Präsentationen →</p>
+      </div>
+    </a>
+
+    <!-- Kontakt -->
+    <a href={`mailto:${KONTAKT_EMAIL}`} class="md:col-span-4 rounded-3xl bg-orange-lighter ring-1 ring-orange/20 p-6 flex flex-col justify-center hover:ring-orange transition-all">
+      <p class="text-xl font-bold text-grey-dark">Eine Idee oder ein Anliegen?</p>
+      <p class="text-sm text-grey-mid mt-1">Schreib uns an {KONTAKT_EMAIL} – wir freuen uns.</p>
+    </a>
+  </div>
+</section>
+
+{termine.length > 1 && (
+  <section class="bg-grey-bg">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
+      <div class="flex items-end justify-between mb-5">
+        <h2 class="section-title mb-0">Demnächst</h2>
+        <a href="/termine" class="text-sm font-semibold text-orange-dark hover:text-orange-darker">Alle Termine →</a>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        {termine.slice(1, 5).map(t => (
+          <div class="rounded-2xl bg-white p-5 ring-1 ring-grey-border">
+            <p class="text-sm font-semibold text-orange-dark">{datumMittel(t.date)}</p>
+            <p class="font-bold text-grey-dark mt-1 leading-tight">{t.title}</p>
+            {t.time && <p class="text-xs text-grey-muted mt-1">{t.time}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

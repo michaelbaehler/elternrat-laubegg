@@ -1,39 +1,79 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ThemaKopf from '../../components/ThemaKopf.astro';
+import { KONTAKT_EMAIL } from '../../site.config';
+
+const aktionen = [
+  {
+    titel: 'Flyer «Zu Fuss zur Schule»',
+    text: 'Alle Eltern der neuen Erstklässlerinnen und Erstklässler erhalten zum Schulstart einen Flyer, den wir mit dem Verkehrsinstruktor erarbeitet haben. Er ermuntert, die Kinder zu Fuss zur Schule gehen zu lassen.',
+  },
+  {
+    titel: 'Plakate «Kinder Vorsicht»',
+    text: 'Nach allen Schulferien hängen wir für zwei Wochen rund 25 Plakate an den Schulwegen auf. Sie erinnern alle Verkehrsteilnehmenden daran, dass wieder viele Kinder unterwegs sind. Fehlt an einer Stelle ein Plakat? Sag es uns.',
+  },
+  {
+    titel: 'Aktion am Fussgängerstreifen',
+    text: 'Zweimal im Jahr üben Kinder einer Unterstufenklasse mit der Polizei und den Lehrpersonen das korrekte Überqueren der Strasse – einmal beim Laubegg, einmal beim Sonnenhof. Wer als Autofahrerin oder Autofahrer korrekt anhält, erhält von den Kindern ein Dankeschön. Wer nicht anhält, eine fiktive Busse von Fr. 140.–.',
+  },
+  {
+    titel: 'Gefahrenstellen melden',
+    text: 'Wir melden der Fachstelle Verkehrssicherheit der Stadt Bern Gefahrenstellen auf dem Schulweg. Du kannst dich mit Hinweisen an uns oder direkt an die Fachstelle wenden.',
+  },
+];
 ---
-<Layout title="Sicherheit" description="Massnahmen zur Verkehrs- und Schulwegsicherheit durch den Elternrat Laubegg.">
-  <div class="border-b border-grey-border overflow-hidden" style="max-height: 240px; position: relative;">
-    <img src="/images/themen/sicherheit.svg" alt="" class="w-full object-cover" style="max-height: 240px;" aria-hidden="true"/>
-    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-7 w-full">
-        <span class="badge bg-white/20 text-white text-xs mb-2 inline-block">Themengruppe</span>
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-white drop-shadow">Sicherheit</h1>
-        <p class="text-white/80 mt-1 text-sm drop-shadow">Sicherer Schulweg — für alle Kinder</p>
-      </div>
-    </div>
-  </div>
+
+<Layout title="Sicherheit" description="Der Elternrat Laubegg setzt sich für sichere Schulwege ein.">
+
+  <ThemaKopf
+    titel="Sicherheit"
+    untertitel="Damit alle Kinder sicher zur Schule und wieder nach Hause kommen."
+    img="/images/themen/sicherheit.svg"
+  />
+
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
-    <div class="prose prose-sm max-w-none text-grey-mid mb-8">
-      <p>Die Themengruppe Sicherheit befasst sich mit Massnahmen zur Verkehrs- und Schulwegsicherheit rund um die Schulhäuser der Schule Laubegg. Wir arbeiten mit der Schulleitung, der Gemeinde und weiteren Stellen zusammen.</p>
+    <div class="prose prose-sm max-w-none text-grey-mid mb-10">
+      <p class="text-base text-grey-dark">
+        Die Themengruppe Sicherheit setzt sich für sichere Schulwege im Quartier ein. Dafür arbeiten wir mit der Polizei,
+        den Lehrpersonen und der Stadt Bern zusammen. Weitere engagierte Eltern sind herzlich willkommen!
+      </p>
     </div>
-    <div class="grid sm:grid-cols-2 gap-4">
-      {[
-        { icon: '🚗', label: 'Verkehrssicherheit', desc: 'Geschwindigkeit, Zebrastreifen, Halteverbote rund ums Schulhaus.' },
-        { icon: '🚶', label: 'Schulweg', desc: 'Sichere Routen für Kinder zu Fuss und mit dem Velo.' },
-        { icon: '🏫', label: 'Schulhausumgebung', desc: 'Spielbereich, Pausenplatz und Gebäude.' },
-        { icon: '📢', label: 'Sensibilisierung', desc: 'Information von Eltern und Fahrern.' },
-      ].map(s => (
+
+    <div class="grid sm:grid-cols-2 gap-5">
+      {aktionen.map(a => (
         <div class="card">
-          <span class="text-2xl mb-2 block">{s.icon}</span>
-          <p class="font-bold text-grey-dark">{s.label}</p>
-          <p class="text-sm text-grey-muted mt-1">{s.desc}</p>
+          <h2 class="font-bold text-grey-dark mb-2">{a.titel}</h2>
+          <p class="text-sm text-grey-mid">{a.text}</p>
         </div>
       ))}
     </div>
-    <div class="mt-8 card bg-orange-lighter border-orange/20">
-      <p class="font-semibold text-grey-dark mb-1">Sicherheitsproblem melden</p>
-      <p class="text-sm text-grey-mid">Hast du eine Gefährdung auf dem Schulweg festgestellt? Schreib uns.</p>
-      <a href="mailto:elternrat_laubegg@gmx.ch" class="btn-primary mt-3 text-sm inline-flex">Melden</a>
+
+    <section class="mt-10 grid sm:grid-cols-2 gap-5">
+      <div class="card bg-grey-bg">
+        <h2 class="font-bold text-grey-dark mb-2">Schulweg-Lotsen</h2>
+        <p class="text-sm text-grey-mid">
+          Im Herbst 2025 hat sich eine Elterninitiative gebildet, die ein Team für die Verkehrsbegleitung aufbaut –
+          vor allem für jüngere Kinder, die eine Strasse überqueren müssen. Die Kantonspolizei bietet dafür Schulungen an.
+        </p>
+        <a href="/uploads/flyer-verkehrslotsen.jpg" target="_blank" rel="noopener" class="text-sm font-semibold text-orange-dark hover:text-orange-darker mt-3 inline-block">Flyer ansehen →</a>
+      </div>
+      <div class="card bg-grey-bg">
+        <h2 class="font-bold text-grey-dark mb-2">Mehr Informationen</h2>
+        <p class="text-sm text-grey-mid">
+          Die Stadt Bern informiert über
+          <a href="https://www.bern.ch/themen/mobilitat-und-verkehr/schulen/sicherheit" target="_blank" rel="noopener" class="text-orange-dark hover:text-orange-darker">Sicherheit auf dem Schulweg</a>.
+        </p>
+        <p class="text-sm text-grey-mid mt-3"><span class="font-semibold text-grey-dark">Kontakt Themengruppe:</span> Bernhard Geiser</p>
+      </div>
+    </section>
+
+    <div class="mt-10 card bg-orange-lighter border-orange/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <p class="font-semibold text-grey-dark">Gefährliche Stelle auf dem Schulweg entdeckt?</p>
+        <p class="text-sm text-grey-mid mt-1">Schreib uns, wo und was dir aufgefallen ist – gerne mit Foto.</p>
+      </div>
+      <a href={`mailto:${KONTAKT_EMAIL}?subject=Schulweg`} class="btn-primary text-sm whitespace-nowrap">Stelle melden</a>
     </div>
   </div>
+
 </Layout>

@@ -1,167 +1,120 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
+import { datumLang } from '../../lib/datum';
+import { KONTAKT_EMAIL } from '../../site.config';
 
 export async function getStaticPaths() {
   const einsaetze = await getCollection('helfereinsaetze');
-  return einsaetze.map(e => ({ params: { slug: e.slug } }));
+  return einsaetze.map(einsatz => ({ params: { slug: einsatz.slug }, props: { einsatz } }));
 }
 
-const { slug } = Astro.params;
-const einsatz = await getEntry('helfereinsaetze', slug!);
-if (!einsatz) return Astro.redirect('/helfereinsaetze');
-
-const { title, date, time, location, description, spotsTotal, spotsTaken = 0, deadline, thema } = einsatz.data;
+const { einsatz } = Astro.props;
+const { title, date, time, location, description, formUrl, spotsTotal, spotsTaken = 0, deadline, thema } = einsatz.data;
 const { Content } = await einsatz.render();
 
-const spotsLeft = spotsTotal - spotsTaken;
-const isFull = spotsLeft <= 0;
+const spotsLeft = spotsTotal !== undefined ? spotsTotal - spotsTaken : undefined;
+const isFull = spotsLeft !== undefined && spotsLeft <= 0;
 
-function formatDate(d: string) {
-  return new Date(d).toLocaleDateString('de-CH', {
-    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
-  });
-}
+// Google Formulare lassen sich nur mit der langen Adresse einbetten (nicht mit forms.gle).
+const embedUrl = formUrl && /docs\.google\.com\/forms\//.test(formUrl)
+  ? formUrl.replace(/\/(viewform|edit)?(\?.*)?$/, '/viewform?embedded=true')
+  : undefined;
+
+const mailto = `mailto:${KONTAKT_EMAIL}?subject=${encodeURIComponent(`Helfereinsatz: ${title} (${datumLang(date)})`)}`;
 ---
 
 <Layout title={title} description={description}>
 
-  <!-- Breadcrumb -->
   <div class="bg-grey-bg border-b border-grey-border">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 text-sm text-grey-muted flex items-center gap-2">
+    <nav class="max-w-6xl mx-auto px-4 sm:px-6 py-3 text-sm text-grey-muted flex items-center gap-2" aria-label="Brotkrümel">
       <a href="/" class="hover:text-orange-dark transition-colors">Startseite</a>
-      <span>/</span>
+      <span aria-hidden="true">/</span>
       <a href="/helfereinsaetze" class="hover:text-orange-dark transition-colors">Helfereinsätze</a>
-      <span>/</span>
-      <span class="text-grey-dark font-medium">{title}</span>
-    </div>
+      <span aria-hidden="true">/</span>
+      <span class="text-grey-dark font-medium truncate">{title}</span>
+    </nav>
   </div>
 
   <div class="max-w-6xl mx-auto px-4 sm:px-6 py-12">
     <div class="grid lg:grid-cols-3 gap-12">
 
-      <!-- Main -->
       <div class="lg:col-span-2">
-        <div class="mb-2 flex gap-2 flex-wrap">
+        <div class="mb-3 flex gap-2 flex-wrap">
           {thema && <span class="badge-orange">{thema}</span>}
-          {isFull
-            ? <span class="badge bg-grey-light text-grey-muted">Besetzt</span>
-            : <span class="badge bg-green-100 text-green-700">{spotsLeft} Platz{spotsLeft === 1 ? '' : 'plätze'} frei</span>
-          }
+          {isFull && <span class="badge bg-grey-light text-grey-muted">Besetzt</span>}
+          {!isFull && spotsLeft !== undefined && <span class="badge bg-green-100 text-green-800">Noch {spotsLeft} {spotsLeft === 1 ? 'Platz' : 'Plätze'} frei</span>}
         </div>
-
         <h1 class="text-3xl font-extrabold text-grey-dark mb-4">{title}</h1>
 
-        <!-- Meta -->
-        <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-grey-muted mb-8 pb-6 border-b border-grey-border">
-          <span class="flex items-center gap-2">
-            <svg class="h-4 w-4 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-            </svg>
-            {formatDate(date)}{time ? `, ${time}` : ''}
-          </span>
-          <span class="flex items-center gap-2">
-            <svg class="h-4 w-4 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
-            </svg>
-            {location}
-          </span>
+        <dl class="grid sm:grid-cols-2 gap-x-6 gap-y-3 text-sm mb-8 pb-6 border-b border-grey-border">
+          <div>
+            <dt class="text-grey-muted">Wann</dt>
+            <dd class="font-semibold text-grey-dark">{datumLang(date)}{time ? `, ${time}` : ''}</dd>
+          </div>
+          <div>
+            <dt class="text-grey-muted">Wo</dt>
+            <dd class="font-semibold text-grey-dark">{location}</dd>
+          </div>
           {deadline && (
-            <span class="flex items-center gap-2">
-              <svg class="h-4 w-4 text-orange" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-              </svg>
-              Anmeldeschluss: {formatDate(deadline)}
-            </span>
+            <div>
+              <dt class="text-grey-muted">Anmelden bis</dt>
+              <dd class="font-semibold text-grey-dark">{datumLang(deadline)}</dd>
+            </div>
           )}
-        </div>
+        </dl>
 
-        <!-- Description / Content -->
         <div class="prose prose-sm max-w-none text-grey-mid">
-          <p class="lead text-base text-grey-dark">{description}</p>
+          <p class="text-base text-grey-dark">{description}</p>
           <Content />
         </div>
 
-        <!-- Progress -->
-        <div class="mt-8">
-          <div class="flex justify-between text-sm text-grey-muted mb-1.5">
-            <span>{spotsTaken} von {spotsTotal} Plätzen belegt</span>
-            <span>{spotsLeft} frei</span>
-          </div>
-          <div class="w-full bg-grey-light rounded-full h-3 overflow-hidden">
-            <div
-              class="h-3 rounded-full bg-orange transition-all"
-              style={`width: ${Math.min(100, Math.round((spotsTaken / spotsTotal) * 100))}%`}
-            ></div>
-          </div>
-        </div>
+        {embedUrl && !isFull && (
+          <section class="mt-10" id="anmeldung">
+            <h2 class="text-xl font-bold text-grey-dark mb-4">Anmeldung</h2>
+            <iframe
+              src={embedUrl}
+              title={`Anmeldeformular: ${title}`}
+              class="w-full rounded-xl border border-grey-border bg-white"
+              style="height: 900px;"
+              loading="lazy"
+            >Formular wird geladen …</iframe>
+          </section>
+        )}
       </div>
 
-      <!-- Sidebar: Anmeldeformular -->
       <aside>
         <div class="card sticky top-24">
-          {isFull
-            ? <div class="text-center py-6">
-                <div class="text-4xl mb-3">✅</div>
-                <p class="font-bold text-grey-dark">Dieser Einsatz ist besetzt</p>
-                <p class="text-sm text-grey-muted mt-2">Schau dir andere offene Einsätze an oder melde dich per E-Mail.</p>
-                <a href="/helfereinsaetze" class="btn-secondary mt-4 text-sm">Andere Einsätze</a>
-              </div>
-            : <>
-                <h2 class="font-bold text-lg text-grey-dark mb-1">Jetzt anmelden</h2>
-                <p class="text-sm text-grey-muted mb-5">Fülle das Formular aus — wir melden uns bei dir.</p>
-
-                <!-- Netlify Form -->
-                <form
-                  name="helfer-anmeldung"
-                  method="POST"
-                  data-netlify="true"
-                  data-netlify-honeypot="bot-field"
-                  action="/danke"
-                  class="space-y-4"
-                >
-                  <input type="hidden" name="form-name" value="helfer-anmeldung" />
-                  <input type="hidden" name="einsatz" value={title} />
-                  <input type="hidden" name="datum"   value={date} />
-                  <p class="hidden">
-                    <label>Nicht ausfüllen: <input name="bot-field" /></label>
-                  </p>
-
-                  <div>
-                    <label class="label" for="name">Name *</label>
-                    <input class="input" type="text" id="name" name="name" required placeholder="Vorname Nachname" />
-                  </div>
-
-                  <div>
-                    <label class="label" for="email">E-Mail *</label>
-                    <input class="input" type="email" id="email" name="email" required placeholder="deine@email.ch" />
-                  </div>
-
-                  <div>
-                    <label class="label" for="telefon">Telefon (optional)</label>
-                    <input class="input" type="tel" id="telefon" name="telefon" placeholder="+41 79 000 00 00" />
-                  </div>
-
-                  <div>
-                    <label class="label" for="bemerkungen">Bemerkungen</label>
-                    <textarea class="input" id="bemerkungen" name="bemerkungen" rows="3" placeholder="Fragen, Hinweise..."></textarea>
-                  </div>
-
-                  <button type="submit" class="btn-primary w-full justify-center">
-                    <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                    </svg>
-                    Anmeldung absenden
-                  </button>
-
-                  <p class="text-xs text-grey-muted text-center">
-                    Du erhältst eine Bestätigung per E-Mail.
-                  </p>
-                </form>
-              </>
-          }
+          {isFull ? (
+            <div class="text-center py-4">
+              <p class="font-bold text-grey-dark">Dieser Einsatz ist bereits besetzt</p>
+              <p class="text-sm text-grey-muted mt-2">Herzlichen Dank an alle, die mithelfen! Vielleicht passt dir ein anderer Einsatz?</p>
+              <a href="/helfereinsaetze" class="btn-secondary mt-4 text-sm">Weitere Einsätze</a>
+            </div>
+          ) : formUrl ? (
+            <>
+              <h2 class="font-bold text-lg text-grey-dark mb-1">Bist du dabei?</h2>
+              <p class="text-sm text-grey-muted mb-5">Die Anmeldung dauert nur eine Minute.</p>
+              <a href={embedUrl ? '#anmeldung' : formUrl} target={embedUrl ? undefined : '_blank'} rel="noopener" class="btn-primary w-full justify-center">
+                Zur Anmeldung
+              </a>
+              {embedUrl && (
+                <a href={formUrl} target="_blank" rel="noopener" class="block text-center text-xs text-grey-muted hover:text-orange-dark mt-3">
+                  Formular in neuem Fenster öffnen
+                </a>
+              )}
+            </>
+          ) : (
+            <>
+              <h2 class="font-bold text-lg text-grey-dark mb-1">Anmeldung folgt</h2>
+              <p class="text-sm text-grey-muted mb-5">Das Anmeldeformular ist bald hier. Du möchtest dir den Einsatz schon jetzt sichern? Schreib uns einfach.</p>
+              <a href={mailto} class="btn-primary w-full justify-center">E-Mail schreiben</a>
+            </>
+          )}
         </div>
       </aside>
+
     </div>
   </div>
+
 </Layout>

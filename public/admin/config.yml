@@ -32,6 +32,7 @@ collections:
   - name: "helfereinsaetze"
     label: "Helfereinsätze"
     label_singular: "Helfereinsatz"
+    description: "Für die Anmeldung ein Google Formular erstellen und den Link hier eintragen. Ausgeschaltete Einsätze («Aktiv» aus) sind auf der Website unsichtbar."
     folder: "src/content/helfereinsaetze"
     summary: "{{date}} · {{title}}"
     sortable_fields: ["date", "title"]
@@ -41,11 +42,12 @@ collections:
     fields:
       - { label: "Titel", name: "title", widget: "string" }
       - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
-      - { label: "Uhrzeit (z.B. 07:30–09:00)", name: "time", widget: "string", required: false }
+      - { label: "Zeit (z. B. 07:30–09:00 Uhr)", name: "time", widget: "string", required: false }
       - { label: "Ort", name: "location", widget: "string" }
       - { label: "Kurzbeschreibung", name: "description", widget: "text" }
-      - { label: "Anzahl Helfer (total)", name: "spotsTotal", widget: "number", value_type: "int", min: 1 }
-      - { label: "Bereits angemeldet", name: "spotsTaken", widget: "number", value_type: "int", min: 0, default: 0, hint: "Nach jeder Anmeldung (Netlify → Forms) von Hand erhöhen" }
+      - { label: "Link zum Google Formular", name: "formUrl", widget: "string", required: false, hint: "In Google Forms: Senden → Link-Symbol → Link kopieren. Die lange Adresse (docs.google.com/forms/…) wird direkt in die Seite eingebettet, die kurze (forms.gle/…) als Knopf verlinkt. Leer lassen = «Anmeldung folgt»." }
+      - { label: "Anzahl gesuchte Personen", name: "spotsTotal", widget: "number", value_type: "int", min: 1, required: false, hint: "Optional. Leer lassen, wenn die Plätze nicht gezählt werden sollen." }
+      - { label: "Bereits angemeldet", name: "spotsTaken", widget: "number", value_type: "int", min: 0, default: 0, required: false, hint: "Optional. Von Hand nachführen (Antworten im Google Formular)." }
       - { label: "Anmeldeschluss", name: "deadline", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false }
       - { label: "Aktiv (sichtbar)", name: "active", widget: "boolean", default: true, hint: "Ausschalten statt löschen, um einen Einsatz auszublenden" }
       - label: "Themengruppe"
@@ -59,6 +61,7 @@ collections:
   - name: "termine"
     label: "Termine"
     label_singular: "Termin"
+    description: "Termine aus dem Google Sheet «Kalender» erscheinen automatisch auf der Website. Hier nur Termine erfassen, die nicht im Sheet stehen."
     folder: "src/content/termine"
     summary: "{{date}} · {{title}}"
     sortable_fields: ["date", "title"]
@@ -76,22 +79,6 @@ collections:
         options: ["Sitzung", "Event", "Schlittschuhverleih", "Raus Laus", "Elternbildung", "Sicherheit", "Sonstiges"]
       - { label: "Öffentlich", name: "public", widget: "boolean", default: true }
 
-  # ─── ERL-Infos ────────────────────────────────────────────────────────────
-  - name: "erl-infos"
-    label: "ERL-Infos"
-    label_singular: "ERL-Info"
-    folder: "src/content/erl-infos"
-    summary: "{{date}} · {{title}}"
-    sortable_fields: ["date", "title"]
-    create: true
-    slug: "{{slug}}"
-    extension: "md"
-    fields:
-      - { label: "Titel", name: "title", widget: "string" }
-      - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
-      - { label: "PDF", name: "fileUrl", widget: "file", required: false, hint: "PDF hochladen oder aus den bereits hochgeladenen Dateien wählen" }
-      - { label: "Kurzbeschreibung", name: "summary", widget: "text", required: false }
-
   # ─── Sitzungen ────────────────────────────────────────────────────────────
   - name: "sitzungen"
     label: "Sitzungen"
@@ -106,5 +93,6 @@ collections:
       - { label: "Titel", name: "title", widget: "string" }
       - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
       - { label: "Schuljahr (z.B. 2025/2026)", name: "schuljahr", widget: "string" }
-      - { label: "Protokoll (PDF)", name: "protokollUrl", widget: "file", required: false, hint: "PDF hochladen oder aus den bereits hochgeladenen Dateien wählen" }
-      - { label: "Passwortgeschützt", name: "passwort", widget: "boolean", default: true }
+      - { label: "Protokoll", name: "protokollUrl", widget: "file", required: false, hint: "PDF hochladen, bereits hochgeladene Datei wählen oder Link einfügen (z. B. Google Doc)" }
+      - { label: "Präsentation (PDF)", name: "praesentationUrl", widget: "file", required: false }
+      - { label: "Protokoll mit Passwort geschützt", name: "passwort", widget: "boolean", default: false }

@@ -1,39 +1,65 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import ThemaKopf from '../../components/ThemaKopf.astro';
+import { KONTAKT_EMAIL } from '../../site.config';
+
+const anlaesse = [
+  {
+    name: 'Frühlingstreffen',
+    wann: 'jeweils im Frühling',
+    text: 'Unser Dankeschön an die Lehrpersonen und alle Mitarbeitenden der Schule Laubegg: Wir Eltern bewirten sie – und es bleibt viel Zeit für ungezwungene Gespräche.',
+  },
+  {
+    name: 'Adventsznüni',
+    wann: 'in der Adventszeit',
+    text: 'An jedem Standort ein feines Znüni für die Kinder. Eine schöne Tradition, die nur dank vielen Helfenden möglich ist.',
+  },
+  {
+    name: 'Gangsingen',
+    wann: 'im Schulhaus Laubegg',
+    text: 'Ein wiederkehrender Anlass, bei dem im Schulhausgang gemeinsam gesungen wird.',
+  },
+  {
+    name: 'Sommerfest',
+    wann: 'abwechselnd im Sonnenhof und im Laubegg',
+    text: 'Seit Corona hat leider keines mehr stattgefunden. Wir würden das Sommerfest gerne wiederbeleben – hast du Lust, mitzuplanen?',
+  },
+];
 ---
-<Layout title="Events" description="Schulübergreifende Veranstaltungen des Elternrats Laubegg: Frühlingstreffen, Adventsznüni und mehr.">
-  <div class="border-b border-grey-border overflow-hidden" style="max-height: 240px; position: relative;">
-    <img src="/images/themen/events.svg" alt="" class="w-full object-cover" style="max-height: 240px;" aria-hidden="true"/>
-    <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent flex items-end">
-      <div class="max-w-6xl mx-auto px-4 sm:px-6 py-7 w-full">
-        <span class="badge bg-white/20 text-white text-xs mb-2 inline-block">Themengruppe</span>
-        <h1 class="text-3xl sm:text-4xl font-extrabold text-white drop-shadow">Events</h1>
-        <p class="text-white/80 mt-1 text-sm drop-shadow">Schulübergreifende Begegnungen für Eltern und Familien</p>
-      </div>
-    </div>
-  </div>
+
+<Layout title="Events" description="Frühlingstreffen, Adventsznüni und weitere Anlässe des Elternrats Laubegg.">
+
+  <ThemaKopf
+    titel="Events"
+    untertitel="Anlässe, die Eltern, Kinder und Schule zusammenbringen."
+    img="/images/themen/events.svg"
+  />
+
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
     <div class="prose prose-sm max-w-none text-grey-mid mb-10">
-      <p>Die Themengruppe Events organisiert schulübergreifende Veranstaltungen, die Eltern und Familien zusammenbringen. Das Ziel ist ein lebendiges Schulleben und eine starke Gemeinschaft.</p>
+      <p class="text-base text-grey-dark">
+        Die Themengruppe Events organisiert und unterstützt Anlässe an der Schule Laubegg.
+        Ein fester Wert im Kalender ist das Frühlingstreffen – daneben packen wir gerne bei weiteren Ideen mit an.
+      </p>
     </div>
+
     <div class="grid sm:grid-cols-2 gap-5">
-      {[
-        { name: 'Frühlingstreffen', desc: 'Ein gemütlicher Anlass im Frühling für alle Familien der Schule Laubegg.', icon: '🌸' },
-        { name: 'Adventsznüni', desc: 'Gemeinsamer Znüni in der Adventszeit — festlich und gemütlich.', icon: '🕯️' },
-      ].map(e => (
+      {anlaesse.map(a => (
         <div class="card">
-          <span class="text-3xl mb-3 block">{e.icon}</span>
-          <h2 class="font-bold text-grey-dark mb-1">{e.name}</h2>
-          <p class="text-sm text-grey-mid">{e.desc}</p>
+          <p class="text-xs font-semibold uppercase tracking-wider text-orange-dark">{a.wann}</p>
+          <h2 class="font-bold text-lg text-grey-dark mt-1 mb-2">{a.name}</h2>
+          <p class="text-sm text-grey-mid">{a.text}</p>
         </div>
       ))}
     </div>
-    <div class="mt-10 card bg-orange-lighter border-orange/20">
-      <p class="font-semibold text-grey-dark mb-1">Mitmachen bei Events</p>
-      <p class="text-sm text-grey-mid">Hast du Lust, bei der Organisation zu helfen oder eine Idee für einen neuen Event?</p>
-      <a href="mailto:elternrat_laubegg@gmx.ch" class="btn-primary mt-3 text-sm inline-flex">
-        Melde dich bei uns
-      </a>
+
+    <div class="mt-10 card bg-orange-lighter border-orange/20 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div>
+        <p class="font-semibold text-grey-dark">Lust auf Organisieren, Backen oder Anpacken?</p>
+        <p class="text-sm text-grey-mid mt-1">Ob eine Idee für einen neuen Anlass oder Hilfe am Tag selbst – wir freuen uns über dich.</p>
+      </div>
+      <a href={`mailto:${KONTAKT_EMAIL}?subject=Events`} class="btn-primary text-sm whitespace-nowrap">Melde dich</a>
     </div>
   </div>
+
 </Layout>

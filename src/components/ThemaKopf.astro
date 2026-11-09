@@ -1,0 +1,21 @@
+---
+interface Props {
+  titel: string;
+  untertitel: string;
+  img: string;
+}
+const { titel, untertitel, img } = Astro.props;
+---
+
+<div class="bg-orange-lighter border-b border-grey-border">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 grid md:grid-cols-5 gap-6 items-center">
+    <div class="md:col-span-2 order-2 md:order-1">
+      <a href="/themen" class="text-sm text-grey-muted hover:text-orange-dark">← Alle Themen</a>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-grey-dark mt-2">{titel}</h1>
+      <p class="text-grey-mid mt-2">{untertitel}</p>
+    </div>
+    <div class="md:col-span-3 order-1 md:order-2">
+      <img src={img} alt="" class="w-full rounded-2xl" aria-hidden="true" />
+    </div>
+  </div>
+</div>

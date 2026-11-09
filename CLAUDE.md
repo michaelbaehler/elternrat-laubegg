@@ -8,9 +8,14 @@ Astro 4 + Tailwind, statisch generiert, deployt über Netlify (Auto-Deploy bei P
 
 ## Workflow für Inhalts-Updates
 
-Der Elternrat pflegt Inhalte nicht selbst über ein CMS, sondern teilt Claude in einer Unterhaltung mit, was zu ändern ist (neuer Termin, neues Protokoll, neuer Helfereinsatz etc.). Claude bearbeitet dann direkt die passende Markdown-Datei unter `src/content/`, committet und pusht (nach Rückfrage beim Nutzer).
+Zwei Wege:
 
-Das Decap-CMS-Panel unter `/admin` existiert im Code, wird aber **nicht genutzt** — Netlify Identity/Git Gateway ist absichtlich nicht aktiviert, Login würde also nicht funktionieren. Das ist kein Bug, sondern bewusste Entscheidung.
+1. **CMS unter `/admin`** (Decap CMS) für Routine-Inhalte (Termine, Helfereinsätze, Protokolle, ERL-Infos). Login mit GitHub-Konto (Backend `github`, Netlify als OAuth-Provider über `base_url: https://api.netlify.com` / `site_domain`). Voraussetzung: GitHub-OAuth-App, deren Client-ID/Secret in Netlify unter *Site configuration → Access & security → OAuth* hinterlegt ist; Callback-URL `https://api.netlify.com/auth/done`. Bearbeiter brauchen Schreibrecht aufs Repo. Jede Speicherung ist ein Commit direkt auf `main` (→ Auto-Deploy).
+2. **Über Claude** für grössere Änderungen: Claude bearbeitet direkt die Dateien, committet und pusht (nach Rückfrage beim Nutzer).
+
+Netlify Identity / Git Gateway wird **nicht** genutzt.
+
+Datumsfelder werden in `src/content/config.ts` über `isoDate` normalisiert, weil das CMS Daten teils ohne Anführungszeichen speichert (YAML liest sie dann als Date).
 
 ## Content Collections (`src/content/`)
 
@@ -48,7 +53,7 @@ public: true
 title: "2. Sitzung Elternrat 2025/2026"
 date: "2025-11-17"
 schuljahr: "2025/2026"
-protokollUrl: "/uploads/protokoll-2025-11-17.pdf"   # PDF vorher nach public/uploads/ legen
+protokollUrl: "/uploads/protokoll-2025-11-17.pdf"   # PDF liegt in public/uploads/ (im CMS direkt hochladbar)
 passwort: true
 ```
 
@@ -64,5 +69,5 @@ PDFs liegen in `public/uploads/`.
 
 ## Bekannte offene Punkte
 
-- `sitzung-anmeldung.html` (öffentlicher Ordner, Einzelseite) ist aktuell **kaputt**: ruft eine mittlerweile gelöschte Netlify-Funktion (`/api/sheets-proxy`) auf, die per Claude-API+MCP eine Google-Sheets-Zeile schreiben sollte. Nicht im aktuellen Scope — bei Bedarf neu aufgleisen (z.B. Google Apps Script Web App statt LLM-Umweg).
+- `sitzung-anmeldung.html` (öffentlicher Ordner, Einzelseite) ist aktuell **kaputt**: ruft die gelöschte Netlify-Funktion (`/api/sheets-proxy`) auf, die per Claude-API+MCP eine Google-Sheets-Zeile schreiben sollte. Nicht im aktuellen Scope — bei Bedarf neu aufgleisen (z.B. Google Apps Script Web App statt LLM-Umweg).
 - Domain-Umzug `elternratlaubegg.ch` (Produktiv-Domain, aktuell noch alte Seite via Hoststar) auf Netlify steht noch aus; erst die Test-Subdomain `new.elternratlaubegg.ch` ist umgestellt.

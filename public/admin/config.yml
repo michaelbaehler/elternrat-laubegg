@@ -1,6 +1,17 @@
+# Login über GitHub; Netlify übernimmt die Anmeldung (OAuth).
+# Wer Inhalte bearbeiten will, braucht ein GitHub-Konto mit Schreibrecht auf das Repository.
 backend:
-  name: git-gateway
+  name: github
+  repo: michaelbaehler/elternrat-laubegg
   branch: main
+  base_url: https://api.netlify.com
+  site_domain: elternratlaubegg.netlify.app
+  commit_messages:
+    create: "Neu: {{collection}} „{{slug}}“ (via CMS)"
+    update: "Geändert: {{collection}} „{{slug}}“ (via CMS)"
+    delete: "Gelöscht: {{collection}} „{{slug}}“ (via CMS)"
+    uploadMedia: "Datei hochgeladen: {{path}} (via CMS)"
+    deleteMedia: "Datei gelöscht: {{path}} (via CMS)"
 
 # Lokales Backend für Entwicklung (auskommentieren für Produktion)
 # local_backend: true
@@ -9,6 +20,12 @@ media_folder: "public/uploads"
 public_folder: "/uploads"
 
 locale: de
+slug:
+  encoding: "ascii"
+  clean_accents: true
+logo_url: /brand/erl-kreis-dunkel.svg
+site_url: https://elternratlaubegg.netlify.app
+display_url: https://elternratlaubegg.netlify.app
 
 collections:
   # ─── Helfereinsätze ───────────────────────────────────────────────────────
@@ -16,6 +33,8 @@ collections:
     label: "Helfereinsätze"
     label_singular: "Helfereinsatz"
     folder: "src/content/helfereinsaetze"
+    summary: "{{date}} · {{title}}"
+    sortable_fields: ["date", "title"]
     create: true
     slug: "{{slug}}"
     extension: "md"
@@ -26,9 +45,9 @@ collections:
       - { label: "Ort", name: "location", widget: "string" }
       - { label: "Kurzbeschreibung", name: "description", widget: "text" }
       - { label: "Anzahl Helfer (total)", name: "spotsTotal", widget: "number", value_type: "int", min: 1 }
-      - { label: "Bereits angemeldet", name: "spotsTaken", widget: "number", value_type: "int", min: 0, default: 0 }
+      - { label: "Bereits angemeldet", name: "spotsTaken", widget: "number", value_type: "int", min: 0, default: 0, hint: "Nach jeder Anmeldung (Netlify → Forms) von Hand erhöhen" }
       - { label: "Anmeldeschluss", name: "deadline", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false }
-      - { label: "Aktiv (sichtbar)", name: "active", widget: "boolean", default: true }
+      - { label: "Aktiv (sichtbar)", name: "active", widget: "boolean", default: true, hint: "Ausschalten statt löschen, um einen Einsatz auszublenden" }
       - label: "Themengruppe"
         name: "thema"
         widget: "select"
@@ -41,6 +60,8 @@ collections:
     label: "Termine"
     label_singular: "Termin"
     folder: "src/content/termine"
+    summary: "{{date}} · {{title}}"
+    sortable_fields: ["date", "title"]
     create: true
     slug: "{{slug}}"
     extension: "md"
@@ -60,13 +81,15 @@ collections:
     label: "ERL-Infos"
     label_singular: "ERL-Info"
     folder: "src/content/erl-infos"
+    summary: "{{date}} · {{title}}"
+    sortable_fields: ["date", "title"]
     create: true
     slug: "{{slug}}"
     extension: "md"
     fields:
       - { label: "Titel", name: "title", widget: "string" }
       - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
-      - { label: "PDF-Link (z.B. /uploads/datei.pdf)", name: "fileUrl", widget: "string", required: false }
+      - { label: "PDF", name: "fileUrl", widget: "file", required: false, hint: "PDF hochladen oder aus den bereits hochgeladenen Dateien wählen" }
       - { label: "Kurzbeschreibung", name: "summary", widget: "text", required: false }
 
   # ─── Sitzungen ────────────────────────────────────────────────────────────
@@ -74,6 +97,8 @@ collections:
     label: "Sitzungen"
     label_singular: "Sitzung"
     folder: "src/content/sitzungen"
+    summary: "{{date}} · {{title}}"
+    sortable_fields: ["date", "title"]
     create: true
     slug: "{{slug}}"
     extension: "md"
@@ -81,5 +106,5 @@ collections:
       - { label: "Titel", name: "title", widget: "string" }
       - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
       - { label: "Schuljahr (z.B. 2025/2026)", name: "schuljahr", widget: "string" }
-      - { label: "Protokoll-Link (z.B. /uploads/protokoll.pdf)", name: "protokollUrl", widget: "string", required: false }
+      - { label: "Protokoll (PDF)", name: "protokollUrl", widget: "file", required: false, hint: "PDF hochladen oder aus den bereits hochgeladenen Dateien wählen" }
       - { label: "Passwortgeschützt", name: "passwort", widget: "boolean", default: true }

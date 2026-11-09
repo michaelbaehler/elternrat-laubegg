@@ -1,16 +1,23 @@
 import { defineCollection, z } from 'astro:content';
 
+// Datumsfelder als "YYYY-MM-DD"-String. Das CMS kann Daten ohne Anführungszeichen
+// speichern, die YAML dann als Date-Objekt liest – beides wird hier vereinheitlicht.
+const isoDate = z.preprocess(
+  (v) => (v instanceof Date ? v.toISOString().slice(0, 10) : v),
+  z.string(),
+);
+
 const helfereinsaetze = defineCollection({
   type: 'content',
   schema: z.object({
     title:       z.string(),
-    date:        z.string(),               // ISO date "2025-10-23"
+    date:        isoDate,                  // ISO date "2025-10-23"
     time:        z.string().optional(),    // "08:00–12:00"
     location:    z.string(),
     description: z.string(),
     spotsTotal:  z.number(),
     spotsTaken:  z.number().default(0),
-    deadline:    z.string().optional(),
+    deadline:    isoDate.optional(),
     active:      z.boolean().default(true),
     thema:       z.string().optional(),    // "Schlittschuhverleih", "Events", etc.
   }),
@@ -20,7 +27,7 @@ const termine = defineCollection({
   type: 'content',
   schema: z.object({
     title:    z.string(),
-    date:     z.string(),
+    date:     isoDate,
     time:     z.string().optional(),
     location: z.string().optional(),
     category: z.enum(['Sitzung', 'Event', 'Schlittschuhverleih', 'Raus Laus', 'Elternbildung', 'Sicherheit', 'Sonstiges']),
@@ -32,7 +39,7 @@ const erlInfos = defineCollection({
   type: 'content',
   schema: z.object({
     title:    z.string(),
-    date:     z.string(),
+    date:     isoDate,
     fileUrl:  z.string().optional(),       // Link zu PDF
     summary:  z.string().optional(),
   }),
@@ -42,7 +49,7 @@ const sitzungen = defineCollection({
   type: 'content',
   schema: z.object({
     title:       z.string(),
-    date:        z.string(),
+    date:        isoDate,
     schuljahr:   z.string(),               // "2025/2026"
     protokollUrl: z.string().optional(),   // Link zu PDF
     passwort:    z.boolean().default(true),

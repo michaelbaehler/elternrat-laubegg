@@ -19,7 +19,7 @@ Datumsfelder werden in `src/content/config.ts` über `isoDate` normalisiert, wei
 
 ## Content Collections (`src/content/`)
 
-Texte: Schweizer Schreibweise (ss, «»), Du-Form, freundlich und klar. Sitzungen sind für die Elternratsvertreter:innen, nicht für alle Eltern; alle Eltern können bei Helfereinsätzen, Elternbildung und Themengruppen mitmachen oder Elternratsvertreter:in werden. Themengruppen-Daten zentral in `src/lib/themen.ts`, Kontakt-E-Mail in `src/site.config.ts`. Themengrafiken (`public/images/themen/*.svg`) sind von Hand gezeichnete SVGs (Text als Pfade, Palette wie Logo).
+Texte: Schweizer Schreibweise (ss, «»), Du-Form, freundlich und klar. Sitzungen sind für die Elternratsvertreter:innen, nicht für alle Eltern; alle Eltern können bei Helfereinsätzen, Elternbildung und Themengruppen mitmachen oder Elternratsvertreter:in werden. Themengruppen-Daten zentral in `src/lib/themen.ts`, Kontakt-E-Mail in `src/site.config.ts`. Themengrafiken (`public/images/themen/*.webp`) sind KI-Illustrationen im Stil des Gestaltungshandbuchs, zugeschnitten auf 20:11 (1536×845). Frühere handgezeichnete SVGs liegen in der Git-Historie.
 
 Schema in `src/content/config.ts`. Dateiname = beliebiger Slug, wird zu URL-Segment.
 

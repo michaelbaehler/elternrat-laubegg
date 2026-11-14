@@ -1,7 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
-import { datumLang } from '../../lib/datum';
+import { datumLang, datumBereich } from '../../lib/datum';
+import StandortBadges from '../../components/StandortBadges.astro';
 import { KONTAKT_EMAIL } from '../../site.config';
 
 export async function getStaticPaths() {
@@ -10,7 +11,8 @@ export async function getStaticPaths() {
 }
 
 const { einsatz } = Astro.props;
-const { title, date, time, location, description, formUrl, spotsTotal, spotsTaken = 0, deadline, thema } = einsatz.data;
+const { title, date, dateEnd, datumText, time, standorte, location, description, formUrl, spotsTotal, spotsTaken = 0, deadline, thema } = einsatz.data;
+const wannText = datumText ?? datumBereich(date, dateEnd, true);
 const { Content } = await einsatz.render();
 
 const spotsLeft = spotsTotal !== undefined ? spotsTotal - spotsTaken : undefined;
@@ -21,7 +23,7 @@ const embedUrl = formUrl && /docs\.google\.com\/forms\//.test(formUrl)
   ? formUrl.replace(/\/(viewform|edit)?(\?.*)?$/, '/viewform?embedded=true')
   : undefined;
 
-const mailto = `mailto:${KONTAKT_EMAIL}?subject=${encodeURIComponent(`Helfereinsatz: ${title} (${datumLang(date)})`)}`;
+const mailto = `mailto:${KONTAKT_EMAIL}?subject=${encodeURIComponent(`Helfereinsatz: ${title} (${wannText})`)}`;
 ---
 
 <Layout title={title} description={description}>
@@ -50,12 +52,17 @@ const mailto = `mailto:${KONTAKT_EMAIL}?subject=${encodeURIComponent(`Helfereins
         <dl class="grid sm:grid-cols-2 gap-x-6 gap-y-3 text-sm mb-8 pb-6 border-b border-grey-border">
           <div>
             <dt class="text-grey-muted">Wann</dt>
-            <dd class="font-semibold text-grey-dark">{datumLang(date)}{time ? `, ${time}` : ''}</dd>
+            <dd class="font-semibold text-grey-dark">{wannText}{time ? `, ${time}` : ''}</dd>
           </div>
-          <div>
-            <dt class="text-grey-muted">Wo</dt>
-            <dd class="font-semibold text-grey-dark">{location}</dd>
-          </div>
+          {(location || standorte.length > 0) && (
+            <div>
+              <dt class="text-grey-muted">Wo</dt>
+              <dd class="font-semibold text-grey-dark grid gap-1.5">
+                {location && <span>{location}</span>}
+                <StandortBadges standorte={standorte} />
+              </dd>
+            </div>
+          )}
           {deadline && (
             <div>
               <dt class="text-grey-muted">Anmelden bis</dt>

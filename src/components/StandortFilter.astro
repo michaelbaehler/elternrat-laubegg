@@ -1,0 +1,58 @@
+---
+// Filter-Knöpfe nach Standort. Blendet Elemente mit data-filter-item aus, deren Standorte nicht passen.
+// Elemente mit leerer Standort-Liste oder «Alle Standorte» bleiben immer sichtbar.
+// Gruppen (data-filter-group) ohne sichtbare Einträge werden ausgeblendet. Ohne JavaScript ist alles sichtbar.
+import { ALLE } from '../lib/standorte';
+interface Props { standorte: string[]; label?: string }
+const { standorte, label = 'Standort' } = Astro.props;
+---
+
+{standorte.length > 1 && (
+  <div class="mb-8" data-standort-filter data-alle={ALLE} hidden>
+    <p class="text-xs font-semibold uppercase tracking-wider text-grey-muted mb-2">{label}</p>
+    <div class="flex flex-wrap gap-2" role="group" aria-label={`Nach ${label} filtern`}>
+      <button type="button" data-value="" aria-pressed="true" class="filter-chip">Alle</button>
+      {standorte.map(s => <button type="button" data-value={s} aria-pressed="false" class="filter-chip">{s}</button>)}
+    </div>
+    <p data-filter-empty hidden class="text-grey-muted mt-4">Für diesen Standort ist zurzeit nichts eingetragen.</p>
+  </div>
+)}
+
+<style is:global>
+  .filter-chip { border: 1px solid #DDDDDD; border-radius: 9999px; padding: 0.3rem 0.9rem; font-size: 0.875rem; font-weight: 600; color: #555; background: #fff; cursor: pointer; }
+  .filter-chip:hover { border-color: #F7890A; color: #B35C00; }
+  .filter-chip[aria-pressed="true"] { background: #F7890A; border-color: #F7890A; color: #fff; }
+  .filter-chip:focus-visible { outline: 3px solid #F7890A; outline-offset: 2px; }
+</style>
+
+<script>
+  const box = document.querySelector<HTMLElement>('[data-standort-filter]');
+  if (box) {
+    const alle = box.dataset.alle ?? '';
+    const chips = [...box.querySelectorAll<HTMLButtonElement>('.filter-chip')];
+    const items = [...document.querySelectorAll<HTMLElement>('[data-filter-item]')];
+    const groups = [...document.querySelectorAll<HTMLElement>('[data-filter-group]')];
+    const empty = box.querySelector<HTMLElement>('[data-filter-empty]');
+    const apply = (value: string, push = true) => {
+      chips.forEach(c => c.setAttribute('aria-pressed', String(c.dataset.value === value)));
+      let sichtbar = 0;
+      for (const el of items) {
+        const liste = (el.dataset.standorte ?? '').split('|').filter(Boolean);
+        const ok = !value || liste.length === 0 || liste.includes(alle) || liste.includes(value);
+        el.hidden = !ok;
+        if (ok) sichtbar++;
+      }
+      for (const g of groups) g.hidden = !g.querySelector('[data-filter-item]:not([hidden])');
+      if (empty) empty.hidden = sichtbar > 0;
+      if (push) {
+        const url = new URL(location.href);
+        value ? url.searchParams.set('standort', value) : url.searchParams.delete('standort');
+        history.replaceState(null, '', url);
+      }
+    };
+    chips.forEach(c => c.addEventListener('click', () => apply(c.dataset.value ?? '')));
+    box.hidden = false;
+    const start = new URLSearchParams(location.search).get('standort') ?? '';
+    if (chips.some(c => c.dataset.value === start)) apply(start, false);
+  }
+</script>

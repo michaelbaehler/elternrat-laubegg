@@ -2,11 +2,11 @@
 import Layout from '../../layouts/Layout.astro';
 import ThemaKopf from '../../components/ThemaKopf.astro';
 import { getCollection } from 'astro:content';
-import { heute } from '../../lib/termine';
+import { heute, istAktuell } from '../../lib/termine';
 
 const today = heute();
 const helfer = await getCollection('helfereinsaetze', e =>
-  e.data.active && e.data.thema === 'Raus Laus' && e.data.date >= today
+  e.data.active && e.data.thema === 'Raus Laus' && istAktuell(e.data, today)
 );
 
 const termine = [

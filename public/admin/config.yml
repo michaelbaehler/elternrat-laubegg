@@ -41,9 +41,18 @@ collections:
     extension: "md"
     fields:
       - { label: "Titel", name: "title", widget: "string" }
-      - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+      - { label: "Datum (Beginn)", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, hint: "Bei mehreren Daten das erste Datum. Es steuert die Sortierung. Ist noch nichts fix: voraussichtliches Datum eintragen und unten «Datum als Text» ausfüllen." }
+      - { label: "Bis (nur bei mehreren Tagen)", name: "dateEnd", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false, hint: "Letzter Tag, z. B. bei einem Einsatz von Donnerstag bis Freitag." }
+      - { label: "Datum als Text (optional)", name: "datumText", widget: "string", required: false, hint: "Ersetzt die Datumsanzeige, z. B. «Woche nach den Herbstferien» oder «Do, 22. und Fr, 23. Oktober». Die genauen Daten kann man im Formular auswählen." }
       - { label: "Zeit (z. B. 07:30–09:00 Uhr)", name: "time", widget: "string", required: false }
-      - { label: "Ort", name: "location", widget: "string" }
+      - label: "Standorte"
+        name: "standorte"
+        widget: "select"
+        multiple: true
+        required: false
+        hint: "Wo findet es statt bzw. für wen gilt es? Mehrere wählbar. Leer lassen = gilt für die ganze Schule. Damit lässt sich auf der Website nach Standort filtern."
+        options: ["Laubegg", "Sonnenhof", "Wyssloch", "Rosengarten", "Schöngrün", "Egelsee", "Merzenacker", "Baumgarten", "Alle Standorte"]
+      - { label: "Treffpunkt / Ort (optional)", name: "location", widget: "string", required: false, hint: "Genauer Ort, z. B. «vor der Treppe des Schulhauses». Der Standort wird oben gewählt." }
       - { label: "Kurzbeschreibung", name: "description", widget: "text" }
       - { label: "Link zum Google Formular", name: "formUrl", widget: "string", required: false, hint: "In Google Forms: Senden → Link-Symbol → Link kopieren. Die lange Adresse (docs.google.com/forms/…) wird direkt in die Seite eingebettet, die kurze (forms.gle/…) als Knopf verlinkt. Leer lassen = «Anmeldung folgt»." }
       - { label: "Anzahl gesuchte Personen", name: "spotsTotal", widget: "number", value_type: "int", min: 1, required: false, hint: "Optional. Leer lassen, wenn die Plätze nicht gezählt werden sollen." }
@@ -70,9 +79,19 @@ collections:
     extension: "md"
     fields:
       - { label: "Titel", name: "title", widget: "string" }
-      - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
+      - { label: "Datum (Beginn)", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, hint: "Bei mehreren Daten das erste Datum. Es steuert die Sortierung. Ist noch nichts fix: voraussichtliches Datum eintragen und unten «Datum als Text» ausfüllen." }
+      - { label: "Bis (nur bei mehreren Tagen)", name: "dateEnd", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false, hint: "Letzter Tag, z. B. bei einem Einsatz von Donnerstag bis Freitag." }
+      - { label: "Datum als Text (optional)", name: "datumText", widget: "string", required: false, hint: "Ersetzt die Datumsanzeige, z. B. «Woche nach den Herbstferien» oder «Do, 22. und Fr, 23. Oktober». Die genauen Daten kann man im Formular auswählen." }
       - { label: "Uhrzeit", name: "time", widget: "string", required: false }
-      - { label: "Ort", name: "location", widget: "string", required: false }
+      - label: "Standorte"
+        name: "standorte"
+        widget: "select"
+        multiple: true
+        required: false
+        hint: "Wo findet es statt bzw. für wen gilt es? Mehrere wählbar. Leer lassen = gilt für die ganze Schule. Damit lässt sich auf der Website nach Standort filtern."
+        options: ["Laubegg", "Sonnenhof", "Wyssloch", "Rosengarten", "Schöngrün", "Egelsee", "Merzenacker", "Baumgarten", "Alle Standorte"]
+      - { label: "Treffpunkt / Ort (optional)", name: "location", widget: "string", required: false }
+      - { label: "Beschreibung (optional)", name: "description", widget: "text", required: false, hint: "Kurzer Zusatz, z. B. welcher Standort an welchem Tag." }
       - label: "Kategorie"
         name: "category"
         widget: "select"

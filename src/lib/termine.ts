@@ -7,6 +7,8 @@
 
 import { getCollection } from 'astro:content';
 import { TERMINE_SHEET_CSV_URL } from '../site.config';
+import { normStandorte } from './standorte';
+import { letzterTag } from './datum';
 
 export const KATEGORIEN = [
   'Sitzung', 'Event', 'Schlittschuhverleih', 'Raus Laus', 'Elternbildung', 'Sicherheit', 'Sonstiges',
@@ -15,8 +17,11 @@ export type Kategorie = (typeof KATEGORIEN)[number];
 
 export interface Termin {
   title: string;
-  date: string;          // YYYY-MM-DD
+  date: string;          // YYYY-MM-DD (Beginn)
+  dateEnd?: string;      // YYYY-MM-DD, nur bei mehrtägigen Terminen
+  datumText?: string;    // Datum als Text, ersetzt die Anzeige
   time?: string;
+  standorte: string[];   // leer = gilt für die ganze Schule
   location?: string;
   category: Kategorie;
   description?: string;
@@ -25,11 +30,13 @@ export interface Termin {
 }
 
 // Spaltennamen im Sheet (Gross-/Kleinschreibung egal). Die erste passende Spalte gewinnt.
-const SPALTEN: Record<keyof Omit<Termin, 'quelle'> | 'public', string[]> = {
-  date:        ['datum', 'date', 'tag', 'start', 'startdatum', 'beginn'],
-  time:        ['zeit', 'uhrzeit', 'time', 'von'],
+const SPALTEN: Record<'date' | 'dateEnd' | 'time' | 'title' | 'location' | 'standorte' | 'category' | 'description' | 'link' | 'public', string[]> = {
+  date:        ['datum', 'date', 'tag', 'start', 'startdatum', 'beginn', 'von', 'von datum'],
+  dateEnd:     ['bis', 'enddatum', 'ende', 'end', 'bis datum', 'datum bis'],
+  time:        ['zeit', 'uhrzeit', 'time'],
   title:       ['titel', 'title', 'termin', 'anlass', 'was', 'betreff', 'name'],
   location:    ['ort', 'location', 'wo', 'treffpunkt'],
+  standorte:   ['standort', 'standorte', 'schulhaus', 'schulhäuser', 'schulstandort', 'schulstandorte'],
   category:    ['kategorie', 'category', 'thema', 'themengruppe', 'typ'],
   description: ['beschreibung', 'description', 'details', 'info', 'bemerkung', 'bemerkungen'],
   link:        ['link', 'url', 'anmeldung', 'formular'],
@@ -72,6 +79,25 @@ export function parseDatum(raw: string): string | undefined {
   return undefined;
 }
 
+/** Alle vollständigen Daten in einer Zelle, z. B. «22.10.2026 – 23.10.2026» → zwei Einträge. */
+export function findeDaten(raw: string): string[] {
+  const out: string[] = [];
+  // Kurzform «22.–23.10.2026» oder «22.-23.10.26»
+  const kurz = raw.match(/\b(\d{1,2})\.\s*[–—-]\s*(\d{1,2})\.(\d{1,2})\.(\d{2}|\d{4})\b/);
+  if (kurz) {
+    const j = kurz[4].length === 2 ? `20${kurz[4]}` : kurz[4];
+    const m = kurz[3].padStart(2, '0');
+    return [`${j}-${m}-${kurz[1].padStart(2, '0')}`, `${j}-${m}-${kurz[2].padStart(2, '0')}`];
+  }
+  for (const m of raw.matchAll(/(\d{4})-(\d{1,2})-(\d{1,2})|(\d{1,2})[./](\d{1,2})[./](\d{2}|\d{4})\b/g)) {
+    const d = m[1]
+      ? `${m[1]}-${m[2].padStart(2, '0')}-${m[3].padStart(2, '0')}`
+      : `${m[6].length === 2 ? `20${m[6]}` : m[6]}-${m[5].padStart(2, '0')}-${m[4].padStart(2, '0')}`;
+    out.push(d);
+  }
+  return out;
+}
+
 function zeitAusDatum(raw: string): string | undefined {
   const m = raw.match(/\b(\d{1,2}):(\d{2})\b/);
   return m ? `${m[1].padStart(2, '0')}:${m[2]} Uhr` : undefined;
@@ -105,13 +131,18 @@ export function termineAusCsv(csv: string): Termin[] {
   for (const z of zeilen) {
     const datumRoh = wert(z, 'date');
     const title = wert(z, 'title');
-    const date = datumRoh && parseDatum(datumRoh);
+    const daten = datumRoh ? findeDaten(datumRoh) : [];
+    const date = daten[0];
     if (!date || !title) continue;
+    const endeRoh = wert(z, 'dateEnd');
+    const dateEnd = (endeRoh ? findeDaten(endeRoh)[0] : undefined) ?? daten[1];
     if (NEIN.includes((wert(z, 'public') ?? '').toLowerCase())) continue;
     termine.push({
       title,
       date,
+      dateEnd: dateEnd && dateEnd > date ? dateEnd : undefined,
       time: wert(z, 'time') ?? zeitAusDatum(datumRoh!),
+      standorte: normStandorte(wert(z, 'standorte') ?? ''),
       location: wert(z, 'location'),
       category: normKategorie(wert(z, 'category')),
       description: wert(z, 'description'),
@@ -145,9 +176,13 @@ export function getAlleTermine(): Promise<Termin[]> {
     const eigene = (await getCollection('termine', t => t.data.public)).map<Termin>(t => ({
       title: t.data.title,
       date: t.data.date,
+      dateEnd: t.data.dateEnd,
+      datumText: t.data.datumText,
       time: t.data.time,
+      standorte: normStandorte(t.data.standorte),
       location: t.data.location,
       category: t.data.category,
+      description: t.data.description,
       quelle: 'website',
     }));
     const alle = [...eigene];
@@ -160,6 +195,9 @@ export function getAlleTermine(): Promise<Termin[]> {
   })();
   return cache;
 }
+
+/** Ist der Termin heute oder später (bei Zeiträumen: bis zum letzten Tag)? */
+export const istAktuell = (t: { date: string; dateEnd?: string }, today: string) => letzterTag(t) >= today;
 
 export function heute(): string {
   // Datum in Bern, nicht UTC – sonst kippt ein Termin kurz vor Mitternacht zu früh.

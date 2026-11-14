@@ -1,16 +1,20 @@
 ---
-import { datumLang, tag, monat } from '../lib/datum';
+import { datumBereich, blockTag, monat } from '../lib/datum';
+import StandortBadges from './StandortBadges.astro';
 
 interface Props {
   title: string;
   date: string;
+  dateEnd?: string;
+  datumText?: string;
   time?: string;
+  standorte?: string[];
   location?: string;
   category?: string;
   description?: string;
   link?: string;
 }
-const { title, date, time, location, category, description, link } = Astro.props;
+const { title, date, dateEnd, datumText, time, standorte = [], location, category, description, link } = Astro.props;
 
 const farben: Record<string, string> = {
   'Sitzung':             'bg-grey-dark text-white',
@@ -23,17 +27,18 @@ const farben: Record<string, string> = {
 };
 ---
 
-<div class="flex items-start gap-4 p-4 rounded-xl border border-grey-border bg-white">
+<div class="flex items-start gap-4 p-4 rounded-xl border border-grey-border bg-white" data-filter-item data-standorte={standorte.join('|')}>
   <div class="flex-shrink-0 w-14 text-center bg-orange-light rounded-lg py-2" aria-hidden="true">
-    <div class="text-2xl font-bold text-grey-dark leading-none">{tag(date)}</div>
+    <div class:list={['font-bold text-grey-dark leading-none', dateEnd ? 'text-lg whitespace-nowrap' : 'text-2xl']}>{blockTag(date, dateEnd)}</div>
     <div class="text-xs font-semibold text-orange-dark uppercase mt-0.5">{monat(date)}</div>
   </div>
   <div class="flex-1 min-w-0">
     <div class="flex items-center gap-2 mb-0.5 flex-wrap">
       {category && <span class:list={['badge', farben[category] ?? farben.Sonstiges]}>{category}</span>}
-      <span class="text-xs text-grey-muted">{datumLang(date)}{time ? ` · ${time}` : ''}</span>
+      <span class="text-xs text-grey-muted">{datumText ?? datumBereich(date, dateEnd, true)}{time ? ` · ${time}` : ''}</span>
     </div>
     <p class="font-semibold text-grey-dark">{title}</p>
+    <StandortBadges standorte={standorte} class="mt-1.5" />
     {location && (
       <p class="text-sm text-grey-muted mt-0.5 flex items-center gap-1">
         <svg class="h-3.5 w-3.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">

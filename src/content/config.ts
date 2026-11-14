@@ -12,14 +12,23 @@ const leer = (v: unknown) => (v === '' || v === null ? undefined : v);
 const optDate = z.preprocess(leer, isoDate.optional());
 const optUrl  = z.preprocess(leer, z.string().url().optional());
 const optNum  = z.preprocess(leer, z.number().optional());
+const optText = z.preprocess(leer, z.string().optional());
+// Standorte: Liste von Namen (siehe src/lib/standorte.ts). Fehlt das Feld, gilt der Eintrag für die ganze Schule.
+const standorte = z.preprocess(
+  (v) => (v === undefined || v === null || v === '' ? [] : Array.isArray(v) ? v : [v]),
+  z.array(z.string()),
+);
 
 const helfereinsaetze = defineCollection({
   type: 'content',
   schema: z.object({
     title:       z.string(),
-    date:        isoDate,                  // ISO date "2025-10-23"
-    time:        z.string().optional(),    // "08:00–12:00"
-    location:    z.string(),
+    date:        isoDate,                  // Beginn, ISO "2025-10-23" (bei mehreren Tagen: erster Tag)
+    dateEnd:     optDate,                  // optional: letzter Tag
+    datumText:   optText,                  // optional: Datum als Text, ersetzt die Anzeige («Woche nach den Herbstferien»)
+    time:        optText,                  // "08:00–12:00"
+    standorte,                             // Tags: Laubegg, Sonnenhof, …
+    location:    optText,                  // Treffpunkt / Ort als Freitext
     description: z.string(),
     formUrl:     optUrl,                   // Link zum Google Formular
     spotsTotal:  optNum,                   // optional: Anzahl gesuchter Personen
@@ -35,8 +44,12 @@ const termine = defineCollection({
   schema: z.object({
     title:    z.string(),
     date:     isoDate,
-    time:     z.string().optional(),
-    location: z.string().optional(),
+    dateEnd:  optDate,
+    datumText: optText,
+    time:     optText,
+    standorte,
+    location: optText,
+    description: optText,
     category: z.enum(['Sitzung', 'Event', 'Schlittschuhverleih', 'Raus Laus', 'Elternbildung', 'Sicherheit', 'Sonstiges']),
     public:   z.boolean().default(true),
   }),

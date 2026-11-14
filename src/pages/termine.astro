@@ -1,12 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TerminCard from '../components/TerminCard.astro';
-import { getAlleTermine, heute } from '../lib/termine';
+import StandortFilter from '../components/StandortFilter.astro';
+import { getAlleTermine, heute, istAktuell } from '../lib/termine';
+import { verwendeteStandorte } from '../lib/standorte';
 
 const today = heute();
 const alle = await getAlleTermine();
-const kommend = alle.filter(t => t.date >= today);
-const vergangen = alle.filter(t => t.date < today).reverse().slice(0, 8);
+const kommend = alle.filter(t => istAktuell(t, today));
+const vergangen = alle.filter(t => !istAktuell(t, today)).reverse().slice(0, 8);
+const standorte = verwendeteStandorte(kommend.map(t => t.standorte));
 
 // Kommende Termine nach Monat gruppieren
 const proMonat = new Map<string, typeof kommend>();
@@ -28,9 +31,11 @@ for (const t of kommend) {
 
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
 
+    <StandortFilter standorte={standorte} />
+
     {kommend.length > 0
       ? [...proMonat].map(([monat, termine]) => (
-          <section class="mb-10">
+          <section class="mb-10" data-filter-group>
             <h2 class="text-sm font-bold uppercase tracking-wider text-orange-dark mb-3">{monat}</h2>
             <div class="flex flex-col gap-3">
               {termine.map(t => <TerminCard {...t} />)}

@@ -1,0 +1,13 @@
+---
+// Zeigt die Standorte eines Eintrags als kleine Tags. Leer = nichts anzeigen (gilt für die ganze Schule).
+import { ALLE } from '../lib/standorte';
+interface Props { standorte?: string[]; class?: string }
+const { standorte = [], class: cls = '' } = Astro.props;
+const liste = standorte.includes(ALLE) ? [ALLE] : standorte;
+---
+
+{liste.length > 0 && (
+  <ul class:list={['flex flex-wrap gap-1.5', cls]} aria-label="Standorte">
+    {liste.map(s => <li class="inline-flex items-center rounded-full border border-grey-border bg-white px-2 py-0.5 text-xs font-medium text-grey-mid">{s}</li>)}
+  </ul>
+)}

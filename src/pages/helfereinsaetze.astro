@@ -2,13 +2,16 @@
 import Layout from '../layouts/Layout.astro';
 import HelferCard from '../components/HelferCard.astro';
 import { getCollection } from 'astro:content';
-import { heute } from '../lib/termine';
+import StandortFilter from '../components/StandortFilter.astro';
+import { heute, istAktuell } from '../lib/termine';
+import { verwendeteStandorte } from '../lib/standorte';
 import { KONTAKT_EMAIL } from '../site.config';
 
 const today = heute();
 const alle = await getCollection('helfereinsaetze', e => e.data.active);
 alle.sort((a, b) => a.data.date.localeCompare(b.data.date));
-const offen = alle.filter(e => e.data.date >= today);
+const offen = alle.filter(e => istAktuell(e.data, today));
+const standorte = verwendeteStandorte(offen.map(e => e.data.standorte));
 ---
 
 <Layout title="Helfereinsätze" description="Hilf beim Schlittschuhverleih, bei Raus Laus oder an einem Anlass mit – jede Stunde zählt.">
@@ -29,13 +32,17 @@ const offen = alle.filter(e => e.data.date >= today);
     <section class="mb-14">
       <h2 class="section-title">Hier brauchen wir dich</h2>
       <p class="section-subtitle">Wähle einen Einsatz und melde dich über das Formular an.</p>
+      <StandortFilter standorte={standorte} />
       {offen.length > 0
         ? <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             {offen.map(e => (
               <HelferCard
                 title={e.data.title}
                 date={e.data.date}
+                dateEnd={e.data.dateEnd}
+                datumText={e.data.datumText}
                 time={e.data.time}
+                standorte={e.data.standorte}
                 location={e.data.location}
                 description={e.data.description}
                 spotsTotal={e.data.spotsTotal}

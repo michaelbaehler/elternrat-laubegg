@@ -9,16 +9,18 @@ Erste Zeile = Spaltennamen. Reihenfolge egal, Gross-/Kleinschreibung egal. Zusä
 
 | Spalte | Pflicht | Beispiel | Hinweise |
 |---|---|---|---|
-| `Datum` | ja | `16.11.2026` | auch `2026-11-16`, `16.11.26` oder `16.11.2026 19:30` |
-| `Titel` | ja | `2. Elternratssitzung` | auch `Termin`, `Anlass`, `Betreff` |
+| `Datum` (oder `Von`) | ja | `16.11.2026` | auch `2026-11-16`, `16.11.26` oder `16.11.2026 19:30` |
+| `Bis` | nein | `23.10.2026` | letzter Tag bei mehrtägigen Terminen. Alternativ beide Daten in der Zelle `Datum`: `22.10.2026 – 23.10.2026` oder `22.–23.10.2026` |
+| `Titel` | ja | `Schlittschuh-Ausgabe` | auch `Termin`, `Anlass`, `Betreff` |
 | `Uhrzeit` | nein | `19:30 Uhr` | Freitext; fehlt sie, wird eine Zeit aus dem Datum übernommen |
-| `Ort` | nein | `Aula Schulhaus Laubegg` | |
+| `Standort` | nein | `Laubegg, Sonnenhof` | mehrere mit Komma trennen. Erlaubt: Laubegg, Sonnenhof, Wyssloch, Rosengarten, Schöngrün, Egelsee, Merzenacker, Baumgarten, `Alle`. Leer = gilt für die ganze Schule |
+| `Ort` | nein | `Aula Schulhaus Laubegg` | genauer Ort oder Treffpunkt |
 | `Kategorie` | nein | `Sitzung` | Sitzung, Event, Schlittschuhverleih, Raus Laus, Elternbildung, Sicherheit; sonst «Sonstiges» |
 | `Öffentlich` | nein | `nein` | `nein`/`intern` blendet den Termin auf der Website aus; leer = sichtbar |
-| `Beschreibung` | nein | | kurzer Zusatztext |
+| `Beschreibung` | nein | | kurzer Zusatztext, z. B. welcher Standort an welchem Tag |
 | `Link` | nein | | z. B. Flyer oder Anmeldung |
 
-Zeilen ohne Datum oder Titel werden übersprungen. Termine mit gleichem Datum und Titel wie
+Zeilen ohne Datum oder Titel werden übersprungen. Unbekannte Standorte werden beim Bauen im Protokoll gemeldet und ignoriert. Termine mit gleichem Datum und Titel wie
 ein Termin aus der Website erscheinen nur einmal.
 
 **Datenschutz:** Ein im Web veröffentlichtes Tabellenblatt kann jede Person mit dem Link lesen –

@@ -21,14 +21,19 @@ Datumsfelder werden in `src/content/config.ts` über `isoDate` normalisiert, wei
 
 Texte: Schweizer Schreibweise (ss, «»), Du-Form, freundlich und klar. Sitzungen sind für die Elternratsvertreter:innen, nicht für alle Eltern; alle Eltern können bei Helfereinsätzen, Elternbildung und Themengruppen mitmachen oder Elternratsvertreter:in werden. Themengruppen-Daten zentral in `src/lib/themen.ts`, Kontakt-E-Mail in `src/site.config.ts`. Themengrafiken (`public/images/themen/*.webp`) sind KI-Illustrationen im Stil des Gestaltungshandbuchs, zugeschnitten auf 20:11 (1536×845). Frühere handgezeichnete SVGs liegen in der Git-Historie.
 
+**Standorte** sind Tags (`src/lib/standorte.ts`, Liste auch in `public/admin/config.yml` pflegen) und dienen auf `/termine` und `/helfereinsaetze` als Filter (`StandortFilter.astro`, `?standort=Laubegg`). Leer oder «Alle Standorte» = erscheint bei jedem Filter. Mehrtägiges über `dateEnd`; «aktuell» gilt bis zum letzten Tag (`istAktuell`).
+
 Schema in `src/content/config.ts`. Dateiname = beliebiger Slug, wird zu URL-Segment.
 
 **`helfereinsaetze/`** (Helfereinsatz-Anmeldungen, Datei pro Einsatz)
 ```yaml
 title: "Schlittschuhausgabe Sonnenhof"
-date: "2026-10-22"          # ISO, steuert "offen"/"vergangen"
+date: "2026-10-22"          # Beginn (bei mehreren Daten: erstes Datum), steuert Sortierung und "offen"/"vergangen"
+dateEnd: "2026-10-23"        # optional: letzter Tag
+datumText: "Woche nach den Herbstferien"  # optional: ersetzt die Datumsanzeige
 time: "07:30–08:30"          # optional
-location: "Schulhaus Sonnenhof"
+standorte: ["Laubegg", "Sonnenhof"]  # optional Tags; leer = ganze Schule
+location: "vor der Treppe"   # optional Freitext (Treffpunkt)
 description: "..."
 formUrl: "https://docs.google.com/forms/d/e/…/viewform"  # optional
 spotsTotal: 3                 # optional
@@ -47,8 +52,11 @@ Anmeldung läuft über **Google Forms** (pro Einsatz ein Formular, das die Elter
 ```yaml
 title: "1. Sitzung Elternrat 2026/2027"
 date: "2026-09-07"
+dateEnd: "2026-10-23"  # optional
 time: "19:30 Uhr"      # optional, Freitext
-location: "Aula Schulhaus Laubegg"  # optional
+standorte: ["Laubegg"] # optional Tags; leer = gilt für die ganze Schule
+location: "Aula Schulhaus Laubegg"  # optional Freitext
+description: "..."     # optional
 category: "Sitzung"    # enum: Sitzung/Event/Schlittschuhverleih/Raus Laus/Elternbildung/Sicherheit/Sonstiges
 public: true
 ```

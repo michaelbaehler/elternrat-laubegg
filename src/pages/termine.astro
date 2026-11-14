@@ -4,6 +4,7 @@ import TerminCard from '../components/TerminCard.astro';
 import StandortFilter from '../components/StandortFilter.astro';
 import { getAlleTermine, heute, istAktuell } from '../lib/termine';
 import { verwendeteStandorte } from '../lib/standorte';
+import { KALENDER_ID, TERMINE_ICAL_URL } from '../site.config';
 
 const today = heute();
 const alle = await getAlleTermine();
@@ -26,6 +27,13 @@ for (const t of kommend) {
       <span class="badge-orange mb-3 inline-block">Kalender</span>
       <h1 class="text-3xl sm:text-4xl font-extrabold text-grey-dark">Termine</h1>
       <p class="text-grey-mid mt-2 max-w-xl">Was läuft wann? Hier findest du alle Daten des Elternrats auf einen Blick.</p>
+      {TERMINE_ICAL_URL && (
+        <p class="mt-4 text-sm">
+          <a href={`https://calendar.google.com/calendar/r?cid=${encodeURIComponent(KALENDER_ID)}`} target="_blank" rel="noopener" class="font-semibold text-orange-dark hover:text-orange-darker">In Google Kalender hinzufügen</a>
+          <span class="text-grey-muted mx-2" aria-hidden="true">·</span>
+          <a href={TERMINE_ICAL_URL.replace('https://', 'webcal://')} class="font-semibold text-orange-dark hover:text-orange-darker">Kalender abonnieren (Apple, Outlook)</a>
+        </p>
+      )}
     </div>
   </div>
 

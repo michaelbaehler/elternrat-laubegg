@@ -10,4 +10,12 @@
  */
 export const TERMINE_SHEET_CSV_URL = '';
 
+/**
+ * Öffentlicher Google Kalender des Elternrats (Konto er.laubeggbern@gmail.com).
+ * Wird beim Bauen als iCal-Feed gelesen. Alternativ per Netlify-Umgebungsvariable TERMINE_ICAL_URL
+ * (hat Vorrang). Leer lassen, um den Kalender abzuschalten.
+ */
+export const KALENDER_ID = '6c88d0cdbb8d677a36b5c23784fad6db165eb0b54b72788fe50c64e4add2d056@group.calendar.google.com';
+export const TERMINE_ICAL_URL = `https://calendar.google.com/calendar/ical/${encodeURIComponent(KALENDER_ID)}/public/basic.ics`;
+
 export const KONTAKT_EMAIL = 'elternrat_laubegg@gmx.ch';

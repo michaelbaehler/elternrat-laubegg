@@ -42,7 +42,7 @@ deadline: "2026-10-19"        # optional
 active: true                  # auf false setzen statt löschen, um auszublenden
 thema: "Schlittschuhverleih"  # optional: Schlittschuhverleih/Events/Elternbildung/Raus Laus/Sicherheit/Sonstiges
 ```
-Es gibt **keine Detailseite** pro Einsatz: Die Kachel (`HelferCard.astro`) führt direkt zum Google Formular (neuer Tab). Details gehören ins Formular. Alte URLs `/helfereinsaetze/<slug>` leitet `netlify.toml` auf die Übersicht um.
+Es gibt **keine Detailseite** pro Einsatz: Die Kachel (`HelferCard.astro`) führt direkt zum Google Formular (neuer Tab). Details gehören ins Formular.
 
 Anmeldung läuft über **Google Forms** (pro Einsatz ein Formular, das die Elternratsvertretung selbst erstellt): Feld `formUrl`, jeder Link-Typ funktioniert (auch `forms.gle/…`). Ohne `formUrl` führt die Kachel zu einer E-Mail-Anfrage. `spotsTotal`/`spotsTaken` sind optional; bei «besetzt» ist die Kachel nicht mehr anklickbar. Kein Netlify Form mehr.
 

@@ -1,3 +1,0 @@
-# Die frühere Detailseite pro Helfereinsatz gibt es nicht mehr: alte Links führen zur Übersicht.
-# Vorhandene Seiten (z. B. /helfereinsaetze/) bleiben unberührt, Netlify bevorzugt bestehende Dateien.
-/helfereinsaetze/*  /helfereinsaetze/  301

@@ -12,6 +12,8 @@ export const ALLE = 'Alle Standorte';
 
 const kanon = (s: string) => s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '').replace(/ö/g, 'o').trim();
 const BEKANNT = new Map<string, string>([...STANDORTE, ALLE].map(s => [kanon(s), s]));
+// Frühere Namen: Rosengarten heisst heute Laubeggstrasse.
+BEKANNT.set(kanon('Rosengarten'), 'Laubeggstrasse');
 
 /** Macht aus «Laubegg, sonnenhof» oder ['Laubegg'] eine saubere Liste bekannter Standorte. */
 export function normStandorte(v: unknown): string[] {

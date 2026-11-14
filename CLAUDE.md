@@ -52,7 +52,7 @@ Anmeldung läuft über **Google Forms** (pro Einsatz ein Formular, das die Elter
 ```yaml
 title: "1. Sitzung Elternrat 2026/2027"
 date: "2026-09-07"
-dateEnd: "2026-10-23"  # optional
+dateEnd: "2026-09-08"  # optional, nur bei mehrtägigen Terminen
 time: "19:30 Uhr"      # optional, Freitext
 standorte: ["Laubegg"] # optional Tags; leer = gilt für die ganze Schule
 location: "Aula Schulhaus Laubegg"  # optional Freitext

@@ -1,7 +1,10 @@
 // Standorte der Schule Laubegg. Dienen als Tags für Termine und Helfereinsätze und als Filter.
+// Quelle: https://kirchenfeld-schosshalde.ch/laubegg/schulhaeuser und …/kindergaerten (Stand November 2026).
+// Schulhäuser: Baumgarten, Laubegg, Laubeggstrasse, Sonnenhof, Wyssloch. Nur Kindergarten: Egelsee, Schöngrün, Merzenacker.
+// Gleichnamige Schulhäuser und Kindergärten (Sonnenhof, Wyssloch) teilen sich einen Tag.
 // Die gleiche Liste steht im CMS (public/admin/config.yml, Feld «standorte»): bei Änderungen beide anpassen.
 export const STANDORTE = [
-  'Laubegg', 'Sonnenhof', 'Wyssloch', 'Rosengarten', 'Schöngrün', 'Egelsee', 'Merzenacker', 'Baumgarten',
+  'Laubegg', 'Laubeggstrasse', 'Sonnenhof', 'Wyssloch', 'Baumgarten', 'Egelsee', 'Schöngrün', 'Merzenacker',
 ] as const;
 
 /** Sonderwert: gilt für alle Standorte. Ein leeres Feld bedeutet: gilt für die ganze Schule. */

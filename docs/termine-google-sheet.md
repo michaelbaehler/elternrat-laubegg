@@ -13,7 +13,7 @@ Erste Zeile = Spaltennamen. Reihenfolge egal, Gross-/Kleinschreibung egal. Zusä
 | `Bis` | nein | `23.10.2026` | letzter Tag bei mehrtägigen Terminen. Alternativ beide Daten in der Zelle `Datum`: `22.10.2026 – 23.10.2026` oder `22.–23.10.2026` |
 | `Titel` | ja | `Schlittschuh-Ausgabe` | auch `Termin`, `Anlass`, `Betreff` |
 | `Uhrzeit` | nein | `19:30 Uhr` | Freitext; fehlt sie, wird eine Zeit aus dem Datum übernommen |
-| `Standort` | nein | `Laubegg, Sonnenhof` | mehrere mit Komma trennen. Erlaubt: Laubegg, Sonnenhof, Wyssloch, Rosengarten, Schöngrün, Egelsee, Merzenacker, Baumgarten, `Alle`. Leer = gilt für die ganze Schule |
+| `Standort` | nein | `Laubegg, Sonnenhof` | mehrere mit Komma trennen. Erlaubt: Laubegg, Laubeggstrasse, Sonnenhof, Wyssloch, Baumgarten, Egelsee, Schöngrün, Merzenacker, `Alle`. Leer = gilt für die ganze Schule |
 | `Ort` | nein | `Aula Schulhaus Laubegg` | genauer Ort oder Treffpunkt |
 | `Kategorie` | nein | `Sitzung` | Sitzung, Event, Schlittschuhverleih, Raus Laus, Elternbildung, Sicherheit; sonst «Sonstiges» |
 | `Öffentlich` | nein | `nein` | `nein`/`intern` blendet den Termin auf der Website aus; leer = sichtbar |

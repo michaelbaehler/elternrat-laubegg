@@ -51,7 +51,7 @@ collections:
         multiple: true
         required: false
         hint: "Wo findet es statt bzw. für wen gilt es? Mehrere wählbar. Leer lassen = gilt für die ganze Schule. Damit lässt sich auf der Website nach Standort filtern."
-        options: ["Laubegg", "Sonnenhof", "Wyssloch", "Rosengarten", "Schöngrün", "Egelsee", "Merzenacker", "Baumgarten", "Alle Standorte"]
+        options: ["Laubegg", "Laubeggstrasse", "Sonnenhof", "Wyssloch", "Baumgarten", "Egelsee", "Schöngrün", "Merzenacker", "Alle Standorte"]
       - { label: "Treffpunkt / Ort (optional)", name: "location", widget: "string", required: false, hint: "Genauer Ort, z. B. «vor der Treppe des Schulhauses». Der Standort wird oben gewählt." }
       - { label: "Kurzbeschreibung", name: "description", widget: "text" }
       - { label: "Link zum Google Formular", name: "formUrl", widget: "string", required: false, hint: "In Google Forms: Senden → Link-Symbol → Link kopieren. Die lange Adresse (docs.google.com/forms/…) wird direkt in die Seite eingebettet, die kurze (forms.gle/…) als Knopf verlinkt. Leer lassen = «Anmeldung folgt»." }
@@ -89,7 +89,7 @@ collections:
         multiple: true
         required: false
         hint: "Wo findet es statt bzw. für wen gilt es? Mehrere wählbar. Leer lassen = gilt für die ganze Schule. Damit lässt sich auf der Website nach Standort filtern."
-        options: ["Laubegg", "Sonnenhof", "Wyssloch", "Rosengarten", "Schöngrün", "Egelsee", "Merzenacker", "Baumgarten", "Alle Standorte"]
+        options: ["Laubegg", "Laubeggstrasse", "Sonnenhof", "Wyssloch", "Baumgarten", "Egelsee", "Schöngrün", "Merzenacker", "Alle Standorte"]
       - { label: "Treffpunkt / Ort (optional)", name: "location", widget: "string", required: false }
       - { label: "Beschreibung (optional)", name: "description", widget: "text", required: false, hint: "Kurzer Zusatz, z. B. welcher Standort an welchem Tag." }
       - label: "Kategorie"

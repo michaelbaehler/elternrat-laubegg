@@ -4,7 +4,7 @@ date: "2027-04-21"
 standorte:
   - "Laubegg"
   - "Wyssloch"
-  - "Rosengarten"
 category: "Raus Laus"
+description: "Laubegg, Wyssloch, Rosengarten"
 public: true
 ---

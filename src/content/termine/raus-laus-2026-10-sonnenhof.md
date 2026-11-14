@@ -6,5 +6,6 @@ standorte:
   - "Schöngrün"
   - "Merzenacker"
 category: "Raus Laus"
+description: "Sonnenhof, Schöngrün, Merzenacker"
 public: true
 ---

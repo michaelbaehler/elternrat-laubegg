@@ -77,6 +77,6 @@ PDFs liegen in `public/uploads/`.
 
 ## Bekannte offene Punkte
 
-- Startseite (`src/components/Startseite.astro`) nutzt Fotos von der alten Seite; das Schulhaus-Foto ist klein und hat einen Leinwand-Filter – bei Gelegenheit durch ein neues ersetzen.
+- Fotos der Schule (Drive-Ordner «Schulfotos», 31 Bilder zu Laubegg, Sonnenhof, Wittigkofen, Wyssloch) liegen nur teilweise im Repo: Hero, Galerie «Unsere Schule» und «Über uns» nutzen die Laubegg-Fotos aus `public/images/fotos/*.webp`. Fotos der anderen Standorte sind noch nicht eingebaut.
 - `sitzung-anmeldung.html` (öffentlicher Ordner, Einzelseite) ist aktuell **kaputt**: ruft die gelöschte Netlify-Funktion (`/api/sheets-proxy`) auf, die per Claude-API+MCP eine Google-Sheets-Zeile schreiben sollte. Nicht im aktuellen Scope — bei Bedarf neu aufgleisen (z.B. Google Apps Script Web App statt LLM-Umweg).
 - Domain-Umzug `elternratlaubegg.ch` (Produktiv-Domain, aktuell noch alte Seite via Hoststar) auf Netlify steht noch aus; erst die Test-Subdomain `new.elternratlaubegg.ch` ist umgestellt.

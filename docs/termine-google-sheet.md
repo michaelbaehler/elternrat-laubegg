@@ -38,21 +38,35 @@ Den Link entweder in `src/site.config.ts` bei `TERMINE_SHEET_CSV_URL` eintragen 
 
 ## 3. Website automatisch aktualisieren
 
-Die Website liest das Sheet nur beim Bauen. Damit neue Termine erscheinen, lässt ein kleines
-Google-Apps-Script die Website regelmässig neu bauen:
+Die Website liest das Sheet nur beim Bauen. Damit neue Termine erscheinen, stösst ein kleines
+Google-Apps-Script einen Netlify-Build an. Jeder Build ist ein Deploy und verbraucht Netlify-Credits
+(je nach Plan rund 15 pro Production-Deploy). Das Script baut deshalb **nur, wenn sich das Sheet geändert hat**.
 
 1. Netlify: *Site configuration → Build & deploy → Build hooks → Add build hook* (Name «Google Sheet»),
    die angezeigte URL kopieren. Die URL nicht öffentlich teilen.
-2. Im Sheet: *Erweiterungen → Apps Script*, diesen Code einfügen und die URL eintragen:
+2. Im Sheet: *Erweiterungen → Apps Script*, diesen Code einfügen und beide URLs eintragen
+   (`SHEET_CSV_URL` ist der Link aus Abschnitt 2):
 
 ```js
 const NETLIFY_BUILD_HOOK = 'https://api.netlify.com/build_hooks/…';
+const SHEET_CSV_URL = 'https://docs.google.com/spreadsheets/d/e/…/pub?output=csv';
 
+// Täglich: baut nur, wenn sich das veröffentlichte CSV geändert hat.
+function websiteAktualisierenWennGeaendert() {
+  const csv = UrlFetchApp.fetch(SHEET_CSV_URL).getContentText();
+  const hash = Utilities.base64Encode(
+    Utilities.computeDigest(Utilities.DigestAlgorithm.SHA_256, csv));
+  const props = PropertiesService.getScriptProperties();
+  if (props.getProperty('csvHash') === hash) return;   // nichts Neues
+  UrlFetchApp.fetch(NETLIFY_BUILD_HOOK, { method: 'post' });
+  props.setProperty('csvHash', hash);
+}
+
+// Baut immer: für den Wochen-Trigger und das Menü «Website» im Sheet.
 function websiteAktualisieren() {
   UrlFetchApp.fetch(NETLIFY_BUILD_HOOK, { method: 'post' });
 }
 
-// Menü «Website» → «Jetzt aktualisieren» im Sheet
 function onOpen() {
   SpreadsheetApp.getUi().createMenu('Website')
     .addItem('Jetzt aktualisieren', 'websiteAktualisieren')
@@ -60,7 +74,16 @@ function onOpen() {
 }
 ```
 
-3. Links auf *Trigger* (Wecker-Symbol) → *Trigger hinzufügen* → Funktion `websiteAktualisieren`,
-   Ereignisquelle *Zeitgesteuert*, *Tagestimer*, z. B. 5–6 Uhr. Beim ersten Mal den Zugriff erlauben.
+3. Links auf *Trigger* (Wecker-Symbol) → *Trigger hinzufügen*. Beim ersten Mal den Zugriff erlauben.
+   Zwei Trigger anlegen:
+   - `websiteAktualisierenWennGeaendert`, *Zeitgesteuert*, *Tagestimer*, z. B. 5–6 Uhr:
+     neue oder geänderte Termine erscheinen am nächsten Morgen.
+   - `websiteAktualisieren`, *Zeitgesteuert*, *Wochentimer*, z. B. Montag 5–6 Uhr:
+     Die Seite entscheidet beim Bauen, welche Termine «aktuell» oder «vergangen» sind.
+     Ohne Wochen-Build bleibt ein Termin nach seinem Datum sichtbar, bis jemand etwas ändert.
 
-Danach ist die Website jeden Morgen aktuell; über das Menü «Website» geht es auch sofort.
+Das sind etwa 4 Deploys pro Monat plus einer pro tatsächliche Änderung im Sheet. Über das Menü «Website»
+im Sheet lässt sich die Website auch sofort aktualisieren.
+
+**Credits sparen:** Reine Doku-Änderungen (`CLAUDE.md`, `docs/`) mit `[skip ci]` in der Commit-Nachricht
+pushen, dann überspringt Netlify den Build. Mehrere Änderungen in einem Commit bündeln.

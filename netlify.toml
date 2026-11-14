@@ -7,5 +7,12 @@
   to = "/admin/index.html"
   status = 200
 
+# Die frühere Detailseite pro Helfereinsatz gibt es nicht mehr: alte Links führen zur Übersicht.
+# (Bestehende Seiten wie /helfereinsaetze/ selbst bleiben unberührt, Netlify bevorzugt vorhandene Dateien.)
+[[redirects]]
+  from = "/helfereinsaetze/*"
+  to = "/helfereinsaetze"
+  status = 301
+
 [build.environment]
   NODE_VERSION = "20"

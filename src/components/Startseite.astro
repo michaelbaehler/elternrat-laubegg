@@ -64,7 +64,7 @@ const { termine, einsaetze } = await startseitenDaten();
       <div class="flex flex-col gap-4">
         {einsaetze.slice(0, 2).map(e => (
           <HelferCard title={e.data.title} date={e.data.date} dateEnd={e.data.dateEnd} datumText={e.data.datumText} time={e.data.time} standorte={e.data.standorte} location={e.data.location} description={e.data.description}
-            spotsTotal={e.data.spotsTotal} spotsTaken={e.data.spotsTaken} deadline={e.data.deadline} slug={e.slug} />
+            formUrl={e.data.formUrl} spotsTotal={e.data.spotsTotal} spotsTaken={e.data.spotsTaken} deadline={e.data.deadline} />
         ))}
         {einsaetze.length === 0 && <div class="card text-grey-muted">Im Moment ist kein Einsatz ausgeschrieben. Bald suchen wir Helfende fürs Adventsznüni und die Schlittschuh-Rücknahme – schau wieder vorbei!</div>}
       </div>

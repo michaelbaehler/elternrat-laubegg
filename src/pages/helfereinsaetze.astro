@@ -31,7 +31,7 @@ const standorte = verwendeteStandorte(offen.map(e => e.data.standorte));
 
     <section class="mb-14">
       <h2 class="section-title">Hier brauchen wir dich</h2>
-      <p class="section-subtitle">Wähle einen Einsatz und melde dich über das Formular an.</p>
+      <p class="section-subtitle">Klick auf einen Einsatz: Das Anmeldeformular öffnet sich in einem neuen Tab.</p>
       <StandortFilter standorte={standorte} />
       {offen.length > 0
         ? <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -48,7 +48,7 @@ const standorte = verwendeteStandorte(offen.map(e => e.data.standorte));
                 spotsTotal={e.data.spotsTotal}
                 spotsTaken={e.data.spotsTaken}
                 deadline={e.data.deadline}
-                slug={e.slug}
+                formUrl={e.data.formUrl}
               />
             ))}
           </div>

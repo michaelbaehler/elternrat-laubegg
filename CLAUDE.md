@@ -42,9 +42,9 @@ deadline: "2026-10-19"        # optional
 active: true                  # auf false setzen statt löschen, um auszublenden
 thema: "Schlittschuhverleih"  # optional: Schlittschuhverleih/Events/Elternbildung/Raus Laus/Sicherheit/Sonstiges
 ```
-Body (Markdown unter dem Frontmatter) = zusätzliche Detailhinweise, optional.
+Es gibt **keine Detailseite** pro Einsatz: Die Kachel (`HelferCard.astro`) führt direkt zum Google Formular (neuer Tab). Details gehören ins Formular. Alte URLs `/helfereinsaetze/<slug>` leitet `netlify.toml` auf die Übersicht um.
 
-Anmeldung läuft über **Google Forms** (pro Einsatz ein Formular, das die Elternratsvertretung selbst erstellt): Feld `formUrl`. Lange URL (`docs.google.com/forms/…`) wird eingebettet, `forms.gle/…` nur verlinkt; ohne `formUrl` zeigt die Seite «Anmeldung folgt» mit E-Mail-Link. `spotsTotal`/`spotsTaken` sind optional. Kein Netlify Form mehr.
+Anmeldung läuft über **Google Forms** (pro Einsatz ein Formular, das die Elternratsvertretung selbst erstellt): Feld `formUrl`, jeder Link-Typ funktioniert (auch `forms.gle/…`). Ohne `formUrl` führt die Kachel zu einer E-Mail-Anfrage. `spotsTotal`/`spotsTaken` sind optional; bei «besetzt» ist die Kachel nicht mehr anklickbar. Kein Netlify Form mehr.
 
 **Termine aus dem Google Sheet:** Zusätzlich zu `termine/` liest `src/lib/termine.ts` beim Build ein als CSV veröffentlichtes Google Sheet («Kalender»; URL in `src/site.config.ts` oder Env `TERMINE_SHEET_CSV_URL`). Fällt das Sheet aus, baut die Seite trotzdem. Spalten, Veröffentlichung und täglicher Rebuild per Netlify-Build-Hook + Apps Script: `docs/termine-google-sheet.md`. Seiten nutzen `getAlleTermine()`, nicht direkt `getCollection('termine')`.
 

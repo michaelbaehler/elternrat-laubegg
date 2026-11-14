@@ -53,8 +53,8 @@ collections:
         hint: "Wo findet es statt bzw. für wen gilt es? Mehrere wählbar. Leer lassen = gilt für die ganze Schule. Damit lässt sich auf der Website nach Standort filtern."
         options: ["Laubegg", "Laubeggstrasse", "Sonnenhof", "Wyssloch", "Baumgarten", "Egelsee", "Schöngrün", "Merzenacker", "Alle Standorte"]
       - { label: "Treffpunkt / Ort (optional)", name: "location", widget: "string", required: false, hint: "Genauer Ort, z. B. «vor der Treppe des Schulhauses». Der Standort wird oben gewählt." }
-      - { label: "Kurzbeschreibung", name: "description", widget: "text" }
-      - { label: "Link zum Google Formular", name: "formUrl", widget: "string", required: false, hint: "In Google Forms: Senden → Link-Symbol → Link kopieren. Die lange Adresse (docs.google.com/forms/…) wird direkt in die Seite eingebettet, die kurze (forms.gle/…) als Knopf verlinkt. Leer lassen = «Anmeldung folgt»." }
+      - { label: "Beschreibung", name: "description", widget: "text", hint: "Wird ganz auf der Kachel angezeigt: kurz halten (2–3 Sätze). Weitere Details gehören ins Google Formular." }
+      - { label: "Link zum Google Formular", name: "formUrl", widget: "string", required: false, hint: "In Google Forms: Senden → Link-Symbol → Link kopieren. Die Kachel auf der Website führt direkt zum Formular (neuer Tab), eine eigene Detailseite gibt es nicht. Leer lassen = Anmeldung per E-Mail." }
       - { label: "Anzahl gesuchte Personen", name: "spotsTotal", widget: "number", value_type: "int", min: 1, required: false, hint: "Optional. Leer lassen, wenn die Plätze nicht gezählt werden sollen." }
       - { label: "Bereits angemeldet", name: "spotsTaken", widget: "number", value_type: "int", min: 0, default: 0, required: false, hint: "Optional. Von Hand nachführen (Antworten im Google Formular)." }
       - { label: "Anmeldeschluss", name: "deadline", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false, required: false }
@@ -64,7 +64,6 @@ collections:
         widget: "select"
         required: false
         options: ["Schlittschuhverleih", "Events", "Elternbildung", "Raus Laus", "Sicherheit", "Sonstiges"]
-      - { label: "Details (Markdown)", name: "body", widget: "markdown", required: false }
 
   # ─── Termine ──────────────────────────────────────────────────────────────
   - name: "termine"

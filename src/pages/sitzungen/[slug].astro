@@ -1,0 +1,42 @@
+---
+// Protokoll einer Elternratssitzung als Inhaltsseite. Der Text steht im Markdown-Teil der Datei
+// in src/content/sitzungen/<slug>.md. Sitzungen ohne Text haben keine eigene Seite.
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+import { datumLang } from '../../lib/datum';
+
+export async function getStaticPaths() {
+  const alle = await getCollection('sitzungen');
+  return alle
+    .filter(s => s.body.trim() !== '')
+    .map(s => ({ params: { slug: s.slug }, props: { eintrag: s } }));
+}
+
+const { eintrag } = Astro.props;
+const { Content } = await eintrag.render();
+const { title, date, praesentationUrl } = eintrag.data;
+---
+
+<Layout title={`Protokoll ${title}`} description={`Protokoll der ${title} des Elternrats Laubegg vom ${datumLang(date)}.`} noindex>
+
+  <div class="bg-orange-lighter border-b border-grey-border">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+      <a href="/sitzungen" class="block text-sm font-semibold text-orange-dark hover:text-orange-darker">← Alle Sitzungen</a>
+      <span class="badge-orange mt-4 mb-3 inline-block">Protokoll</span>
+      <h1 class="text-3xl sm:text-4xl font-extrabold text-grey-dark">{title}</h1>
+      <p class="text-grey-mid mt-2">{datumLang(date)}</p>
+      {praesentationUrl && (
+        <p class="mt-4">
+          <a href={praesentationUrl} target="_blank" rel="noopener" class="btn-secondary text-sm py-1.5 px-3 whitespace-nowrap">Präsentation (PDF)</a>
+        </p>
+      )}
+    </div>
+  </div>
+
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <article class="prose max-w-none text-grey-mid prose-headings:text-grey-dark prose-a:text-orange-dark hover:prose-a:text-orange-darker prose-img:rounded-xl">
+      <Content />
+    </article>
+  </div>
+
+</Layout>

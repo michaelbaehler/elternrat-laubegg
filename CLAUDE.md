@@ -71,7 +71,7 @@ praesentationUrl: "/uploads/praesentation-2025-11-17.pdf"  # optional
 passwort: true
 ```
 
-Protokolle 2023/24–2025/26 verlinken noch auf passwortgeschützte Seiten der alten WordPress-Site (www.elternratlaubegg.ch). **Vor dem Domain-Umzug** als PDF sichern, sonst brechen die Links.
+Protokolle als Inhaltsseite: Steht unter dem Frontmatter der Sitzungsdatei ein Markdown-Text, erzeugt `src/pages/sitzungen/[slug].astro` die Seite `/sitzungen/<slug>` (mit `noindex`), und `protokollUrl` zeigt auf diesen Pfad. Die Protokolle 2023/24–2025/26 wurden im November 2026 von der alten WordPress-Site übernommen (Präsentationen, Flyer und Bilder liegen unter `public/uploads/`). Private E-Mail-Adressen von Eltern aus den alten Protokollen wurden dabei nicht übernommen und durch die Elternrat-Adresse ersetzt; die alte Adresse `elternrat_laubegg@gmx.ch` im Text ebenfalls. Protokolle 2022/23 und das vom 1.6.2026 sind PDFs in `public/uploads/`; das der 1. Sitzung 2026/27 ist ein Google Doc.
 
 PDFs liegen in `public/uploads/`.
 

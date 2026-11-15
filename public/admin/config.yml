@@ -111,6 +111,7 @@ collections:
       - { label: "Titel", name: "title", widget: "string" }
       - { label: "Datum", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "DD.MM.YYYY", time_format: false }
       - { label: "Schuljahr (z.B. 2025/2026)", name: "schuljahr", widget: "string" }
-      - { label: "Protokoll", name: "protokollUrl", widget: "file", required: false, hint: "PDF hochladen, bereits hochgeladene Datei wählen oder Link einfügen (z. B. Google Doc)" }
+      - { label: "Protokolltext", name: "body", widget: "markdown", required: false, hint: "Protokoll direkt hier schreiben: Es erscheint als eigene Seite (/sitzungen/…), der Link in der Übersicht entsteht automatisch. Namen anonymisieren: nur das Präsidium nennen, alle anderen mit Funktion (z. B. «Elternratsvertretung»). Keine privaten E-Mail-Adressen oder Telefonnummern." }
+      - { label: "Protokoll als PDF oder Link", name: "protokollUrl", widget: "file", required: false, hint: "Nur nötig, wenn es keinen Protokolltext gibt: PDF hochladen, bereits hochgeladene Datei wählen oder Link einfügen (z. B. Google Doc)" }
       - { label: "Präsentation (PDF)", name: "praesentationUrl", widget: "file", required: false }
-      - { label: "Protokoll mit Passwort geschützt", name: "passwort", widget: "boolean", default: false }
+      - { label: "Protokoll mit Passwort geschützt", name: "passwort", widget: "boolean", default: false, hint: "Gilt nur für das PDF oder den Link oben. Protokolltext auf der Website ist nicht passwortgeschützt." }

@@ -17,7 +17,9 @@ const linkLabel = (url: string) =>
   url.endsWith('.pdf') ? 'Protokoll (PDF)' : url.includes('docs.google.com') ? 'Protokoll (Google Doc)' : 'Protokoll';
 // Protokolle als Seite dieser Website (/sitzungen/…) öffnen im gleichen Tab, alles andere in einem neuen.
 const extern = (url: string) => !url.startsWith('/') || url.endsWith('.pdf');
-const gibtPasswort = alle.some(s => s.data.passwort && s.data.protokollUrl);
+// Hat die Sitzung einen Protokolltext, führt der Link auf die eigene Seite; sonst auf PDF oder Link aus dem Feld «protokollUrl».
+const protokollLink = (s: (typeof alle)[number]) => (s.body.trim() ? `/sitzungen/${s.slug}` : s.data.protokollUrl);
+const gibtPasswort = alle.some(s => s.data.passwort && !s.body.trim() && s.data.protokollUrl);
 ---
 
 <Layout title="Sitzungen" description="Die Elternratssitzungen der Schule Laubegg mit Protokollen und Präsentationen.">
@@ -52,6 +54,7 @@ const gibtPasswort = alle.some(s => s.data.passwort && s.data.protokollUrl);
         <div class="flex flex-col gap-3">
           {sitzungen.map(s => {
             const kommend = s.data.date >= today;
+            const link = protokollLink(s);
             return (
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 rounded-xl border border-grey-border bg-white">
                 <div class="flex items-center gap-4">
@@ -65,9 +68,9 @@ const gibtPasswort = alle.some(s => s.data.passwort && s.data.protokollUrl);
                   </div>
                 </div>
                 <div class="flex flex-wrap gap-2 sm:justify-end">
-                  {s.data.protokollUrl
-                    ? <a href={s.data.protokollUrl} {...(extern(s.data.protokollUrl) ? { target: '_blank', rel: 'noopener' } : {})} class="btn-secondary text-sm py-1.5 px-3 whitespace-nowrap">
-                        {linkLabel(s.data.protokollUrl)}{s.data.passwort && ' 🔒'}
+                  {link
+                    ? <a href={link} {...(extern(link) ? { target: '_blank', rel: 'noopener' } : {})} class="btn-secondary text-sm py-1.5 px-3 whitespace-nowrap">
+                        {linkLabel(link)}{s.data.passwort && !s.body.trim() && ' 🔒'}
                       </a>
                     : !kommend && <span class="text-sm text-grey-muted italic">Protokoll folgt</span>
                   }

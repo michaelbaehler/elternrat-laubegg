@@ -9,6 +9,7 @@
 import { getCollection } from 'astro:content';
 import { TERMINE_SHEET_CSV_URL, TERMINE_ICAL_URL } from '../site.config';
 import { parseIcs } from './ical';
+import { kategorieAusText } from './kategorie';
 import { normStandorte } from './standorte';
 import { letzterTag } from './datum';
 
@@ -175,7 +176,6 @@ export function termineAusIcs(ics: string, von: string, bis: string): Termin[] {
       else text.push(zeile);
     }
     if (NEIN.includes((angaben['öffentlich'] ?? angaben['public'] ?? '').toLowerCase())) continue;
-    const kategorie = angaben['kategorie'] ?? (/sitzung/i.test(e.title) ? 'Sitzung' : e.title);
     termine.push({
       title: e.title,
       date: e.date,
@@ -183,7 +183,8 @@ export function termineAusIcs(ics: string, von: string, bis: string): Termin[] {
       time: e.time,
       standorte: normStandorte(angaben['standort'] ?? ''),
       location: e.location,
-      category: normKategorie(kategorie),
+      // Zeile «Kategorie:» hat Vorrang, sonst wird sie aus dem Titel erraten (src/lib/kategorie.ts)
+      category: angaben['kategorie'] ? normKategorie(angaben['kategorie']) : kategorieAusText(e.title),
       description: text.join('\n').trim() || undefined,
       link: angaben['link'] || e.url,
       quelle: 'kalender',

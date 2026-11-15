@@ -15,7 +15,7 @@ Zwei Wege:
 
 Netlify Identity / Git Gateway wird **nicht** genutzt.
 
-Datumsfelder werden in `src/content/config.ts` über `isoDate` normalisiert, weil das CMS Daten teils ohne Anführungszeichen speichert (YAML liest sie dann als Date).
+Datumsfelder werden in `src/content/config.ts` über `isoDate` normalisiert, weil das CMS Daten teils ohne Anführungszeichen speichert (YAML liest sie dann als Date). Dasselbe gilt für Uhrzeiten (`optTime`): Speichert das CMS `19:30` ohne Anführungszeichen, liest YAML eine Zahl und der Build bricht ab; das Schema macht daraus «19:30 Uhr».
 
 ## Content Collections (`src/content/`)
 

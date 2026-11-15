@@ -73,7 +73,7 @@ praesentationUrl: "/uploads/praesentation-2025-11-17.pdf"  # optional
 passwort: true
 ```
 
-Protokolle 2023/24–2025/26 verlinken noch auf passwortgeschützte Seiten der alten WordPress-Site (www.elternratlaubegg.ch). **Vor dem Domain-Umzug** als PDF sichern, sonst brechen die Links.
+**Protokolle sind konsequent PDFs** in `public/uploads/` (`protokoll-JJJJ-MM-TT.pdf`, Datum der Sitzung), verlinkt über `protokollUrl`; `netlify.toml` setzt für sie `X-Robots-Tag: noindex`. Die PDFs 2023/24–2025/26 wurden im November 2026 aus den Protokollen der alten WordPress-Site erzeugt und **anonymisiert**: Nur das Präsidium (Michael Bähler, Jennifer Donath, Cornelia Bosshard) steht mit Namen; Eltern, Schulleitung, Tagesschule und Referierende sind durch Funktionen ersetzt, private E-Mail-Adressen und Telefonnummern sind entfernt. Neue Protokolle vor der Veröffentlichung genauso behandeln. Die PDFs 2022/23 und das vom 1.6.2026 sind nicht anonymisiert. Eine Fassung als Webseiten (Text unter dem Frontmatter, Seite `/sitzungen/<slug>`, CMS-Feld «Protokolltext») liegt unverbunden auf dem Branch `protokolle-uebernehmen` und ist nicht gemergt.
 
 PDFs liegen in `public/uploads/`.
 

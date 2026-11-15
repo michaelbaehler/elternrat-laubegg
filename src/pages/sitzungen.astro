@@ -15,6 +15,8 @@ for (const liste of proSchuljahr.values()) liste.sort((a, b) => a.data.date.loca
 
 const linkLabel = (url: string) =>
   url.endsWith('.pdf') ? 'Protokoll (PDF)' : url.includes('docs.google.com') ? 'Protokoll (Google Doc)' : 'Protokoll';
+// Der Passwort-Hinweis erscheint nur, wenn mindestens ein Protokoll geschützt ist.
+const gibtPasswort = alle.some(s => s.data.passwort && s.data.protokollUrl);
 ---
 
 <Layout title="Sitzungen" description="Die Elternratssitzungen der Schule Laubegg mit Protokollen und Präsentationen.">
@@ -33,7 +35,7 @@ const linkLabel = (url: string) =>
 
   <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
 
-    <div class="card bg-orange-lighter border-orange/20 mb-10 flex items-start gap-4">
+    {gibtPasswort && <div class="card bg-orange-lighter border-orange/20 mb-10 flex items-start gap-4">
       <svg class="h-5 w-5 text-orange flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
       </svg>
@@ -41,7 +43,7 @@ const linkLabel = (url: string) =>
         <span class="font-semibold text-grey-dark">Einige Protokolle sind mit einem Passwort geschützt</span> (🔒), weil sie Namen und Details aus den Klassen enthalten.
         Das Passwort steht jeweils in der E-Mail, mit der wir das Protokoll verschicken.
       </p>
-    </div>
+    </div>}
 
     {[...proSchuljahr].map(([schuljahr, sitzungen]) => (
       <section class="mb-10">

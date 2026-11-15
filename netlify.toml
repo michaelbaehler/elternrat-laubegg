@@ -9,3 +9,14 @@
 
 [build.environment]
   NODE_VERSION = "20"
+
+# Protokolle (PDF) nicht von Suchmaschinen indexieren lassen
+[[headers]]
+  for = "/uploads/protokoll*"
+  [headers.values]
+    X-Robots-Tag = "noindex"
+
+[[headers]]
+  for = "/uploads/Protokoll*"
+  [headers.values]
+    X-Robots-Tag = "noindex"

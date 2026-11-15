@@ -10,4 +10,4 @@
  */
 export const TERMINE_SHEET_CSV_URL = '';
 
-export const KONTAKT_EMAIL = 'elternrat_laubegg@gmx.ch';
+export const KONTAKT_EMAIL = 'elternratlaubegg@gmx.ch';

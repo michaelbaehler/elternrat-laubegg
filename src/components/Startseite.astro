@@ -106,23 +106,3 @@ const { termine, einsaetze } = await startseitenDaten();
     </div>
   </div>
 </section>
-
-<section class="bg-grey-bg">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-14">
-    <h2 class="section-title">Unsere Schule</h2>
-    <p class="section-subtitle">Hier lernen, spielen und treffen sich unsere Kinder – und wir uns.</p>
-    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-      {[
-        { src: '/images/fotos/pausenhof-laubegg.webp', alt: 'Der Pausenhof der Schule Laubegg mit Blick auf die Schulhäuser', text: 'Pausenhof' },
-        { src: '/images/fotos/neubau-bibliothek-laubegg.webp', alt: 'Der Neubau der Schule Laubegg mit der Bibliothek im Erdgeschoss', text: 'Neubau und Bibliothek' },
-        { src: '/images/fotos/turnhalle-laubegg.webp', alt: 'Die Turnhalle der Schule Laubegg', text: 'Turnhalle' },
-        { src: '/images/fotos/klassenzimmer-laubegg.webp', alt: 'Ein Klassenzimmer der Schule Laubegg', text: 'Klassenzimmer' },
-      ].map(f => (
-        <figure class="relative rounded-2xl overflow-hidden">
-          <img src={f.src} alt={f.alt} class="w-full aspect-[4/3] object-cover" loading="lazy" />
-          <figcaption class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-grey-dark/80 to-transparent px-3 pb-2 pt-8 text-sm font-semibold text-white">{f.text}</figcaption>
-        </figure>
-      ))}
-    </div>
-  </div>
-</section>

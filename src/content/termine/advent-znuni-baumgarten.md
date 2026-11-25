@@ -1,10 +1,11 @@
 ---
-title: Advent-Znüni Baumgarten
-date: 2026-12-22
+title: Adventssingen Sonnenhof
+date: 2026-12-14
 datumText: ""
 standorte:
-  - Baumgarten
-description: keine öffentliche Veranstaltung, nur für Schülerinnen und Schüler
+  - Sonnenhof
+location: Aussenbereich Schulhaus Sonnenhof
+description: für Eltern und Angehörige von Schülerinnen und Schülern im Sonnenhof
 category: Event
-public: false
+public: true
 ---
